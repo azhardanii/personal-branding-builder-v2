@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  allowedDevOrigins: [
+    '192.168.0.117',        // tanpa protocol dan port
+    '127.0.0.1',            // kalau akses lewat IP di lokal
+    'localhost'             // default
+  ],
 };
 
 export default nextConfig;
