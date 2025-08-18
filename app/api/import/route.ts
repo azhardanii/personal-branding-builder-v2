@@ -89,7 +89,7 @@ function parseContentFactorySheet(rows2d: string[][]): ContentIdea[] {
       platform: row?.[COL_MAP.platform]?.trim() || "",
       format: row?.[COL_MAP.format]?.trim() || "",
       pillar: row?.[COL_MAP.pillar]?.trim() || "",
-      script: row?.[COL_MAP.script]?.trim() || "",
+      script: row?.[COL_MAP.script]?.trim() || "Hook: \n\nIsi Konten: \n\nCall to Action: ",
     };
   
     contentIdeas.push(idea);

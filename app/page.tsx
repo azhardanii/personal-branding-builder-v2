@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, memo } from "react";
-import { LogOut, Download, Trash2, RefreshCcw, Edit3, Key, ExternalLink, FileSpreadsheet, Upload, FileText } from "lucide-react";
+import { LogOut, Download, Trash2, RefreshCcw, Edit3, Key, ExternalLink, FileSpreadsheet, Upload, SaveIcon, Bot, FileText } from "lucide-react";
 
 // ▼▼▼ TYPES & CONSTANTS (Tidak berubah) ▼▼▼
 type Identity = { nama: string; suka: string; dikuasai: string; kenapaDibutuhkan: string; peluangPenghasilan: string; };
@@ -9,8 +9,8 @@ type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
 type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
 const STORAGE_KEY = "pb_access_key";
 const VALID_KEY = "demo_key";
-const btnPrimary = 'px-3 py-2 bg-slate-900 text-white rounded flex items-center gap-2 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
-const btnNeutral = 'px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
+const btnPrimary = 'px-3 py-2 bg-slate-900 text-white rounded flex items-center gap-1 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
+const btnNeutral = 'px-3 py-2 border rounded flex items-center gap-1 text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
 // ▲▲▲ END OF TYPES & CONSTANTS ▲▲▲
 
 // ▼▼▼ REUSABLE COMPONENTS ▼▼▼
@@ -109,7 +109,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
         </div>
 
         <div className="mt-6 flex justify-start gap-3">
-            <button onClick={handleSave} className={btnPrimary}>Simpan ID</button>
+            <button onClick={handleSave} className={btnPrimary}><SaveIcon className="w-4 h-4 -mt-0.5" /> Simpan ID</button>
             <button onClick={onClose} className={btnNeutral}>Batal</button>
         </div>
       </div>
@@ -165,8 +165,8 @@ const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSave, isSav
       <Input label="Kenapa dibutuhkan" value={identity.kenapaDibutuhkan} onChange={(v) => setIdentity({ ...identity, kenapaDibutuhkan: v })} placeholder="Masalah yang kamu selesaikan" rows={2} />
       <Input label="Peluang penghasilan" value={identity.peluangPenghasilan} onChange={(v) => setIdentity({ ...identity, peluangPenghasilan: v })} placeholder="Contoh: jualan template" rows={2} />
       <div className="flex gap-2 mt-4">
-        <button onClick={onGenerate} className={btnPrimary}> <Edit3 className="w-4 h-4" /> Generate </button>
-        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+        <button onClick={onGenerate} className={btnPrimary}> <Bot className="w-5 h-5 -mt-0.5" /> Generate </button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
     </div>
   </div>
@@ -186,8 +186,8 @@ const SwotSection = memo(({ swot, setSwot, onGenerate, onSave, isSaving }: {
       <Input label="Peluang" value={swot.peluang} onChange={(v) => setSwot({ ...swot, peluang: v })} />
       <Input label="Tantangan" value={swot.tantangan} onChange={(v) => setSwot({ ...swot, tantangan: v })} />
       <div className="flex gap-2 mt-4">
-        <button onClick={onGenerate} className={btnPrimary}><Edit3 className="w-4 h-4" /> Generate</button>
-        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+        <button onClick={onGenerate} className={btnPrimary}><Bot className="w-5 h-5 -mt-0.5" /> Generate</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
     </div>
   </div>
@@ -225,8 +225,8 @@ const PillarSection = memo(({ pillar, setPillar, onGenerate, onSave, isSaving }:
       </div>
       <Input label="Target audiens" value={pillar.targetAudiens} onChange={(v) => setPillar({ ...pillar, targetAudiens: v })} />
       <div className="flex gap-2 mt-4">
-        <button onClick={onGenerate} className={btnPrimary}><Edit3 className="w-4 h-4" /> Generate </button>
-        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+        <button onClick={onGenerate} className={btnPrimary}><Bot className="w-5 h-5 -mt-0.5" /> Generate </button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
     </div>
   </>
@@ -285,7 +285,7 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
           className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
         />
         <button onClick={addPillarTagFromInput} className={btnPrimary}>Tambah</button>
-        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
         {pillarsList.map((p, i) => (
@@ -313,9 +313,9 @@ const BioGeneratorSection = memo(({ bio, setBio, onGenerate, onSave, isSaving }:
     <div className="flex flex-col gap-2 w-full">
       <div className="flex mb-2 gap-2">
         <button onClick={onGenerate} className={`w-fit ${btnPrimary}`}>
-          <Edit3 className="w-4 h-4" /> Generate
+        <Bot className="w-5 h-5 -mt-0.5" /> Generate
         </button>
-        <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
       <div className="w-full">
         <Input value={bio} onChange={setBio} rows={4} placeholder="Tulis bio sosmed di sini..." />
@@ -375,18 +375,19 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
           className={`${btnPrimary}`}
           disabled={!selectedPillar}
         >
-          <Edit3 className="w-4 h-4" /> Generate
+          <Bot className="w-5 h-5 -mt-0.5" /> Generate
         </button>
       </div>
     </div>
   );
 });
 
-const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContentIdeas, onGenerateScript, onSave, isSaving }: {
+const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContentIdeas, onGenerateScript, onGenerateEval, onSave, isSaving }: {
   identity: Identity;
   contentIdeas: ContentIdea[];
   setContentIdeas: React.Dispatch<React.SetStateAction<ContentIdea[]>>;
   onGenerateScript: (idea: ContentIdea) => void;
+  onGenerateEval: (idea: ContentIdea) => void;
   pillarsList: string[];
   onSave: () => void; isSaving: boolean;
 }) => {
@@ -401,7 +402,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
       title: newIdeaTitle.trim(),
       deadline: "",
       status: "Idea",
-      script: "",
+      script: "Hook: \n\nIsi Konten: \n\nCall to Action: ",
       platform: "",
       pillar: "",
       format: ""
@@ -436,7 +437,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
       <div className="flex gap-2 mt-2 mb-4">
         <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); }}} className="flex-1 border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
         <button onClick={addIdea} className={`${btnPrimary}`}>Tambah</button>
-        <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
 
       <div className="overflow-x-auto">
@@ -538,17 +539,17 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
                   <div className="flex justify-end md:justify-center items-center gap-1">
                     <button
                       onClick={() => handleOpenModal(idea)}
-                      className="text-blue-600 hover:text-blue-800 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"
+                      className="text-blue-600 hover:text-blue-800 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
                       title="Lihat Detail & Script"
                     >
-                      <FileText className="w-4 h-4" />
+                      <FileText className="w-3 h-3" /> Detail
                     </button>
                     <button
                       onClick={() => deleteIdea(idea.id)}
-                      className="text-red-500 hover:text-red-700 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"
+                      className="text-red-500 hover:text-red-700 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex gap-1 items-center cursor-pointer"
                       title="Hapus Konten"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3" /> Hapus
                     </button>
                   </div>
                 </td>
@@ -565,18 +566,20 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
           ideaData={selectedIdea}
           onUpdate={updateIdea}
           onGenerateScript={onGenerateScript}
+          onGenerateEval={onGenerateEval}
           pillarsList={pillarsList}
         />
       )}
     </div>
   );
 });
-const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenerateScript, pillarsList }: {
+const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenerateScript, onGenerateEval, pillarsList }: {
   isOpen: boolean;
   onClose: () => void;
   ideaData: ContentIdea;
   onUpdate: (updatedIdea: ContentIdea) => void;
   onGenerateScript: (idea: ContentIdea) => void;
+  onGenerateEval: (idea: ContentIdea) => void;
   pillarsList: string[];
 }) => {
   const [formData, setFormData] = useState<ContentIdea>(ideaData);
@@ -610,7 +613,7 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
           <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-2xl focus:outline-none">&times;</button>
         </header>
         
-        <main className="p-4 space-y-4 overflow-y-auto">
+        <main className="p-4 space-y-4 mb-2 overflow-y-scroll">
           <div>
             <label className="text-xs text-gray-500 mb-1 block">Judul Konten</label>
             <input name="title" value={formData.title} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
@@ -689,18 +692,23 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
           </div>
 
           <div>
-            <div className="flex justify-center w-full">
-              <button onClick={() => onGenerateScript(formData)} className={`w-full mt-2 mb-6 justify-center ${btnPrimary}`}>
-                <Edit3 className="w-4 h-4" /> Generate Prompt Script
-              </button>
-            </div>
+            <button onClick={() => onGenerateScript(formData)} className={`w-full mt-5 mb-4 justify-center ${btnPrimary}`}>
+              <Bot className="w-5 h-5 -mt-0.5" /> Generate Script
+            </button>
+            <label className="text-xs text-gray-500 mb-1 block">Script Konten</label>
             <textarea name="script" value={formData.script} onChange={handleChange} rows={8} placeholder="Tulis script konten di sini..." className="w-full border rounded px-3 py-2 text-sm resize-y focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" />
+            <div className="flex flex-col items-center w-full mt-4">
+              <button onClick={() => onGenerateEval(formData)} className={`w-full justify-center ${btnPrimary}`}>
+                <Bot className="w-5 h-5 -mt-0.5" /> Generate Evaluasi
+              </button>
+              <label className="text-xs text-gray-500 mt-1 block">Disarankan 7hari setelah posting dan upload screenshot insight konten sebelum submit prompt di ChatGPT.</label>
+            </div>
           </div>
         </main>
         
         <footer className="py-4 px-6 border-t flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex gap-2">
-            <button onClick={handleSaveChanges} className={btnPrimary}>Simpan Perubahan</button>
+            <button onClick={handleSaveChanges} className={btnPrimary}><SaveIcon className="w-4 h-4" /> Simpan Perubahan</button>
             <button onClick={onClose} className="px-4 py-2 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150">Batal</button>
           </div>
         </footer>
@@ -788,7 +796,7 @@ export default function PersonalBrandingBuilder() {
     setIdentity(emptyIdentity);
     setSwot(emptySwot);
     setPillar(emptyPillar);
-    setPillarsList([]);
+    setPillarsList(["", "", "", "", "", ""]);
     setContentIdeas([]);
     setBioResult("");
     setContentIdeas([]);
@@ -801,16 +809,15 @@ export default function PersonalBrandingBuilder() {
   const buildPromptForBio = (identityData: Identity, swotData: SWOT, pillarData: Pillar) => `Berperanlah sebagai seorang top kreator di sosial media, tolong buatkan bio di profile sosmed berdasarkan data personal brand berikut.\n\n**Data Personal Brand:**\n- Nama: ${identityData.nama}\n- Niche: ${swotData.niche}\n- Premis Utama: ${pillarData.premis}\n- Target Audiens: ${pillarData.targetAudiens}\n- USP (dari Kekuatan): ${swotData.kekuatan}\n- Tone of Voice: ${pillarData.toneOfVoice}\n\n**Instruksi Format:**\nBuat bio yang ringkas agar mudah dimengerti orang awam. Di tiap pilihan bionya sertakan pertimbangan untuk lebih meyakinkan. Buat "10 pilihan", tiap pilihan memiliki 3 baris. baris 1 merepresentasikan "siapa diri kamu?", baris 2 "solusi apa yang ditawarkan untuk audiens", baris 3 "cta link di bio" dan berikan emoticon yang relate agar ngga monoton ditiap barisnya. tampilkan dalam bentuk tabel`;
   const buildPromptForContentIdeas = (pillarName: string, jumlah: number) => `Buatkan ${jumlah} ide konten kreatif untuk pilar konten: "${pillarName}".\nBerikan format output dalam format tabel dengan field {judul ide, deskripsi}.\nFokus pada ide yang unik, relevan, dan engaging untuk audiens saya.`;
   const buildPromptForScript = (identity: Identity, idea: ContentIdea) => `Buatkan script konten untuk ${identity.nama} dengan detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** Santai dan to the point.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video.`;
+  const buildPromptForEvaluation = (identity: Identity, idea: ContentIdea) => `Buatkan script konten untuk ${identity.nama} dengan detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** Santai dan to the point.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video.`;
   const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
 
   // --- IMPORT/EXPORT FUNCTIONS ---
   async function importFromSheet(importType: 'branding' | 'content') {
-    // 1. Validasi Awal
     if (!spreadsheetId) {
       return alert("Masukkan Spreadsheet ID atau URL lengkap terlebih dahulu.");
     }
 
-    // 2. Ekstraksi ID
     let extractedId = spreadsheetId;
     try {
       if (spreadsheetId.includes("spreadsheets/d/")) {
@@ -821,7 +828,6 @@ export default function PersonalBrandingBuilder() {
       console.warn("Gagal mengekstrak ID, menggunakan input mentah.", e);
     }
 
-    // 3. Menentukan Payload Request & Pesan Sukses
     let sheetName: string;
     let successMessage: string;
 
@@ -833,7 +839,6 @@ export default function PersonalBrandingBuilder() {
       successMessage = "✅ Data Content Factory berhasil diimpor!";
     }
 
-    // 4. Fetch API
     setIsImporting(true);
     try {
       const res = await fetch("/api/import", {
@@ -846,7 +851,6 @@ export default function PersonalBrandingBuilder() {
       if (!res.ok) throw new Error(payload?.error || "Unknown API error");
       if (!payload.data) throw new Error("Response API tidak berisi data yang diharapkan");
 
-      // 5. Update State Berdasarkan Tipe Import
       if (importType === "branding") {
         const parsed = payload.data;
 
@@ -901,7 +905,6 @@ export default function PersonalBrandingBuilder() {
   }
 
   async function exportToSheet(exportType: 'branding' | 'content') {
-    // 1. Validasi Awal
     if (!spreadsheetId) {
       return alert("Masukkan Spreadsheet ID atau URL lengkap terlebih dahulu.");
     }
@@ -910,7 +913,6 @@ export default function PersonalBrandingBuilder() {
       return alert("Tidak ada ide konten untuk diekspor.");
     }
 
-    // 2. Ekstraksi ID
     let extractedId = spreadsheetId;
     try {
       if (spreadsheetId.includes("spreadsheets/d/")) {
@@ -921,7 +923,6 @@ export default function PersonalBrandingBuilder() {
       console.warn("Gagal mengekstrak ID, menggunakan input mentah.", e);
     }
 
-    // 3. Menentukan Payload & Pesan Sukses
     let payload;
     let successMessage;
 
@@ -945,7 +946,6 @@ export default function PersonalBrandingBuilder() {
       successMessage = `✅ ${contentIdeas.length} ide konten berhasil diekspor!`;
     }
 
-    // 4. Fetch API
     setIsExporting(true);
     try {
       const res = await fetch("/api/export", {
@@ -1047,7 +1047,7 @@ export default function PersonalBrandingBuilder() {
                   <div className="h-[1px] w-full bg-slate-900 mt-3 mb-5" />
                   <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
               {activeTab === 'Finder Identity' && (
@@ -1079,7 +1079,7 @@ export default function PersonalBrandingBuilder() {
                 <>
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
             </section>
