@@ -402,7 +402,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
       title: newIdeaTitle.trim(),
       deadline: "",
       status: "Idea",
-      script: "Hook: \n\nIsi Konten: \n\nCall to Action: ",
+      script: "Hook: \n\nIsi Konten: \n\nCall to Action: \n\nCaption:",
       platform: "",
       pillar: "",
       format: ""
@@ -808,7 +808,7 @@ export default function PersonalBrandingBuilder() {
   const buildPromptForPillars = (data: Pillar) => `Buatkan list 4-6 pillar konten (judul + 1 kalimat deskripsi + 3 contoh ide posting) berdasarkan:\nPremis: ${data.premis}\nTone of voice: ${data.toneOfVoice}\nTarget audiens: ${data.targetAudiens}\nBerikan output dalam format JSON array dengan field {pillar, deskripsi, ide}`;
   const buildPromptForBio = (identityData: Identity, swotData: SWOT, pillarData: Pillar) => `Berperanlah sebagai seorang top kreator di sosial media, tolong buatkan bio di profile sosmed berdasarkan data personal brand berikut.\n\n**Data Personal Brand:**\n- Nama: ${identityData.nama}\n- Niche: ${swotData.niche}\n- Premis Utama: ${pillarData.premis}\n- Target Audiens: ${pillarData.targetAudiens}\n- USP (dari Kekuatan): ${swotData.kekuatan}\n- Tone of Voice: ${pillarData.toneOfVoice}\n\n**Instruksi Format:**\nBuat bio yang ringkas agar mudah dimengerti orang awam. Di tiap pilihan bionya sertakan pertimbangan untuk lebih meyakinkan. Buat "10 pilihan", tiap pilihan memiliki 3 baris. baris 1 merepresentasikan "siapa diri kamu?", baris 2 "solusi apa yang ditawarkan untuk audiens", baris 3 "cta link di bio" dan berikan emoticon yang relate agar ngga monoton ditiap barisnya. tampilkan dalam bentuk tabel`;
   const buildPromptForContentIdeas = (pillarName: string, jumlah: number) => `Buatkan ${jumlah} ide konten kreatif untuk pilar konten: "${pillarName}".\nBerikan format output dalam format tabel dengan field {judul ide, deskripsi}.\nFokus pada ide yang unik, relevan, dan engaging untuk audiens saya.`;
-  const buildPromptForScript = (identity: Identity, idea: ContentIdea) => `Buatkan script konten untuk ${identity.nama} dengan detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** Santai dan to the point.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video.`;
+  const buildPromptForScript = (identity: Identity, idea: ContentIdea, pillar: Pillar) => `Buatkan script konten untuk ${identity.nama} dengan target audiens ${pillar.targetAudiens}. detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** ${pillar.toneOfVoice}.\n- **Caption:** Buat caption kotennya menggunakan gaya bahasa yang ${pillar.toneOfVoice} minimal 500 kata.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video, berikan 5 pilihan.`;
   const buildPromptForEvaluation = (identity: Identity, idea: ContentIdea) => `Buatkan script konten untuk ${identity.nama} dengan detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** Santai dan to the point.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video.`;
   const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
 
@@ -1047,7 +1047,7 @@ export default function PersonalBrandingBuilder() {
                   <div className="h-[1px] w-full bg-slate-900 mt-3 mb-5" />
                   <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea, pillar))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
               {activeTab === 'Finder Identity' && (
@@ -1079,7 +1079,7 @@ export default function PersonalBrandingBuilder() {
                 <>
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea, pillar))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
             </section>
