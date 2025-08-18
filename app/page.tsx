@@ -9,9 +9,6 @@ type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
 type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
 const STORAGE_KEY = "pb_access_key";
 const VALID_KEY = "demo_key";
-const SAMPLE_IDENTITY: Identity = { nama: "Uqi", suka: "tools digital, efisiensi", dikuasai: "membuat landing page & spreadsheet template", kenapaDibutuhkan: "banyak creator butuh template siap pakai", peluangPenghasilan: "jualan template, coaching", };
-const SAMPLE_SWOT: SWOT = { niche: "Digital Tools for Creators", kategori: "Productivity", microNiche: "Templates & Automation", kekuatan: "praktis, efisien", kelemahan: "tim kecil", peluang: "permintaan templates", tantangan: "visibility", };
-const SAMPLE_PILLAR: Pillar = { premis: "Saya membantu creator bikin template yang anti-ribet", toneOfVoice: "santai, jujur, to the point", targetAudiens: "Creator pemula & solopreneur", };
 const btnPrimary = 'px-3 py-2 bg-slate-900 text-white rounded flex items-center gap-2 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
 const btnNeutral = 'px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
 // ▲▲▲ END OF TYPES & CONSTANTS ▲▲▲
@@ -46,11 +43,80 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey, onUseDemoKey }: {
           <button className="flex-1 px-4 py-2 bg-slate-900 text-white rounded transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150">Login</button>
           <button type="button" onClick={onUseDemoKey} className="px-4 py-2 border rounded transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> Isi contoh </button>
         </div>
-        <div className="text-xs text-gray-400">Hint: demo key = <span className="font-medium">{VALID_KEY}</span></div>
       </form>
     </div>
   </div>
 );
+
+// ▼▼▼ Modal Setup Spreadsheet ▼▼▼
+const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (id: string) => void;
+  currentId: string;
+}) => {
+  const [localId, setLocalId] = useState(currentId);
+  const SPREADSHEET_TEMPLATE_URL = "https://docs.google.com/spreadsheets/d/15QZy8PMyegW78GG_Tx0hhvrosTiEn1_Nyx4jkpKAxoE/copy";
+
+  useEffect(() => {
+    setLocalId(currentId);
+  }, [currentId, isOpen]);
+
+  if (!isOpen) return null;
+
+  const handleSave = () => {
+    if (!localId || !localId.trim()) {
+      alert("Masukkan Spreadsheet ID atau URL terlebih dahulu.");
+      return;
+    }
+    onSave(localId.trim());
+  };
+  
+  return (
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg p-6">
+        <div className="flex items-start justify-between mb-4">
+            <div>
+                <h2 className="text-lg font-semibold">Setup Spreadsheet PBB</h2>
+                <p className="text-xs text-gray-500">
+                  Hubungkan Spreadsheet PBB untuk menyimpan data Kamu.
+                </p>
+            </div>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">&times;</button>
+        </div>
+        
+        <div className="bg-slate-50 p-4 rounded-md space-y-3">
+            <p className="text-xs text-gray-600">
+                <span className="font-semibold">Langkah 1:</span> Klik link di bawah untuk membuat salinan Template Spreadsheet PBB di Google Drive Kamu (Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)
+            </p>
+            <a 
+                href={SPREADSHEET_TEMPLATE_URL} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 underline hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded px-1"
+            > 
+                <ExternalLink className="w-4 h-4" /> Salin Template Spreadsheet PBB
+            </a>
+            <p className="text-xs text-gray-600 pt-2">
+                <span className="font-semibold">Langkah 2:</span> Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.
+            </p>
+            <input 
+                value={localId} 
+                onChange={(e) => setLocalId(e.target.value)} 
+                placeholder="Tempel Link Spreadsheet PBB di sini..." 
+                className="border px-3 py-2 rounded text-sm w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
+            />
+        </div>
+
+        <div className="mt-6 flex justify-start gap-3">
+            <button onClick={handleSave} className={btnPrimary}>Simpan ID</button>
+            <button onClick={onClose} className={btnNeutral}>Batal</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+// ▲▲▲ END ▲▲▲
 
 // ▼▼▼ Komponen Menu Navigasi ▼▼▼
 type TabMenuProps = {
@@ -87,8 +153,8 @@ const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
 // ▲▲▲ END ▲▲▲
 
 // ▼▼▼ FEATURE COMPONENTS ▼▼▼
-const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSample }: {
-  identity: Identity; setIdentity: (i: Identity) => void; onGenerate: () => void; onSample: () => void;
+const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSave, isSaving }: {
+  identity: Identity; setIdentity: (i: Identity) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <div>
     <h2 className="text-sm font-medium mb-2">FINDER IDENTITY</h2>
@@ -100,14 +166,14 @@ const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSample }: {
       <Input label="Peluang penghasilan" value={identity.peluangPenghasilan} onChange={(v) => setIdentity({ ...identity, peluangPenghasilan: v })} placeholder="Contoh: jualan template" rows={2} />
       <div className="flex gap-2 mt-4">
         <button onClick={onGenerate} className={btnPrimary}> <Edit3 className="w-4 h-4" /> Generate </button>
-        <button type="button" onClick={onSample} className={btnNeutral}>Contoh</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
     </div>
   </div>
 ));
 
-const SwotSection = memo(({ swot, setSwot, onGenerate, onSample }: {
-  swot: SWOT; setSwot: (s: SWOT) => void; onGenerate: () => void; onSample: () => void;
+const SwotSection = memo(({ swot, setSwot, onGenerate, onSave, isSaving }: {
+  swot: SWOT; setSwot: (s: SWOT) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <div>
     <h2 className="text-sm font-medium mb-2">PERSONAL DETECTOR</h2>
@@ -121,14 +187,14 @@ const SwotSection = memo(({ swot, setSwot, onGenerate, onSample }: {
       <Input label="Tantangan" value={swot.tantangan} onChange={(v) => setSwot({ ...swot, tantangan: v })} />
       <div className="flex gap-2 mt-4">
         <button onClick={onGenerate} className={btnPrimary}><Edit3 className="w-4 h-4" /> Generate</button>
-        <button type="button" onClick={onSample} className={btnNeutral}>Contoh</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
     </div>
   </div>
 ));
 
-const PillarSection = memo(({ pillar, setPillar, onGenerate, onSample }: {
-  pillar: Pillar; setPillar: (p: Pillar) => void; onGenerate: () => void; onSample: () => void;
+const PillarSection = memo(({ pillar, setPillar, onGenerate, onSave, isSaving }: {
+  pillar: Pillar; setPillar: (p: Pillar) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <>
     <h2 className="text-sm font-medium mb-2">SMART PILLAR</h2>
@@ -160,16 +226,17 @@ const PillarSection = memo(({ pillar, setPillar, onGenerate, onSample }: {
       <Input label="Target audiens" value={pillar.targetAudiens} onChange={(v) => setPillar({ ...pillar, targetAudiens: v })} />
       <div className="flex gap-2 mt-4">
         <button onClick={onGenerate} className={btnPrimary}><Edit3 className="w-4 h-4" /> Generate </button>
-        <button type="button" onClick={onSample} className={btnNeutral}>Contoh</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
     </div>
   </>
 ));
 
-const PillarListManager = memo(({ identity, pillarsList, setPillarsList }: {
+const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave, isSaving }: {
   identity: Identity;
   pillarsList: string[];
   setPillarsList: React.Dispatch<React.SetStateAction<string[]>>;
+  onSave: () => void; isSaving: boolean;
 }) => {
   const [tagInputValue, setTagInputValue] = useState("");
 
@@ -218,6 +285,7 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList }: {
           className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
         />
         <button onClick={addPillarTagFromInput} className={btnPrimary}>Tambah</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
         {pillarsList.map((p, i) => (
@@ -236,23 +304,21 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList }: {
   );
 });
 
-const BioGeneratorSection = memo(({ bio, setBio, onGenerate }: { bio: string; setBio: (b: string) => void; onGenerate: () => void; }) => (
+const BioGeneratorSection = memo(({ bio, setBio, onGenerate, onSave, isSaving }: { bio: string; setBio: (b: string) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean; }) => (
   <>
     <h2 className="text-sm font-medium mb-0">BIO GENERATOR</h2>
     <p className="text-xs text-gray-500 mb-4">
       Hasil generate akan didasarkan pada data Identity, SWOT, dan Pillar yang telah diisi.
     </p>
     <div className="flex flex-col gap-2 w-full">
-      <button onClick={onGenerate} className={`w-fit mb-2 ${btnPrimary}`}>
-        <Edit3 className="w-4 h-4" /> Generate
-      </button>
+      <div className="flex mb-2 gap-2">
+        <button onClick={onGenerate} className={`w-fit ${btnPrimary}`}>
+          <Edit3 className="w-4 h-4" /> Generate
+        </button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
+      </div>
       <div className="w-full">
-        <Input
-          value={bio}
-          onChange={setBio}
-          rows={4}
-          placeholder="Tulis bio sosmed di sini..."
-        />
+        <Input value={bio} onChange={setBio} rows={4} placeholder="Tulis bio sosmed di sini..." />
       </div>
     </div>
   </>
@@ -316,12 +382,13 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
   );
 });
 
-const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContentIdeas, onGenerateScript }: {
+const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContentIdeas, onGenerateScript, onSave, isSaving }: {
   identity: Identity;
   contentIdeas: ContentIdea[];
   setContentIdeas: React.Dispatch<React.SetStateAction<ContentIdea[]>>;
   onGenerateScript: (idea: ContentIdea) => void;
   pillarsList: string[];
+  onSave: () => void; isSaving: boolean;
 }) => {
   const [newIdeaTitle, setNewIdeaTitle] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -369,6 +436,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
       <div className="flex gap-2 mt-2 mb-4">
         <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); }}} className="flex-1 border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
         <button onClick={addIdea} className={`${btnPrimary}`}>Tambah</button>
+        <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}>{isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
 
       <div className="overflow-x-auto">
@@ -535,14 +603,14 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
   const filteredPillars = pillarsList.filter((p) => p && p.trim() !== "");
 
   return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-        <header className="p-4 border-b flex justify-between items-center">
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl p-4">
+        <header className="px-4 pb-2 border-b flex justify-between items-center">
           <h2 className="text-lg font-semibold">Detail Ide Konten</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-2xl focus:outline-none">&times;</button>
         </header>
         
-        <main className="p-6 space-y-4 overflow-y-auto">
+        <main className="p-4 space-y-4 overflow-y-auto">
           <div>
             <label className="text-xs text-gray-500 mb-1 block">Judul Konten</label>
             <input name="title" value={formData.title} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
@@ -646,43 +714,54 @@ export default function PersonalBrandingBuilder() {
   // --- STATE HOOKS ---
   const [accessKeyInput, setAccessKeyInput] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [savedKey, setSavedKey] = useState("");
   const [spreadsheetId, setSpreadsheetId] = useState("");
   const [isImporting, setIsImporting] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
-  const [uiVisible, setUiVisible] = useState(false);
   const emptyIdentity: Identity = { nama: "", suka: "", dikuasai: "", kenapaDibutuhkan: "", peluangPenghasilan: "" };
   const emptySwot: SWOT = { niche: "", kategori: "", microNiche: "", kekuatan: "", kelemahan: "", peluang: "", tantangan: "" };
   const emptyPillar: Pillar = { premis: "", toneOfVoice: "", targetAudiens: "" };
   const [identity, setIdentity] = useState<Identity>(emptyIdentity);
   const [swot, setSwot] = useState<SWOT>(emptySwot);
   const [pillar, setPillar] = useState<Pillar>(emptyPillar);
-  const [pillarsList, setPillarsList] = useState<string[]>([]);
+  const [pillarsList, setPillarsList] = useState<string[]>(["", "", "", "", "", ""]);
   const [bioResult, setBioResult] = useState("");
   const [contentIdeas, setContentIdeas] = useState<ContentIdea[]>([]);
   const [activeTab, setActiveTab] = useState("Start from 0");
+  const [isSpreadsheetModalOpen, setIsSpreadsheetModalOpen] = useState(false);
 
-  // --- EFFECTS ---
+  // --- LOCAL STORAGE & AUTH EFFECT ---
   useEffect(() => {
-    const key = localStorage.getItem(STORAGE_KEY);
-    if (key === VALID_KEY) {
-      setSavedKey(key);
+    const savedKey = localStorage.getItem(STORAGE_KEY);
+    const savedId = localStorage.getItem("pb_spreadsheet_id");
+    
+    if (savedKey === VALID_KEY) {
       setIsLoggedIn(true);
     }
-    setTimeout(() => setUiVisible(true), 500);
+    if (savedId) {
+      setSpreadsheetId(savedId);
+    }
   }, []);
 
+  // ▼▼▼ Effect untuk memunculkan modal setelah login ▼▼▼
+  useEffect(() => {
+    if (isLoggedIn && !spreadsheetId) {
+      setIsSpreadsheetModalOpen(true);
+    }
+  }, [isLoggedIn, spreadsheetId]);
+  // ▲▲▲ END ▲▲▲
+
   // --- DATA & AUTH FUNCTIONS ---
-  function handleLogin(e?: React.FormEvent) {
-    e?.preventDefault?.();
-    const key = accessKeyInput.trim();
-    if (key !== VALID_KEY) return alert("Access key salah");
-    localStorage.setItem(STORAGE_KEY, key);
-    setSavedKey(key);
-    setIsLoggedIn(true);
-    setAccessKeyInput("");
-    resetAll();
-  }
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (accessKeyInput === VALID_KEY) {
+      localStorage.setItem(STORAGE_KEY, accessKeyInput);
+      setIsLoggedIn(true);
+    } else {
+      alert("Access key salah.");
+    }
+  };
 
   function handleLogout() {
     localStorage.removeItem(STORAGE_KEY);
@@ -691,6 +770,20 @@ export default function PersonalBrandingBuilder() {
     resetAll();
   }
 
+  const handleSaveSpreadsheetId = (id: string) => {
+    let extractedId = id;
+    try {
+      if (id.includes("spreadsheets/d/")) {
+        extractedId = id.split("spreadsheets/d/")[1].split("/")[0];
+      }
+    } catch (e) { /* Gagal ekstrak, gunakan input mentah */ }
+
+    setSpreadsheetId(extractedId);
+    localStorage.setItem("pb_spreadsheet_id", extractedId);
+    setIsSpreadsheetModalOpen(false);
+    alert("✅ Spreadsheet ID berhasil disimpan!");
+  };
+
   function resetAll() {
     setIdentity(emptyIdentity);
     setSwot(emptySwot);
@@ -698,6 +791,7 @@ export default function PersonalBrandingBuilder() {
     setPillarsList([]);
     setContentIdeas([]);
     setBioResult("");
+    setContentIdeas([]);
   }
 
   // --- PROMPT & GENERATION FUNCTIONS ---
@@ -710,165 +804,169 @@ export default function PersonalBrandingBuilder() {
   const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
 
   // --- IMPORT/EXPORT FUNCTIONS ---
-  async function importPersonalBranding() {
-    if (!spreadsheetId) return alert("Masukkan Spreadsheet ID atau URL lengkap");
+  async function importFromSheet(importType: 'branding' | 'content') {
+    // 1. Validasi Awal
+    if (!spreadsheetId) {
+      return alert("Masukkan Spreadsheet ID atau URL lengkap terlebih dahulu.");
+    }
+
+    // 2. Ekstraksi ID
     let extractedId = spreadsheetId;
     try {
       if (spreadsheetId.includes("spreadsheets/d/")) {
         extractedId = spreadsheetId.split("spreadsheets/d/")[1].split("/")[0];
       }
       extractedId = extractedId.trim();
-    } catch (e) { console.warn("Unable to extract id, using raw input", e); }
+    } catch (e) {
+      console.warn("Gagal mengekstrak ID, menggunakan input mentah.", e);
+    }
 
+    // 3. Menentukan Payload Request & Pesan Sukses
+    let sheetName: string;
+    let successMessage: string;
+
+    if (importType === "branding") {
+      sheetName = "Personal Branding Builder";
+      successMessage = "✅ Data Personal Branding berhasil diimpor!";
+    } else {
+      sheetName = "Content Factory";
+      successMessage = "✅ Data Content Factory berhasil diimpor!";
+    }
+
+    // 4. Fetch API
     setIsImporting(true);
     try {
-      const res = await fetch("/api/import", { 
+      const res = await fetch("/api/import", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          spreadsheetId: extractedId,
-          sheetName: "Personal Branding Builder"
-        })
+        body: JSON.stringify({ spreadsheetId: extractedId, sheetName })
       });
 
       const payload = await res.json();
       if (!res.ok) throw new Error(payload?.error || "Unknown API error");
       if (!payload.data) throw new Error("Response API tidak berisi data yang diharapkan");
 
-      const parsed = payload.data;
-      setIdentity({ nama: parsed.identity.nama || "", suka: parsed.identity.suka || "", dikuasai: parsed.identity.dikuasai || "", kenapaDibutuhkan: parsed.identity.kenapaDibutuhkan || "", peluangPenghasilan: parsed.identity.peluangPenghasilan || "", });
-      setSwot({ niche: parsed.swot.niche || "", kategori: parsed.swot.kategori || "", microNiche: parsed.swot.microNiche || "", kekuatan: parsed.swot.kekuatan || "", kelemahan: parsed.swot.kelemahan || "", peluang: parsed.swot.peluang || "", tantangan: parsed.swot.tantangan || "", });
-      setPillar({ premis: parsed.pillar.premis || "", toneOfVoice: parsed.pillar.toneOfVoice || "", targetAudiens: parsed.pillar.targetAudiens || "", });
-      setBioResult(parsed.bio)
-      if (parsed.pillarsList && Array.isArray(parsed.pillarsList)) {
-        const normalized = (parsed.pillarsList as string[]).slice(0, 6);
-        while (normalized.length < 6) normalized.push("");
-        setPillarsList(normalized);
+      // 5. Update State Berdasarkan Tipe Import
+      if (importType === "branding") {
+        const parsed = payload.data;
+
+        setIdentity({
+          nama: parsed.identity?.nama || "",
+          suka: parsed.identity?.suka || "",
+          dikuasai: parsed.identity?.dikuasai || "",
+          kenapaDibutuhkan: parsed.identity?.kenapaDibutuhkan || "",
+          peluangPenghasilan: parsed.identity?.peluangPenghasilan || "",
+        });
+
+        setSwot({
+          niche: parsed.swot?.niche || "",
+          kategori: parsed.swot?.kategori || "",
+          microNiche: parsed.swot?.microNiche || "",
+          kekuatan: parsed.swot?.kekuatan || "",
+          kelemahan: parsed.swot?.kelemahan || "",
+          peluang: parsed.swot?.peluang || "",
+          tantangan: parsed.swot?.tantangan || "",
+        });
+
+        setPillar({
+          premis: parsed.pillar?.premis || "",
+          toneOfVoice: parsed.pillar?.toneOfVoice || "",
+          targetAudiens: parsed.pillar?.targetAudiens || "",
+        });
+
+        setBioResult(parsed.bio);
+
+        if (parsed.pillarsList && Array.isArray(parsed.pillarsList)) {
+          const normalized = (parsed.pillarsList as string[]).slice(0, 6);
+          while (normalized.length < 6) normalized.push("");
+          setPillarsList(normalized);
+        }
       }
-      alert("Import data selesai!");
+
+      if (importType === "content") {
+        if (Array.isArray(payload.data.contentIdeas)) {
+          setContentIdeas(payload.data.contentIdeas);
+        } else {
+          throw new Error("Response API tidak berisi data ide konten yang diharapkan");
+        }
+      }
+
+      alert(successMessage);
     } catch (err: any) {
-      console.error("Fetch error", err);
-      alert(`Gagal import: ${err?.message || err}`);
+      console.error("Import error:", err);
+      alert(`❌ Gagal import data (${importType}).\n\nError: ${err?.message || err}`);
     } finally {
       setIsImporting(false);
     }
   }
 
-  async function importContentFactory() {
-    if (!spreadsheetId) return alert("Masukkan Spreadsheet ID atau URL lengkap");
+  async function exportToSheet(exportType: 'branding' | 'content') {
+    // 1. Validasi Awal
+    if (!spreadsheetId) {
+      return alert("Masukkan Spreadsheet ID atau URL lengkap terlebih dahulu.");
+    }
+
+    if (exportType === 'content' && contentIdeas.length === 0) {
+      return alert("Tidak ada ide konten untuk diekspor.");
+    }
+
+    // 2. Ekstraksi ID
     let extractedId = spreadsheetId;
     try {
       if (spreadsheetId.includes("spreadsheets/d/")) {
         extractedId = spreadsheetId.split("spreadsheets/d/")[1].split("/")[0];
       }
       extractedId = extractedId.trim();
-    } catch (e) { console.warn("Unable to extract id, using raw input", e); }
-
-    setIsImporting(true); // Anda bisa gunakan state loading yang sama
-    
-    try {
-      const res = await fetch("/api/import", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          spreadsheetId: extractedId,
-          sheetName: "Content Factory" // <-- Nama sheet yang baru
-        })
-      });
-
-      const payload = await res.json();
-      if (!res.ok) throw new Error(payload?.error || "Unknown API error");
-      
-      // Periksa apakah data yang diterima adalah array contentIdeas
-      if (payload.data && Array.isArray(payload.data.contentIdeas)) {
-        setContentIdeas(payload.data.contentIdeas);
-        alert(`Impor selesai! Berhasil memuat ${payload.data.contentIdeas.length} ide konten.`);
-      } else {
-        throw new Error("Response API tidak berisi data ide konten yang diharapkan");
-      }
-
-    } catch (err: any) {
-      console.error("Fetch error", err);
-      alert(`Gagal import ide konten: ${err?.message || err}`);
-    } finally {
-      setIsImporting(false);
+    } catch (e) {
+      console.warn("Gagal mengekstrak ID, menggunakan input mentah.", e);
     }
-  }
 
-  async function exportPersonalBranding() {
-    if (!spreadsheetId) return alert("Masukkan Spreadsheet ID atau URL lengkap");
-    let extractedId = spreadsheetId;
-    try {
-      if (spreadsheetId.includes("spreadsheets/d/")) {
-        extractedId = spreadsheetId.split("spreadsheets/d/")[1].split("/")[0];
-      }
-      extractedId = extractedId.trim();
-    } catch (e) { console.warn("Unable to extract id, using raw input", e); }
-  
-    const payload = {
-      action: "write",
-      extractedId,
-      sheetName: "Personal Branding Builder",
-      identity,
-      swot,
-      pillar,
-      pillarsList,
-      bioResult
-    };
-  
-    const res = await fetch("/api/export", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-  
-    const result = await res.json();
-    if (result.success) {
-      alert("✅ Data berhasil di-export!");
+    // 3. Menentukan Payload & Pesan Sukses
+    let payload;
+    let successMessage;
+
+    if (exportType === "branding") {
+      payload = {
+        extractedId,
+        sheetName: "Personal Branding Builder",
+        identity,
+        swot,
+        pillar,
+        pillarsList,
+        bioResult,
+      };
+      successMessage = "✅ Data Personal Branding berhasil disimpan!";
     } else {
-      alert("❌ Gagal export: " + result.error);
+      payload = {
+        extractedId,
+        sheetName: "Content Factory",
+        contentIdeas,
+      };
+      successMessage = `✅ ${contentIdeas.length} ide konten berhasil diekspor!`;
     }
-  }  
 
-  async function exportContentFactory() {
-    if (!spreadsheetId) return alert("Masukkan Spreadsheet ID atau URL lengkap");
-    if (contentIdeas.length === 0) return alert("Tidak ada ide konten untuk diekspor.");
-    
-    let extractedId = spreadsheetId;
-    try {
-      if (spreadsheetId.includes("spreadsheets/d/")) {
-        extractedId = spreadsheetId.split("spreadsheets/d/")[1].split("/")[0];
-      }
-      extractedId = extractedId.trim();
-    } catch (e) { console.warn("Unable to extract id, using raw input", e); }
-  
+    // 4. Fetch API
     setIsExporting(true);
     try {
-        const payload = {
-            extractedId,
-            sheetName: "Content Factory", // <-- Target sheet yang benar
-            contentIdeas: contentIdeas,    // <-- Data yang akan dikirim
-        };
-    
-        const res = await fetch("/api/export", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        });
-    
-        const result = await res.json();
-        if (result.success) {
-            alert(`✅ ${contentIdeas.length} ide konten berhasil di-export!`);
-        } else {
-            throw new Error(result.error || "Unknown API error");
-        }
+      const res = await fetch("/api/export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        alert(successMessage);
+      } else {
+        throw new Error(result.error || "Pastikan URL Spreadsheet Kamu sudah benar!");
+      }
     } catch (err: any) {
-        console.error("Export error", err);
-        alert(`❌ Gagal export: ${err?.message || err}`);
+      console.error("Export error:", err);
+      alert(`❌ Gagal export data (${exportType}).\n\nError: ${err?.message || err}`);
     } finally {
-        setIsExporting(false);
+      setIsExporting(false);
     }
-}
+  }
 
   async function downloadPDF() {
     try {
@@ -904,106 +1002,91 @@ export default function PersonalBrandingBuilder() {
   // --- RENDER LOGIC ---
   if (!isLoggedIn) {
     return (
-      <div className={`transition-opacity duration-300 ${uiVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <LoginScreen onLogin={handleLogin} accessKey={accessKeyInput} setAccessKey={setAccessKeyInput} onUseDemoKey={() => setAccessKeyInput(VALID_KEY)} />
-      </div>
+      <LoginScreen onLogin={handleLogin} accessKey={accessKeyInput} setAccessKey={setAccessKeyInput} onUseDemoKey={() => setAccessKeyInput(VALID_KEY)} />
     );
   }
 
   return (
-    <div className={`min-h-screen bg-gray-50 p-0 md:p-6 transition-opacity duration-300 ${uiVisible ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="max-w-6xl mx-auto bg-white shadow rounded p-6">
-        <header className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-xl font-semibold">Personal Branding Builder v2</h1>
-            <p className="text-sm text-gray-500">Minimal, responsive, dan siap dipakai untuk generate prompt & export.</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="text-sm text-gray-600">Access: <span className="font-medium">{savedKey}</span></div>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-3 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" /> Logout </button>
-          </div>
-        </header>
-
-        <TabMenu activeTab={activeTab} setActiveTab={setActiveTab} />
-
-        <main className="grid grid-cols-1 lg:grid-cols-3">
-          <aside className="p-5 border rounded space-y-4 flex flex-col mb-4 lg:mb-0 lg:mr-4">
-            <div> <h3 className="text-sm font-medium">Actions</h3> <p className="text-xs text-gray-500">Simpan, export, atau import data.</p> </div>
-            <div className="flex flex-col gap-2 flex-wrap mb-4">
-              <a href="https://docs.google.com/spreadsheets/d/15QZy8PMyegW78GG_Tx0hhvrosTiEn1_Nyx4jkpKAxoE/copy" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-xs underline focus:outline-none"> <ExternalLink className="w-3 h-3" /> Copy Template </a>
-              <input value={spreadsheetId} onChange={(e) => setSpreadsheetId(e.target.value)} placeholder="Google Spreadsheet ID atau URL" className="border px-3 py-2 rounded text-sm w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+    <>
+      <SpreadsheetSetupModal 
+        isOpen={isSpreadsheetModalOpen}
+        onClose={() => setIsSpreadsheetModalOpen(false)}
+        onSave={handleSaveSpreadsheetId}
+        currentId={spreadsheetId}
+      />
+      <div className="min-h-screen bg-gray-50 p-0 md:p-6">
+        <div className="max-w-5xl mx-auto bg-white shadow rounded p-6">
+          <header className="flex items-center justify-between mb-6">
+            <div className="w-fit">
+              <h1 className="text-xl font-semibold">Personal Branding Builder v2</h1>
+              <p className="text-sm text-gray-500">Minimal, responsive, dan siap dipakai untuk generate prompt & export.</p>
             </div>
-            <div className="h-[1px] w-full bg-gray-200 mb-4" />
-            <div className="space-y-2">
-              <button onClick={importPersonalBranding} disabled={isImporting || isExporting} className={`w-full flex items-center justify-center gap-2 px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" /> {isImporting ? 'Importing...' : 'Import Data Personal Branding'} </button>
-              <button onClick={importContentFactory} disabled={isImporting || isExporting} className={`w-full flex items-center justify-center gap-2 px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" /> {isImporting ? 'Importing...' : 'Import Data Content'} </button>
-              <button onClick={exportPersonalBranding} disabled={isImporting || isExporting} className={`w-full flex items-center justify-center gap-2 px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isExporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <FileSpreadsheet className="w-4 h-4" /> {isExporting ? 'Exporting...' : 'Export Data Personal Branding'} </button>
-              <button onClick={exportContentFactory} disabled={isImporting || isExporting} className={`w-full flex items-center justify-center gap-2 px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isExporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <FileSpreadsheet className="w-4 h-4" /> {isExporting ? 'Exporting...' : 'Export Data Content'} </button>
-              <button className="w-full flex items-center justify-center gap-2 px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={downloadPDF}><Download className="w-4 h-4" /> Export PDF</button>
-              <button className="w-full flex items-center justify-center gap-2 px-3 py-2 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={resetAll}><RefreshCcw className="w-4 h-4" /> Reset Data</button>
+            <div className="flex flex-wrap justify-end items-center gap-2 w-fit">
+              <button onClick={() => setIsSpreadsheetModalOpen(true)} className="flex items-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <FileSpreadsheet className="w-4 h-4" /> Sheet ID </button>
+              <button className="flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={downloadPDF}><Download className="w-4 h-4" /> Download PDF</button>
+              <button className="flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={resetAll}><RefreshCcw className="w-4 h-4" /> Reset Data</button>
+              <button onClick={handleLogout} className="flex items-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" /> Logout </button>
+              <button onClick={() => importFromSheet('branding')} disabled={isImporting} className={`flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" /> {isImporting ? 'Importing...' : 'Import Data Personal Branding'} </button>
+              <button onClick={() => importFromSheet('content')} disabled={isImporting} className={`flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" /> {isImporting ? 'Importing...' : 'Import Data Content'} </button>
             </div>
-            <div className="pt-2 mt-auto"> <h4 className="text-xs font-medium">Catatan</h4> <p className="text-xs text-gray-500">Tombol "Generate" akan membuka tab baru ChatGPT, Import & Export memerlukan URL Spreadsheet yang benar (klik "Copy Template" jika belum memiliki Spreadsheet PBB).</p> </div>
-          </aside>
+          </header>
 
-          <section className="col-span-2 p-5 border rounded space-y-4">
-            {activeTab === 'Start from 0' && (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSample={() => setIdentity(SAMPLE_IDENTITY)} />
-                  <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSample={() => setSwot(SAMPLE_SWOT)} />
-                </div>
-                <div className="h-[1px] w-full bg-slate-900 mt-6 mb-4" />
-                <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSample={() => setPillar(SAMPLE_PILLAR)} />
-                <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} />
-                <div className="h-[1px] w-full bg-slate-900 mt-3 mb-5" />
-                <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} />
-                <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea)) } />
-              </>
-            )}
-            {activeTab === 'Finder Identity' && (
-              <>
-                <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSample={() => setIdentity(SAMPLE_IDENTITY)} />
+          <TabMenu activeTab={activeTab} setActiveTab={setActiveTab} />
+
+          <main className="grid grid-cols-1 lg:grid-cols-2">
+            <section className="col-span-2 p-5 border rounded space-y-4">
+              {activeTab === 'Start from 0' && (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  </div>
+                  <div className="h-[1px] w-full bg-slate-900 mt-6 mb-4" />
+                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <div className="h-[1px] w-full bg-slate-900 mt-3 mb-5" />
+                  <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                </>
+              )}
+              {activeTab === 'Finder Identity' && (
+                <>
+                  <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <div className="space-y-2">
+                    <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} placeholder="Contoh: Digital Tools for Creators" />
+                    <Input label="Kategori" value={swot.kategori} onChange={(v) => setSwot({ ...swot, kategori: v })} />
+                    <Input label="Micro-niche" value={swot.microNiche} onChange={(v) => setSwot({ ...swot, microNiche: v })} />
+                  </div>
+                </>
+              )}
+              {activeTab === 'Personal Detector' && (
                 <div className="space-y-2">
-                  <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} placeholder="Contoh: Digital Tools for Creators" />
-                  <Input label="Kategori" value={swot.kategori} onChange={(v) => setSwot({ ...swot, kategori: v })} />
-                  <Input label="Micro-niche" value={swot.microNiche} onChange={(v) => setSwot({ ...swot, microNiche: v })} />
+                  <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={2} />
                 </div>
-              </>
-            )}
-            {activeTab === 'Personal Detector' && (
-              <div className="space-y-2">
-                <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSample={() => setSwot(SAMPLE_SWOT)} />
-                <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={2} />
-              </div>
-            )}
-            {activeTab === 'Smart Pillar' && (
-              <>
-                <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSample={() => setPillar(SAMPLE_PILLAR)} />
-                <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} />
-              </>
-            )}
-            {activeTab === 'Bio Generator' && (
-              <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} />
-            )}
-            {activeTab === 'Content Factory' && (
-              <>
-                <PillarListManager
-                  identity={identity}
-                  pillarsList={pillarsList}
-                  setPillarsList={setPillarsList}
-                />
-                <IdeaGenerator
-                  pillarsList={pillarsList}
-                  onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))}
-                />
-                <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea)) } />
-              </>
-            )}
-          </section>
-        </main>
-        <footer className="mt-6 text-center text-xs text-gray-400"> Made with care • Simple & minimal UI • Responsive </footer>
+              )}
+              {activeTab === 'Smart Pillar' && (
+                <>
+                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                </>
+              )}
+              {activeTab === 'Bio Generator' && (
+                <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+              )}
+              {activeTab === 'Content Factory' && (
+                <>
+                  <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                </>
+              )}
+            </section>
+          </main>
+          <footer className="mt-6 text-center text-xs text-gray-400"> Made with care • Simple & minimal UI • Responsive </footer>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
