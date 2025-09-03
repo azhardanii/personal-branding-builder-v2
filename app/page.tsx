@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState, memo } from "react";
-import { LogOut, Download, Trash2, RefreshCcw, Edit3, Key, ExternalLink, FileSpreadsheet, Upload, SaveIcon, Bot, FileText } from "lucide-react";
+import Image from "next/image";
+import { LogOut, Download, Trash2, RefreshCcw, FileSpreadsheet, Upload, SaveIcon, Bot, FileText } from "lucide-react";
+import LazyYoutube from "@/components/LazyYoutube";
 
 // ▼▼▼ TYPES & CONSTANTS (Tidak berubah) ▼▼▼
 type Identity = { nama: string; suka: string; dikuasai: string; kenapaDibutuhkan: string; peluangPenghasilan: string; };
@@ -9,41 +11,67 @@ type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
 type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
 const STORAGE_KEY = "pb_access_key";
 const VALID_KEY = "demo_key";
-const btnPrimary = 'px-3 py-2 bg-slate-900 text-white rounded flex items-center gap-1 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
-const btnNeutral = 'px-3 py-2 border rounded flex items-center gap-1 text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150';
+const btnPrimary = 'px-3 py-2 bg-[#005bff] font-bold text-white rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
+const btnNeutral = 'px-3 py-2 bg-white font-bold text-black rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
 // ▲▲▲ END OF TYPES & CONSTANTS ▲▲▲
 
 // ▼▼▼ REUSABLE COMPONENTS ▼▼▼
 const Input = memo(({ label, value, onChange, placeholder, rows = 1 }: { label?: string; value: string; onChange: (v: string) => void; placeholder?: string; rows?: number; }) => {
   return (
     <label className="block text-sm">
-      {label && <div className="text-xs text-gray-500 mb-1">{label}</div>}
+      {label && <div className="text-xs text-white mb-1">{label}</div>}
       {rows > 1 ? (
-        <textarea rows={rows} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className="w-full border rounded px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+        <textarea rows={rows} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className="w-full border rounded px-3 py-2 text-sm resize-none bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
       ) : (
-        <input value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+        <input value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} className="w-full border rounded px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
       )}
     </label>
   );
 });
 
-const LoginScreen = ({ onLogin, accessKey, setAccessKey, onUseDemoKey }: {
+const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
   onLogin: (e: React.FormEvent) => void;
   accessKey: string;
   setAccessKey: (key: string) => void;
   onUseDemoKey: () => void;
 }) => (
-  <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
-    <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
-      <div className="flex items-center gap-3 mb-4"> <Key className="w-5 h-5 text-gray-600" /> <h1 className="text-lg font-semibold">Personal Branding Builder v2</h1> </div>
-      <p className="text-sm text-gray-500 mb-4">Masukkan access key untuk membuka tool.</p>
-      <form onSubmit={onLogin} className="space-y-3">
-        <input value={accessKey} onChange={(e) => setAccessKey(e.target.value)} placeholder="Access key" className="w-full border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150" />
+  <div className="relative flex items-center justify-center p-6 bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] min-h-screen">
+    <Image src="/kadev-logomark.webp" alt="Logo" width={100} height={50} className="absolute top-10 mx-auto" />
+    <div className="w-full max-w-xl px-6 flex justify-center items-center flex-col">
+      <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={480} height={240} className="mb-6" priority />
+      <div className="flex items-center mb-5 text-white text-3xl md:text-4xl font-bold" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>ACCESS KEY</div>
+      <form onSubmit={onLogin} className="w-full space-y-3">
+        <div className="w-full">
+          <div className="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" zoomAndPan="magnify" viewBox="0 0 22.5 28.5" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a747d21c9a"><path d="M 3 9 L 14 9 L 14 26 L 3 26 Z M 3 9 " clip-rule="nonzero"/></clipPath><clipPath id="bf7c8b2ec1"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="e13639702a"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="c2f24ca340"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="0e0e9c8ea5"><path d="M 4 22 L 10 22 L 10 27.945312 L 4 27.945312 Z M 4 22 " clip-rule="nonzero"/></clipPath><clipPath id="2df283ed8c"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="cef54e0750"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="812c27ac77"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="de09ee95b9"><path d="M 6 18 L 12 18 L 12 24 L 6 24 Z M 6 18 " clip-rule="nonzero"/></clipPath><clipPath id="db4dfe6231"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="09edbcc98e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="dd7026bb5e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="99ba2a4d5b"><path d="M 9 2 L 20 2 L 20 13 L 9 13 Z M 9 2 " clip-rule="nonzero"/></clipPath><clipPath id="a80c4e848e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="9d3d4da78b"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="437b0b0983"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a747d21c9a)"><g clip-path="url(#bf7c8b2ec1)"><g clip-path="url(#e13639702a)"><g clip-path="url(#c2f24ca340)"><path fill="#000000" d="M 3.382812 24.496094 L 11.304688 9.945312 L 13.882812 11.347656 L 5.960938 25.898438 Z M 3.382812 24.496094 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g><g clip-path="url(#0e0e9c8ea5)"><g clip-path="url(#2df283ed8c)"><g clip-path="url(#cef54e0750)"><g clip-path="url(#812c27ac77)"><path fill="#000000" d="M 4.671875 25.195312 L 6.113281 22.550781 L 9.710938 24.511719 L 8.269531 27.15625 Z M 4.671875 25.195312 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g><g clip-path="url(#de09ee95b9)"><g clip-path="url(#db4dfe6231)"><g clip-path="url(#09edbcc98e)"><g clip-path="url(#dd7026bb5e)"><path fill="#000000" d="M 6.832031 21.230469 L 8.273438 18.582031 L 11.871094 20.542969 L 10.429688 23.1875 Z M 6.832031 21.230469 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g><g clip-path="url(#99ba2a4d5b)"><g clip-path="url(#a80c4e848e)"><g clip-path="url(#9d3d4da78b)"><g clip-path="url(#437b0b0983)"><path fill="#000000" d="M 12.3125 6.203125 C 11.714844 7.300781 12.097656 8.660156 13.164062 9.242188 C 14.230469 9.820312 15.582031 9.40625 16.175781 8.308594 C 16.773438 7.210938 16.390625 5.851562 15.324219 5.273438 C 14.257812 4.691406 12.90625 5.109375 12.3125 6.203125 Z M 11.722656 11.886719 C 9.230469 10.53125 8.339844 7.355469 9.734375 4.800781 C 11.125 2.242188 14.273438 1.269531 16.765625 2.625 C 19.253906 3.980469 20.148438 7.15625 18.753906 9.710938 C 17.363281 12.269531 14.214844 13.242188 11.722656 11.886719 Z M 11.722656 11.886719 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g></svg>
+            <input
+              value={accessKey}
+              onChange={(e) => setAccessKey(e.target.value)}
+              placeholder="Ketik access key di sini!"
+              className="w-full border bg-white pl-10 p-3 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150"
+            />
+          </div>
+          <div className="flex justify-between items-center text-sm my-5 px-5">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                className="h-4 w-4 text-slate-900 border-gray-300 rounded focus:ring-slate-500"
+              />
+              <span className="text-white">Remember me</span>
+            </label>
+            <a href="#" className="text-white hover:text-slate-400 text-[15px] italic transition-colors duration-150">
+              Lupa access key?
+            </a>
+          </div>
+        </div>
         <div className="flex gap-2">
-          <button className="flex-1 px-4 py-2 bg-slate-900 text-white rounded transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150">Login</button>
-          <button type="button" onClick={onUseDemoKey} className="px-4 py-2 border rounded transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> Isi contoh </button>
+          <button className="flex-1 px-4 py-3 bg-[#005bff] text-white rounded-full transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150">Log in</button>
         </div>
       </form>
+      <div className="flex gap-0 mt-4 flex-col items-center justify-center text-white text-sm">
+        <p>Ga dapet Access Key?</p>
+        <a href="#" className="text-yellow-300 hover:text-yellow-500 underline underline-offset-2">Hubungi Admin disini</a>
+      </div>
     </div>
   </div>
 );
@@ -74,44 +102,57 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
   
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg p-6">
-        <div className="flex items-start justify-between mb-4">
-            <div>
-                <h2 className="text-lg font-semibold">Setup Spreadsheet PBB</h2>
-                <p className="text-xs text-gray-500">
-                  Hubungkan Spreadsheet PBB untuk menyimpan data Kamu.
-                </p>
-            </div>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 text-2xl leading-none">&times;</button>
+      <div className="bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-lg px-6 py-4 max-h-[90vh] overflow-y-auto">
+        <div className="relative flex items-center justify-center mb-2">
+          <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={120} height={60} className="mb-1 mx-auto" priority />
+          <button onClick={onClose} className="absolute top-0 right-0 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
+            &times;
+          </button>
         </div>
+        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-gray-400" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>SETUP PBB V2</div>
         
-        <div className="bg-slate-50 p-4 rounded-md space-y-3">
-            <p className="text-xs text-gray-600">
-                <span className="font-semibold">Langkah 1:</span> Klik link di bawah untuk membuat salinan Template Spreadsheet PBB di Google Drive Kamu (Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)
-            </p>
-            <a 
-                href={SPREADSHEET_TEMPLATE_URL} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 underline hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded px-1"
-            > 
-                <ExternalLink className="w-4 h-4" /> Salin Template Spreadsheet PBB
-            </a>
-            <p className="text-xs text-gray-600 pt-2">
-                <span className="font-semibold">Langkah 2:</span> Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.
-            </p>
-            <input 
-                value={localId} 
-                onChange={(e) => setLocalId(e.target.value)} 
-                placeholder="Tempel Link Spreadsheet PBB di sini..." 
-                className="border px-3 py-2 rounded text-sm w-full focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
-            />
+        <div className="text-xs text-white text-justify">
+            <p className="font-bold mb-1">Langkah 1:</p>
+            <p>Klik link di bawah ini, untuk membuat salinan Template Spreadsheet PBB agar tersimpan di Google Drive kamu <b>(Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)</b></p>
         </div>
+        <a 
+            href={SPREADSHEET_TEMPLATE_URL} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-flex w-full text-center font-bold items-center justify-center my-4 gap-1.5 text-xs px-4 py-2 bg-[#005bff] text-white rounded-lg transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"
+        > 
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" zoomAndPan="magnify" viewBox="0 0 26.25 26.249998" height="17" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a2831d7587"><path d="M 0 0 L 25.519531 0 L 25.519531 25.519531 L 0 25.519531 Z M 0 0 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a2831d7587)"><path fill="#fdfdfd" d="M 12.6875 0 C 5.667969 0 0 5.667969 0 12.6875 C 0 19.707031 5.667969 25.371094 12.6875 25.371094 C 19.707031 25.371094 25.371094 19.707031 25.371094 12.6875 C 25.371094 5.667969 19.707031 0 12.6875 0 Z M 18.746094 7.300781 L 16.152344 7.300781 L 16.152344 4.734375 Z M 8.65625 4.679688 C 8.65625 4.539062 8.769531 4.425781 8.910156 4.425781 L 15.054688 4.425781 L 15.054688 7.667969 L 14.292969 6.90625 C 13.757812 6.371094 13.503906 6.175781 12.910156 6.175781 L 8.65625 6.175781 Z M 16.070312 10.007812 L 13.503906 10.007812 L 13.503906 7.414062 Z M 6.203125 20.296875 C 6.0625 20.296875 5.949219 20.183594 5.949219 20.042969 L 5.949219 7.359375 C 5.949219 7.21875 6.0625 7.105469 6.203125 7.105469 L 12.375 7.105469 L 12.375 10.542969 C 12.375 10.855469 12.628906 11.078125 12.941406 11.078125 L 16.378906 11.078125 L 16.378906 20.042969 C 16.378906 20.183594 16.265625 20.296875 16.125 20.296875 Z M 18.804688 17.621094 C 17.929688 17.621094 17.308594 17.621094 17.308594 17.621094 L 17.308594 10.542969 C 17.308594 10.066406 17.167969 9.78125 16.832031 9.445312 L 15.789062 8.402344 L 19.03125 8.402344 L 19.03125 17.339844 C 19.058594 17.507812 18.945312 17.621094 18.804688 17.621094 Z M 18.804688 17.621094 " fill-opacity="1" fill-rule="nonzero"/></g></svg> 
+            Salin Template
+        </a>
 
-        <div className="mt-6 flex justify-start gap-3">
-            <button onClick={handleSave} className={btnPrimary}><SaveIcon className="w-4 h-4 -mt-0.5" /> Simpan ID</button>
+        <div className="text-xs text-white text-justify">
+            <p className="font-bold mb-1">Langkah 2:</p>
+            <p>Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.</p>
+        </div>
+        <input 
+            value={localId} 
+            onChange={(e) => setLocalId(e.target.value)} 
+            placeholder="Tempel Link Spreadsheet PBB di sini!" 
+            className="w-full border bg-white px-3 py-2 my-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150" 
+        />
+
+        <div className="mt-1 mb-5 flex justify-start gap-3">
+            <button onClick={handleSave} className={btnPrimary}><SaveIcon className="w-4 h-4 -mt-0.5" /> Simpan Perubahan</button>
             <button onClick={onClose} className={btnNeutral}>Batal</button>
         </div>
+
+        <div className="text-xs text-white text-justify">
+            <p className="font-bold mb-1">Langkah 3:</p>
+            <p>Nonton video tutorial lengkap penggunaan, di bawah ini:</p>
+        </div>
+
+        <div className="aspect-video w-full mx-auto my-4">
+            <LazyYoutube
+              videoId="NBh1t1gGID0"
+              title="Video Clip Personal Branding Builder"
+              ratio="16:9"
+            />
+          </div>
       </div>
     </div>
   );
@@ -127,19 +168,19 @@ const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
   const menuItems = ['Start from 0', 'Finder Identity', 'Personal Detector', 'Smart Pillar', 'Bio Generator', 'Content Factory'];
 
   return (
-    <div className="border-b mb-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      <nav className="flex -mb-px" aria-label="Tabs">
+    <div className="mb-6 overflow-x-auto overflow-y-hidden h-fit [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <nav className="mt-8 md:mt-0 flex -mb-px" aria-label="Tabs">
         {menuItems.map((item) => (
           <button
             key={item}
             onClick={() => setActiveTab(item)}
             className={`
-              whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm
-              transition-colors duration-150 focus:outline-none
+              whitespace-nowrap py-2 px-4 text-sm cursor-pointer rounded-lg
+              transition-colors duration-150 focus:outline-none text-white font-bold
               ${
                 activeTab === item
-                  ? 'border-slate-800 text-slate-900'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'bg-[#005bff]'
+                  : 'border-transparent hover:text-[#a6c3f7]'
               }
             `}
           >
@@ -147,7 +188,7 @@ const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
           </button>
         ))}
       </nav>
-</div>
+    </div>
   );
 };
 // ▲▲▲ END ▲▲▲
@@ -157,7 +198,7 @@ const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSave, isSav
   identity: Identity; setIdentity: (i: Identity) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <div>
-    <h2 className="text-sm font-medium mb-2">FINDER IDENTITY</h2>
+    <h2 className="text-sm font-bold mb-2 text-white">FINDER IDENTITY</h2>
     <div className="space-y-2">
       <Input label="Nama" value={identity.nama} onChange={(v) => setIdentity({ ...identity, nama: v })} placeholder="Nama kamu" />
       <Input label="Hal yang disukai" value={identity.suka} onChange={(v) => setIdentity({ ...identity, suka: v })} placeholder="Contoh: tools digital" rows={2} />
@@ -176,7 +217,7 @@ const SwotSection = memo(({ swot, setSwot, onGenerate, onSave, isSaving }: {
   swot: SWOT; setSwot: (s: SWOT) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <div>
-    <h2 className="text-sm font-medium mb-2">PERSONAL DETECTOR</h2>
+    <h2 className="text-sm font-bold mb-2 text-white">PERSONAL DETECTOR</h2>
     <div className="space-y-2">
       <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} placeholder="Contoh: Digital Tools for Creators" />
       <Input label="Kategori" value={swot.kategori} onChange={(v) => setSwot({ ...swot, kategori: v })} />
@@ -197,10 +238,10 @@ const PillarSection = memo(({ pillar, setPillar, onGenerate, onSave, isSaving }:
   pillar: Pillar; setPillar: (p: Pillar) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <>
-    <h2 className="text-sm font-medium mb-2">SMART PILLAR</h2>
+    <h2 className="text-sm font-bold mb-2 text-white">SMART PILLAR</h2>
     <div className="space-y-2">
       <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={2} />
-      <label className="text-xs text-gray-500 mb-2">Tone of Voice</label>
+      <label className="text-xs text-white mb-2">Tone of Voice</label>
       <div className="relative mb-4">
         <select
           className="w-full border px-3 pr-8 py-2 rounded text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
@@ -275,21 +316,21 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
 
   return (
     <>
-      <label className="text-sm font-medium">{`List Pillar ${identity.nama} (max.6)`}</label>
+      <label className="text-sm font-bold text-white">{`List Pillar ${identity.nama} (max.6)`}</label>
       <div className="mt-2 flex gap-2">
         <input 
           value={tagInputValue} 
           onChange={(e) => setTagInputValue(e.target.value)} 
           onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addPillarTagFromInput(); } }} 
           placeholder="Tulis dan tekan Enter untuk tambah" 
-          className="flex-1 border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
+          className="flex-1 bg-white rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
         />
         <button onClick={addPillarTagFromInput} className={btnPrimary}>Tambah</button>
         <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
         {pillarsList.map((p, i) => (
-          <div key={"grid" + i} className="border rounded p-2 text-sm min-h-fit flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
+          <div key={"grid" + i} className="bg-white rounded p-2 text-sm min-h-fit flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
             <input 
               value={p} 
               onChange={(e) => updatePillarAt(i, e.target.value)} 
@@ -306,8 +347,8 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
 
 const BioGeneratorSection = memo(({ bio, setBio, onGenerate, onSave, isSaving }: { bio: string; setBio: (b: string) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean; }) => (
   <>
-    <h2 className="text-sm font-medium mb-0">BIO GENERATOR</h2>
-    <p className="text-xs text-gray-500 mb-4">
+    <h2 className="text-sm font-bold mb-0 text-white">BIO GENERATOR</h2>
+    <p className="text-xs text-white mb-4">
       Hasil generate akan didasarkan pada data Identity, SWOT, dan Pillar yang telah diisi.
     </p>
     <div className="flex flex-col gap-2 w-full">
@@ -341,8 +382,8 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
   }, [pillarsList, selectedPillar, filteredPillars]);
 
   return (
-    <div className="mt-6 border-t pt-4">
-      <label className="text-sm font-medium">CONTENT FACTORY</label>
+    <div className="mt-6 border-t border-white pt-4">
+      <label className="text-sm font-bold text-white">CONTENT FACTORY</label>
       <div className="relative mt-2">
         <select 
           value={selectedPillar} 
@@ -361,13 +402,13 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
       </div>
       <div className="mt-3 flex flex-col md:flex-row gap-4 items-start md:items-end">
         <div className="flex flex-col">
-          <label className="text-xs text-gray-500 mb-1">Jumlah ide</label>
+          <label className="text-xs text-white mb-1">Jumlah ide</label>
           <input 
             type="number" 
             min={1} max={50} 
             value={numIdeas} 
             onChange={(e) => setNumIdeas(Number(e.target.value))} 
-            className="w-11 md:w-16 border px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
+            className="w-11 md:w-16 bg-white border px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
           />
         </div>
         <button 
@@ -432,10 +473,10 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
   };
 
   return (
-    <div className="mt-6 border-t pt-4">
-      <label className="font-medium text-sm mb-3">{`List Konten ${identity.nama}`}</label>
+    <div className="mt-6 border-t border-white pt-4">
+      <label className="text-sm font-bold mb-3 text-white">{`List Konten ${identity.nama}`}</label>
       <div className="flex gap-2 mt-2 mb-4">
-        <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); }}} className="flex-1 border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+        <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); }}} className="flex-1 bg-white border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
         <button onClick={addIdea} className={`${btnPrimary}`}>Tambah</button>
         <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
@@ -452,7 +493,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
           </thead>
           <tbody className="block md:table-row-group">
             {contentIdeas.length === 0 ? (
-              <tr className="block md:table-row"><td colSpan={4} className="block md:table-cell text-center text-gray-500 py-4">Belum ada ide konten</td></tr>
+              <tr className="block md:table-row"><td colSpan={4} className="block md:table-cell text-center text-white/50 py-4">Belum ada ide konten</td></tr>
             ) : contentIdeas
             .slice()
             .sort((a, b) => {
@@ -491,7 +532,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
             .map((idea) => (
               <tr
                 key={idea.id}
-                className="block md:table-row mb-4 md:mb-0 border md:border-none rounded-lg md:rounded-none"
+                className="block bg-white/80 md:table-row mb-4 md:mb-0 border md:border-none rounded-lg md:rounded-none"
               >
                 <td
                   data-label="Judul:"
@@ -607,38 +648,41 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl p-4">
-        <header className="px-4 pb-2 border-b flex justify-between items-center">
-          <h2 className="text-lg font-semibold">Detail Ide Konten</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-800 text-2xl focus:outline-none">&times;</button>
-        </header>
+      <div className="bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-2xl p-4 max-h-[90vh] overflow-y-auto">
+        <div className="relative flex items-center justify-center mt-2 mb-4">
+          <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={120} height={60} className="mb-1 mx-auto" priority />
+          <button onClick={onClose} className="absolute top-0 right-0 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
+            &times;
+          </button>
+        </div>
+        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>DETAIL KONTEN</div>
         
         <main className="p-4 space-y-4 mb-2 overflow-y-scroll">
           <div>
-            <label className="text-xs text-gray-500 mb-1 block">Judul Konten</label>
-            <input name="title" value={formData.title} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+            <label className="text-xs text-white mb-1 block">Judul Konten</label>
+            <input name="title" value={formData.title} onChange={handleChange} className="w-full bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">Status</label>
+              <label className="text-xs text-white mb-1 block">Status</label>
               <div className="relative">
-                <select name="status" value={formData.status} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
+                <select name="status" value={formData.status} onChange={handleChange} className="w-full bg-white rounded-lg px-3 py-2 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
                   {statuses.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
                 </select>
-                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
             </div>
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">Pilar Konten</label>
+              <label className="text-xs text-white mb-1 block">Pilar Konten</label>
               <div className="relative">
                 <select 
                   name="pillar" 
                   value={formData.pillar || ""} 
                   onChange={handleChange} 
-                  className="w-full border rounded px-3 py-2 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
+                  className="w-full bg-white rounded-lg px-3 py-2 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
                   disabled={filteredPillars.length === 0}
                 >
                   <option value="">-- Pilih Pilar --</option>
@@ -646,7 +690,7 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
                     <option key={`modal-pillar-opt-${i}`} value={p}>{p}</option>
                   ))}
                 </select>
-                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
@@ -655,36 +699,36 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">Tanggal Deadline</label>
-              <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+              <label className="text-xs text-white mb-1 block">Tanggal Deadline</label>
+              <input type="date" name="deadline" value={formData.deadline} onChange={handleChange} className="w-full bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
             </div>
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">Platform</label>
+              <label className="text-xs text-white mb-1 block">Platform</label>
               <div className="relative">
-                <select name="platform" value={formData.platform} onChange={handleChange} className="w-full border rounded px-3 py-2 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
+                <select name="platform" value={formData.platform} onChange={handleChange} className="w-full bg-white rounded-lg px-3 py-2 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
                   <option value="">-- Pilih Platform --</option>
                   {platforms.map(p => <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>)}
                 </select>
-                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
             </div>
             <div>
-              <label className="text-xs text-gray-500 mb-1 block">Format Konten</label>
+              <label className="text-xs text-white mb-1 block">Format Konten</label>
               <div className="relative">
                 <select 
                   name="format" 
                   value={formData.format || ""} 
                   onChange={handleChange} 
-                  className="w-full border rounded px-3 py-2 text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
+                  className="w-full bg-white rounded-lg px-3 py-2 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
                 >
                   <option value="">-- Pilih Format --</option>
                   {formats.map(f => (
                     <option key={f} value={f}>{f}</option>
                   ))}
                 </select>
-                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-black pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
@@ -695,21 +739,21 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
             <button onClick={() => onGenerateScript(formData)} className={`w-full mt-5 mb-4 justify-center ${btnPrimary}`}>
               <Bot className="w-5 h-5 -mt-0.5" /> Generate Script
             </button>
-            <label className="text-xs text-gray-500 mb-1 block">Script Konten</label>
-            <textarea name="script" value={formData.script} onChange={handleChange} rows={8} placeholder="Tulis script konten di sini..." className="w-full border rounded px-3 py-2 text-sm resize-y focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" />
+            <label className="text-xs text-white mb-1 block">Script Konten</label>
+            <textarea name="script" value={formData.script} onChange={handleChange} rows={8} placeholder="Tulis script konten di sini..." className="w-full bg-white rounded-lg px-3 py-2 text-sm resize-y focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" />
             <div className="flex flex-col items-center w-full mt-4">
               <button onClick={() => onGenerateEval(formData)} className={`w-full justify-center ${btnPrimary}`}>
                 <Bot className="w-5 h-5 -mt-0.5" /> Generate Evaluasi
               </button>
-              <label className="text-xs text-gray-500 mt-1 block">Disarankan 7hari setelah posting dan upload screenshot insight konten sebelum submit prompt di ChatGPT.</label>
+              <label className="text-xs text-white mt-1 block">Disarankan 7hari setelah posting dan upload screenshot insight konten sebelum submit prompt di ChatGPT.</label>
             </div>
           </div>
         </main>
         
-        <footer className="py-4 px-6 border-t flex flex-col sm:flex-row justify-between items-center gap-2">
+        <footer className="pb-4 pt-6 px-6 border-t border-white/50 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex gap-2">
             <button onClick={handleSaveChanges} className={btnPrimary}><SaveIcon className="w-4 h-4" /> Simpan Perubahan</button>
-            <button onClick={onClose} className="px-4 py-2 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150">Batal</button>
+            <button onClick={onClose} className={btnNeutral}>Batal</button>
           </div>
         </footer>
       </div>
@@ -1014,37 +1058,39 @@ export default function PersonalBrandingBuilder() {
         onSave={handleSaveSpreadsheetId}
         currentId={spreadsheetId}
       />
-      <div className="min-h-screen bg-gray-50 p-0 md:p-6">
-        <div className="max-w-5xl mx-auto bg-white shadow rounded p-6">
-          <header className="flex items-center justify-between mb-6">
-            <div className="w-fit">
-              <h1 className="text-xl font-semibold">Personal Branding Builder v2</h1>
-              <p className="text-sm text-gray-500">Minimal, responsive, dan siap dipakai untuk generate prompt & export.</p>
+      <div className="bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] min-h-screen w-full p-0 md:p-6">
+        <div className="max-w-5xl mx-auto rounded p-6">
+          <header className="flex flex-col md:flex-row items-center justify-center md:justify-between mt-6 md:mt-0 mb-6">
+            <div className="w-full md:w-fit">
+              <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={280} height={140} className="mb-6 mx-auto" priority />
             </div>
-            <div className="flex flex-wrap justify-end items-center gap-2 w-fit">
-              <button onClick={() => setIsSpreadsheetModalOpen(true)} className="flex items-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <FileSpreadsheet className="w-4 h-4" /> Sheet ID </button>
-              <button className="flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={downloadPDF}><Download className="w-4 h-4" /> Download PDF</button>
-              <button className="flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={resetAll}><RefreshCcw className="w-4 h-4" /> Reset Data</button>
-              <button onClick={handleLogout} className="flex items-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" /> Logout </button>
-              <button onClick={() => importFromSheet('branding')} disabled={isImporting} className={`flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" /> {isImporting ? 'Importing...' : 'Import Data Personal Branding'} </button>
-              <button onClick={() => importFromSheet('content')} disabled={isImporting} className={`flex items-center justify-center gap-1 px-2 py-1 border rounded text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" /> {isImporting ? 'Importing...' : 'Import Data Content'} </button>
+            <div className="flex flex-wrap justify-center md:justify-end items-center font-bold text-black gap-2 w-full md:w-1/2">
+              <button onClick={() => setIsSpreadsheetModalOpen(true)} className="flex bg-white items-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <FileSpreadsheet className="w-4 h-4" strokeWidth={2.5} /> Sheet ID </button>
+              <button className="flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={downloadPDF}><Download className="w-4 h-4" strokeWidth={2.5} /> Download PDF</button>
+              <button className="flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={resetAll}><RefreshCcw className="w-4 h-4" strokeWidth={2.5} /> Reset Data</button>
+              <button onClick={handleLogout} className="hidden lg:flex bg-white items-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" strokeWidth={2.5} /> Logout </button>
+              <button onClick={() => importFromSheet('branding')} disabled={isImporting} className={`hidden lg:flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Data Personal Branding'} </button>
+              <button onClick={() => importFromSheet('content')} disabled={isImporting} className={`hidden lg:flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Data Content'} </button>
+              <button onClick={() => importFromSheet('branding')} disabled={isImporting} className={`flex lg:hidden bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Data'} </button>
+              <button onClick={() => importFromSheet('content')} disabled={isImporting} className={`flex lg:hidden bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Content'} </button>
+              <button onClick={handleLogout} className="flex lg:hidden bg-white items-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" strokeWidth={2.5} /> Logout </button>
             </div>
           </header>
 
           <TabMenu activeTab={activeTab} setActiveTab={setActiveTab} />
 
           <main className="grid grid-cols-1 lg:grid-cols-2">
-            <section className="col-span-2 p-5 border rounded space-y-4">
+            <section className="col-span-2 py-5 rounded space-y-4">
               {activeTab === 'Start from 0' && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                     <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   </div>
-                  <div className="h-[1px] w-full bg-slate-900 mt-6 mb-4" />
+                  <div className="h-[1px] w-full bg-white mt-6 mb-4" />
                   <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <div className="h-[1px] w-full bg-slate-900 mt-3 mb-5" />
+                  <div className="h-[1px] w-full bg-white mt-7 mb-5" />
                   <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
                   <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea, pillar))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
