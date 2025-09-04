@@ -796,13 +796,13 @@ export default function PersonalBrandingBuilder() {
     }
   }, []);
 
-  // ▼▼▼ Effect untuk memunculkan modal setelah login ▼▼▼
+  // ▼▼▼ EFFECT POPUP MODAL ▼▼▼ //
   useEffect(() => {
     if (isLoggedIn && !spreadsheetId) {
       setIsSpreadsheetModalOpen(true);
     }
   }, [isLoggedIn, spreadsheetId]);
-  // ▲▲▲ END ▲▲▲
+  // ▲▲▲ END ▲▲▲ //
 
   // --- DATA & AUTH FUNCTIONS ---
   const handleLogin = (e: React.FormEvent) => {
@@ -846,17 +846,235 @@ export default function PersonalBrandingBuilder() {
     setContentIdeas([]);
   }
 
-  // --- PROMPT & GENERATION FUNCTIONS ---
-  const buildPromptForNiche = (data: Identity) => `Buatkan saya 5 niche terbaik beserta 1-sentence deskripsi dan 3 ide konten untuk tiap niche berdasarkan data identitas berikut:\nNama: ${data.nama}\nHal yang disukai: ${data.suka}\nHal yang dikuasai: ${data.dikuasai}\nKenapa dibutuhkan: ${data.kenapaDibutuhkan}\nPeluang penghasilan: ${data.peluangPenghasilan}\nFormat jawaban: JSON array dengan field {niche, deskripsi, ide_konten}`;
-  const buildPromptForPremis = (data: SWOT) => `Buatkan premis (1-2 paragraf) yang kuat untuk personal brand berdasarkan analisis SWOT berikut dan cocok untuk platform social media:\nNiche: ${data.niche}\nKategori: ${data.kategori}\nMicro-niche: ${data.microNiche}\nKekuatan: ${data.kekuatan}\nKelemahan: ${data.kelemahan}\nPeluang: ${data.peluang}\nTantangan: ${data.tantangan}\nInstruksi: Tonjolkan unique selling point, singkat, dan actionable.`;
-  const buildPromptForPillars = (data: Pillar) => `Buatkan list 4-6 pillar konten (judul + 1 kalimat deskripsi + 3 contoh ide posting) berdasarkan:\nPremis: ${data.premis}\nTone of voice: ${data.toneOfVoice}\nTarget audiens: ${data.targetAudiens}\nBerikan output dalam format JSON array dengan field {pillar, deskripsi, ide}`;
-  const buildPromptForBio = (identityData: Identity, swotData: SWOT, pillarData: Pillar) => `Berperanlah sebagai seorang top kreator di sosial media, tolong buatkan bio di profile sosmed berdasarkan data personal brand berikut.\n\n**Data Personal Brand:**\n- Nama: ${identityData.nama}\n- Niche: ${swotData.niche}\n- Premis Utama: ${pillarData.premis}\n- Target Audiens: ${pillarData.targetAudiens}\n- USP (dari Kekuatan): ${swotData.kekuatan}\n- Tone of Voice: ${pillarData.toneOfVoice}\n\n**Instruksi Format:**\nBuat bio yang ringkas agar mudah dimengerti orang awam. Di tiap pilihan bionya sertakan pertimbangan untuk lebih meyakinkan. Buat "10 pilihan", tiap pilihan memiliki 3 baris. baris 1 merepresentasikan "siapa diri kamu?", baris 2 "solusi apa yang ditawarkan untuk audiens", baris 3 "cta link di bio" dan berikan emoticon yang relate agar ngga monoton ditiap barisnya. tampilkan dalam bentuk tabel`;
-  const buildPromptForContentIdeas = (pillarName: string, jumlah: number) => `Buatkan ${jumlah} ide konten kreatif untuk pilar konten: "${pillarName}".\nBerikan format output dalam format tabel dengan field {judul ide, deskripsi}.\nFokus pada ide yang unik, relevan, dan engaging untuk audiens saya.`;
-  const buildPromptForScript = (identity: Identity, idea: ContentIdea, pillar: Pillar) => `Buatkan script konten untuk ${identity.nama} dengan target audiens ${pillar.targetAudiens}. detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** ${pillar.toneOfVoice}.\n- **Caption:** Buat caption kotennya menggunakan gaya bahasa yang ${pillar.toneOfVoice} minimal 500 kata.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video, berikan 5 pilihan.`;
-  const buildPromptForEvaluation = (identity: Identity, idea: ContentIdea) => `Buatkan script konten untuk ${identity.nama} dengan detail sebagai berikut:\n\n- **Judul/Topik Utama:** "${idea.title}"\n- **Target Platform:** ${idea.platform.toUpperCase()}\n- **Tujuan Konten:** (Contoh: Edukasi, Hiburan, Penjualan)\n- **Hook (3 detik pertama):** Buatkan hook yang sangat menarik perhatian.\n- **Isi Konten:** Jabarkan poin-poin utama secara jelas dan ringkas.\n- **Call to Action (CTA):** Ajak audiens untuk (Contoh: follow, comment, klik link di bio).\n- **Tone of Voice:** Santai dan to the point.\n\nFormat output sebagai teks script lengkap yang siap dibacakan atau dijadikan poin-poin video.`;
-  const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
+  // ▼▼▼ PROMPT & GENERATION FUNCTIONS ▼▼▼ //
+  const buildPromptForNiche = (data: Identity) => `[ROLE SETUP]
+Kamu adalah seorang Ikigai Strategist & Personal Branding Coach yang ahli membantu orang menemukan niche otentik berdasarkan empat elemen utama Ikigai.
+Gunakan bahasa yang ramah, jelas, inspiratif, dan actionable.
+Jawaban harus terstruktur, praktis, dan relevan agar mudah dipahami serta langsung bisa dipakai untuk membangun personal branding.
 
-  // --- IMPORT/EXPORT FUNCTIONS ---
+[CONTEXT INPUT]
+Nama saya: ${data.nama}
+Saya ingin menemukan niche terbaik yang sesuai dengan Ikigai saya agar bisa membangun personal branding yang otentik dan berkelanjutan. Berikut adalah input Ikigai saya:
+- What I Love (Apa yang saya cintai): ${data.suka}
+- What I’m Good At (Apa yang saya kuasai): ${data.dikuasai}
+- What The World Needs (Apa yang dibutuhkan dunia): ${data.kenapaDibutuhkan}
+- What I Can Be Paid For (Apa yang bisa menghasilkan uang untuk saya): ${data.peluangPenghasilan && data.peluangPenghasilan.trim() !== "" ? data.peluangPenghasilan  : "Tolong bantu menemukan peluang monetisasinya"}
+
+[TASK OUTPUT]
+Berdasarkan data di atas, tolong bantu saya:
+1. Menemukan benang merah yang menghubungkan keempat elemen Ikigai.
+2. Memberikan beberapa rekomendasi niche spesifik (lengkap dengan kategori & micro-niche).
+3. Menjelaskan kenapa niche tersebut cocok untuk saya dalam jangka panjang.
+4. Menyebutkan contoh peluang monetisasi nyata dari niche tersebut.
+5. Memberikan 10 pilihan variasi nama niche yang mudah di ingat (maksimal 2 kata, familiar, tidak annoying) dan rekomendasi nama profil sosial media → format: ${data.nama} | [NICHE].
+Tambahan:
+Pastikan setiap rekomendasi niche sudah jelas kategori → niche → micro-niche.
+Gunakan gaya bahasa yang sederhana, agar mudah dipahami audiens.
+Buat agar hasilnya unik & membedakan saya dari kreator lain.
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Apakah hasil ini sudah sesuai dengan gambaran diri kamu, atau mau eksplor lebih dalam sampai benar-benar ketemu niche yang paling relevan? kalau mau, tuliskan lebih detail tentang dirimu”`;
+
+  const buildPromptForPremis = (data: SWOT) => `[ROLE SETUP]
+Kamu adalah seorang Personal Branding Strategist yang ahli merumuskan premis personal branding menggunakan metode SWOT dengan bahasa yang sederhana, emosional, dan relatable untuk audiens.
+Jawaban harus mudah dipahami, inspiratif, dan bisa langsung dipakai dalam komunikasi personal branding.
+
+[CONTEXT INPUT]
+Nama akun dan niche saya: ${data.niche}
+Kategori niche: ${data.kategori}
+Spesifik pembahasan (Micro-niche): ${data.microNiche}
+Analisis SWOT sederhana saya adalah sebagai berikut:
+Kekuatan (Strength): ${data.kekuatan}
+Kelemahan (Weakness): ${data.kelemahan}
+Peluang (Opportunity): ${data.peluang}
+Ancaman (Threat): ${data.tantangan}
+
+[TASK OUTPUT]
+Berdasarkan data di atas, tolong bantu saya:
+ Membuat premis personal branding dalam format storytelling sederhana.
+Format 1:
+"Dari [Kelemahan], akhirnya [Kekuatan], dan kini [Peluang]."
+Format 2:
+"Dari [Ancaman] menjadi [Kekuatan], saya percaya bahwa [Peluang], dan saya ingin [Peluang]."
+Dan buat format lain-lainnya yang relevan dan menarik agar tidak monoton.
+ Pastikan premis:
+Menarik dan mudah dipahami audiens.
+Menggugah emosi agar audiens merasa relate dengan perjalanan saya.
+Mengandung benang merah yang kuat antara kelemahan → kekuatan → peluang/visi.
+ Buatkan 5 variasi premis personal branding (gunakan gaya bahasa berbeda tapi tetap sesuai format & konteks).
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Apakah salah satu premis ini sudah terasa cocok mewakili perjalanan kamu, atau mau saya bantu kembangkan lagi sampai benar-benar pas?”`;
+
+  const buildPromptForPillars = (data: Pillar, swotData: SWOT) => `[ROLE SETUP]
+Kamu adalah seorang Content Strategist & Personal Branding Coach yang ahli dalam menyusun content pillar strategis untuk membangun otoritas dan memperkuat personal branding di media sosial.
+Gunakan bahasa yang jelas, inspiratif, praktis, dan relevan dengan tren sosial media terkini.
+
+[CONTEXT INPUT]
+Nama akun: ${swotData.niche}
+Kategori niche: ${swotData.kategori}
+Fokus utama niche: ${swotData.microNiche}
+Tone of voice yang digunakan: ${data.toneOfVoice}
+Target audiens: ${data.targetAudiens}
+Premis personal branding saya: ${data.premis}
+
+[TASK OUTPUT]
+Berdasarkan data di atas, tolong buatkan daftar content pillar yang lengkap, relevan, dan strategis untuk sosial media saya.
+1. Buat daftar topik utama yang relevan dengan niche dan bisa dikembangkan jangka panjang.
+2. Turunkan menjadi sub-topik yang masih berhubungan dengan topik utama.
+3. Susun minimal 5 content pillar utama yang meliputi:
+- Educational (Edukasi)
+- Entertain (Hiburan)
+- Social Proof (Bukti Sosial)
+- Personal Story (Cerita Pribadi)
+- Promotional (Promosi)
+4. Sesuaikan penyebutannya agar tetap terasa nyambung dengan niche & personal branding saya.
+5. Tambahkan beberapa content pillar tambahan sebagai referensi alternatif agar saya punya lebih banyak pilihan.
+Selain daftar pilar, berikan juga insight tambahan:
+- Kenapa content pillar ini penting untuk membangun otoritas di niche tersebut.
+- Bagaimana content pillar ini bisa membantu audiens dan menyelesaikan masalah mereka.
+Kriteria Output:
+ ✔ Tidak dibatasi jumlah tertentu → buat sebanyak mungkin agar bisa dipilih sesuai kebutuhan, namun tetap relevan.
+ ✔ Relevan dengan tren industri ${swotData.kategori} dan sesuai target audiens ${data.targetAudiens}.
+ ✔ Membantu saya membangun personal branding yang kuat.
+Jika ada insight tambahan atau ide pengembangan strategi, silakan tambahkan.
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Apakah daftar content pillar ini sudah cukup sesuai dengan gaya dan tujuan kamu, atau mau saya bantu perbaiki lagi agar lebih tajam dan spesifik ke audiens kamu?”`;
+
+  const buildPromptForBio = (identityData: Identity, swotData: SWOT, pillarData: Pillar) => `[ROLE SETUP]
+Kamu adalah seorang top kreator sosial media yang ahli membuat bio profil yang ringkas, menarik, dan strategis untuk membangun personal branding serta menarik audiens yang tepat.
+Gunakan gaya bahasa yang simple, relatable, mudah dipahami orang awam, dan emosional.
+
+[CONTEXT INPUT]
+Berikut data personal brand saya:
+Nama: ${identityData.nama}
+Niche: ${swotData.niche}
+Premis Utama: ${pillarData.premis}
+Target Audiens: ${pillarData.targetAudiens}
+USP (dari Kekuatan): ${swotData.kekuatan}
+Tone of Voice: ${pillarData.toneOfVoice}
+
+[TASK OUTPUT]
+Berdasarkan data di atas, tolong buatkan 10 pilihan bio profil sosial media dengan ketentuan:
+ Setiap pilihan bio ditulis dalam 3 baris:
+Baris 1: Siapa diri saya (positioning).
+Baris 2: Solusi/Value yang saya tawarkan untuk audiens.
+Baris 3: CTA untuk klik link di bio.
+ Gunakan emoji yang relevan di tiap baris agar tidak monoton.
+ Buat dalam bentuk tabel agar mudah dibandingkan.
+Kolom 1: Nomor.
+Kolom 2: Isi Bio (3 baris).
+Kolom 3: Pertimbangan (alasan kenapa bio itu efektif).
+ Pastikan bio:
+Ringkas, jelas, dan mudah dipahami audiens awam.
+Merepresentasikan personal brand secara otentik.
+Mendorong audiens untuk klik link di bio.
+ Variasikan gaya penulisan agar setiap opsi punya nuansa berbeda, tapi tetap relevan dengan data personal brand saya.
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Dari 10 pilihan bio ini, mana yang paling terasa aku banget nih..’? Kalau belum ada yang pas, mau saya bantu perbaiki dengan fokus ke sisi otoritas, sisi emosional, atau sisi yang funny?”`;
+
+  const buildPromptForContentIdeas = (pillarName: string, jumlah: number, swotData: SWOT, pillarData: Pillar) => `[ROLE SETUP]
+Kamu adalah seorang Content Strategist & Top Social Media Creator yang ahli membuat ide konten kreatif, strategis, dan relevan dengan tren terkini untuk membantu membangun personal branding yang kuat.
+Gunakan bahasa yang segar, relate, dan langsung bisa dieksekusi.
+
+[CONTEXT INPUT]
+Nama akun: ${swotData.niche}
+Kategori niche: ${swotData.kategori}
+Fokus utama niche: ${swotData.microNiche}
+Fokus utama pilar konten: ${pillarName}
+Tone of Voice: ${pillarData.toneOfVoice}
+Target audiens: ${pillarData.targetAudiens}
+
+[TASK OUTPUT]
+Berdasarkan data di atas, buatkan daftar ide konten kreatif, relevan, dan strategis untuk akun sosial media saya.
+1. Setiap ide konten harus mencakup:
+- Judul ide / hook utama.
+- Bentuk/gambaran kontennya seperti apa (misalnya: Reels, carousel, thread, podcast, dll).
+- Potensi viralnya (kenapa bisa menarik audiens sekarang).
+- Insight tambahan (value atau pesan penting yang ingin ditanamkan).
+2. Pastikan daftar ide konten memenuhi kriteria:
+✔ Jumlah ide sesuai input ${jumlah} (buat sebanyak itu).
+✔ Kreatif, menarik, dan punya potensi viral sesuai tren terkini.
+✔ Relevan dengan target audiens dan membantu menyelesaikan masalah/tujuan mereka.
+✔ Membantu membangun personal branding yang kuat dan sustainable.
+3. Sajikan output dalam bentuk tabel dengan kolom berikut:
+- Ide Konten
+- Gambaran / Ringkasan Konten
+- Insight / Value
+4. Tambahkan juga rekomendasi pengembangan konten atau insight tambahan di akhir untuk memperkaya ide konten yang diterima.
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Apakah daftar ide konten ini sudah sesuai dengan gaya dan kebutuhan kamu, atau ada gambaran ide di kepala mu yang bisa aku bantu eksplor lebih luas buat mengembangkan ide itu?”`;
+
+  const buildPromptForScript = (idea: ContentIdea, pillarData: Pillar, swot: SWOT) => `[ROLE SETUP]
+Kamu adalah seorang Social Media Scriptwriter & Content Strategist yang ahli membuat script konten kreatif dan engaging sesuai dengan platform, audiens, dan tone of voice.
+Gunakan bahasa yang relatable, jelas, dan sesuai tren sosial media agar konten punya potensi viral sekaligus membangun personal branding.
+
+[CONTEXT INPUT]
+Detail konten yang akan dibuat:
+- Niche: ${swot.niche}
+- Target Audiens: ${pillarData.targetAudiens}
+- Judul/Topik Utama: "${idea.title}"
+- Target Platform: ${idea.platform.toUpperCase()}
+- Format Konten: ${idea.format}
+- Tone of Voice: ${pillarData.toneOfVoice}
+
+[TASK OUTPUT]
+Berdasarkan detail di atas, buatkan script konten yang lengkap dan siap dipakai dengan format berikut:
+1. Hook (3 detik pertama): Buat hook yang sangat menarik perhatian agar audiens langsung stay (persuasif).
+2. Isi Konten: Jabarkan poin-poin utama secara jelas, ringkas, dan sesuai tujuan konten.
+3. Call to Action (CTA): Ajak audiens untuk bertindak (contoh: follow, comment, share).
+4. Caption: Buat caption yang sesuai dengan tone of voice ${pillar.toneOfVoice}, panjang minimal 500 kata, mengandung storytelling + value, serta mendorong interaksi.
+Format Output:
+- Sajikan sebagai teks script lengkap (bisa dibacakan langsung atau dipakai sebagai poin-poin video).
+- Berikan 5 variasi script agar saya bisa memilih gaya yang paling cocok.
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Dari 5 variasi script ini, mana yang paling terasa cocok dengan gaya kamu? Atau ada yang perlu diperbaiki dan di breakdown lebih detail?”`;
+
+  const buildPromptForEvaluation = (pillarData: Pillar, idea: ContentIdea, swotData:SWOT) => `[ROLE SETUP]
+Kamu adalah seorang Social Media Analyst & Content Strategist yang ahli membaca insight konten dari metrik performa sosial media untuk memberikan evaluasi objektif sekaligus rekomendasi strategis.
+Gunakan bahasa yang jelas, to the point, actionable, dan relevan dengan tren terkini.
+
+[CONTEXT INPUT]
+Data evaluasi akan diambil dari screenshot insight konten yang diupload. Olah keseluruhan data yang ada di screenshot tersebut.
+Tambahan informasi:
+Niche: ${swotData.niche}
+Tone of Voice: ${pillarData.toneOfVoice}
+Target Audiens: ${pillarData.targetAudiens}
+Tujuan utama konten: ${idea.pillar}
+
+[TASK OUTPUT]
+Berdasarkan metrik insight yang dibaca dari screenshot, lakukan:
+ Analisis Kinerja Konten:
+Bandingkan hasil metrik dengan standar umum performa konten di platform tersebut.
+Identifikasi kekuatan konten (apa yang berhasil).
+Identifikasi kelemahan konten (apa yang kurang efektif).
+ Insight Strategis:
+Kenapa hasilnya bisa seperti itu (misalnya: hook lemah, caption tidak engaging, waktu posting kurang tepat, dsb).
+Faktor eksternal yang mungkin memengaruhi performa (tren, algoritma, audiens behavior).
+ Rekomendasi Perbaikan:
+Berikan tips spesifik untuk memperbaiki performa konten serupa di masa depan.
+Sertakan contoh konkrit (misalnya: alternatif hook, CTA lebih kuat, format konten berbeda, jam posting optimal).
+ Action Plan:
+Ringkas hasil analisis dalam bentuk langkah-langkah praktis yang bisa langsung diterapkan untuk optimasi konten selanjutnya.
+
+[INTERACTIVITY]
+Akhiri jawaban dengan pertanyaan:
+👉 “Apakah evaluasi ini sudah menjawab kebutuhan kamu? atau ada kendala terkait konten ini yang ingin dicari tau solusi nya?”`;
+
+  const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
+  // ▲▲▲ END ▲▲▲ //
+
+  // ▼▼▼ IMPORT/EXPORT FUNCTIONS ▼▼▼ //
   async function importFromSheet(importType: 'branding' | 'content') {
     if (!spreadsheetId) {
       return alert("Masukkan Spreadsheet ID atau URL lengkap terlebih dahulu.");
@@ -1042,6 +1260,7 @@ export default function PersonalBrandingBuilder() {
       alert('Gagal export PDF — pastikan library jspdf tersedia.');
     }
   }
+  // ▲▲▲ END ▲▲▲ //
 
   // --- RENDER LOGIC ---
   if (!isLoggedIn) {
@@ -1088,12 +1307,12 @@ export default function PersonalBrandingBuilder() {
                     <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   </div>
                   <div className="h-[1px] w-full bg-white mt-6 mb-4" />
-                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <div className="h-[1px] w-full bg-white mt-7 mb-5" />
                   <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea, pillar))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillarList, count) => openChatWithPrompt(buildPromptForContentIdeas(pillarList, count, swot, pillar))} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
               {activeTab === 'Finder Identity' && (
@@ -1114,7 +1333,7 @@ export default function PersonalBrandingBuilder() {
               )}
               {activeTab === 'Smart Pillar' && (
                 <>
-                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                 </>
               )}
@@ -1124,8 +1343,8 @@ export default function PersonalBrandingBuilder() {
               {activeTab === 'Content Factory' && (
                 <>
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillar, count) => openChatWithPrompt(buildPromptForContentIdeas(pillar, count))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(identity, idea, pillar))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(identity, idea))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillarList, count) => openChatWithPrompt(buildPromptForContentIdeas(pillarList, count, swot, pillar))} />
+                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
             </section>
