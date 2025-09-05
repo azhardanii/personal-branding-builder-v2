@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 type ParsedResult = {
   identity: { nama: string; suka: string; dikuasai: string; kenapaDibutuhkan: string; peluangPenghasilan: string };
-  swot: { niche: string; kategori: string; microNiche: string; kekuatan: string; kelemahan: string; peluang: string; tantangan: string };
+  swot: { niche: string; kategori: string; microNiche: string; kelebihan: string; kelemahan: string; peluang: string; tantangan: string };
   pillar: { premis: string; toneOfVoice: string; targetAudiens: string };
   bio: string;
   pillarsList: string[];
@@ -72,7 +72,7 @@ function parseContentFactorySheet(rows2d: string[][]): ContentIdea[] {
     platform: 4,
     format: 5,
     pillar: 6,
-    script: 8,
+    script: 7,
   };
 
   for (let i = startRow; i < rows2d.length; i++) {
@@ -214,7 +214,7 @@ export async function POST(req: Request) {
             niche: findValueForLabel(/NAMA_?NICHE/i, "below"),
             kategori: findValueForLabel(/CATEGORY/i, "below"),
             microNiche: findValueForLabel(/MICRO_?NICHE/i, "below"),
-            kekuatan: findValueForLabel(/KEKUATANMU|KEKUATAN/i, "below"),
+            kelebihan: findValueForLabel(/KELEBIHANMU|KELEBIHAN/i, "below"),
             kelemahan: findValueForLabel(/KELEMAHANMU|KELEMAHAN/i, "below"),
             peluang: findValueForLabel(/PELUANGMU/i, "below"),
             tantangan: findValueForLabel(/TANTANGANMU|TANTANGAN/i, "below"),
@@ -224,7 +224,7 @@ export async function POST(req: Request) {
             toneOfVoice: findValueForLabel(/TONE\s*OF\s*VOICE/i, "below"),
             targetAudiens: findValueForLabel(/TARGET\s*AUDIENS|TARGET\s*AUDIENCE/i, "below"),
           },
-          bio: findValueForLabel(/BIO\s*PILIHANMU/i, "right"),
+          bio: findValueForLabel(/BIO\s*PROFILE/i, "right"),
           pillarsList: findPillarsGrid(),
         };
 

@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     const payload = await req.json();
 
     const GAS_URL =
-      "https://script.google.com/macros/s/AKfycbzCT8tBQutrEfPz8o-zGmUIPtaakFpV4wEW1Yevi0JGwvianfApgT86jGEq5GSn43QJ/exec";
+      "https://script.google.com/macros/s/AKfycbwXH2lJYjAZ-jRgdVkLgJWoT0ZmzEm9-j5nIbA7QKF9sL9drkRUO6C_Jact6MI7UyOH/exec";
 
     const response = await fetch(GAS_URL, {
       method: "POST",
