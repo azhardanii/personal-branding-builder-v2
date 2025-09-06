@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 type ParsedResult = {
   identity: { nama: string; suka: string; dikuasai: string; kenapaDibutuhkan: string; peluangPenghasilan: string };
-  swot: { niche: string; kategori: string; microNiche: string; kelebihan: string; kelemahan: string; peluang: string; tantangan: string };
+  swot: { niche: string; kategori: string; microNiche: string; akunSosmed: string; kelebihan: string; kelemahan: string; peluang: string; tantangan: string };
   pillar: { premis: string; toneOfVoice: string; targetAudiens: string };
   bio: string;
   pillarsList: string[];
@@ -214,6 +214,7 @@ export async function POST(req: Request) {
             niche: findValueForLabel(/NAMA_?NICHE/i, "below"),
             kategori: findValueForLabel(/CATEGORY/i, "below"),
             microNiche: findValueForLabel(/MICRO_?NICHE/i, "below"),
+            akunSosmed: findValueForLabel(/NAMA\s*AKUN\s*SOSMED|NAMA\s*AKUN/i, "below"),
             kelebihan: findValueForLabel(/KELEBIHANMU|KELEBIHAN/i, "below"),
             kelemahan: findValueForLabel(/KELEMAHANMU|KELEMAHAN/i, "below"),
             peluang: findValueForLabel(/PELUANGMU/i, "below"),

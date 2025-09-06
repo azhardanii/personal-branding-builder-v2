@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState, useRef, memo } from "react";
 import Image from "next/image";
-import { LogOut, Download, Trash2, RefreshCcw, FileSpreadsheet, PlusCircle, ChevronLeft, ChevronRight, Upload, SaveIcon, Bot, FileText } from "lucide-react";
+import { LogOut, Download, Trash2, RefreshCcw, FileSpreadsheet, LucideBookOpenText, Info, PlusCircle, ChevronLeft, ChevronRight, Upload, SaveIcon, Bot, FileText } from "lucide-react";
 import LazyYoutube from "@/components/LazyYoutube";
 
 // ▼▼▼ TYPES & CONSTANTS (Tidak berubah) ▼▼▼
 type Identity = { nama: string; suka: string; dikuasai: string; kenapaDibutuhkan: string; peluangPenghasilan: string; };
-type SWOT = { niche: string; kategori: string; microNiche: string; kelebihan: string; kelemahan: string; peluang: string; tantangan: string; };
+type SWOT = { niche: string; kategori: string; microNiche: string; akunSosmed: string; kelebihan: string; kelemahan: string; peluang: string; tantangan: string; };
 type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
 type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
 const STORAGE_KEY = "pb_access_key";
@@ -84,7 +84,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
   currentId: string;
 }) => {
   const [localId, setLocalId] = useState(currentId);
-  const SPREADSHEET_TEMPLATE_URL = "https://docs.google.com/spreadsheets/d/15QZy8PMyegW78GG_Tx0hhvrosTiEn1_Nyx4jkpKAxoE/copy";
+  const SPREADSHEET_TEMPLATE_URL = "https://docs.google.com/spreadsheets/d/1ydFWlx5Vb2lWfUzQRfEHDNIzmBWC_n8DE9fD3-u-WaA/copy";
 
   useEffect(() => {
     setLocalId(currentId);
@@ -233,13 +233,12 @@ const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSave, isSav
   identity: Identity; setIdentity: (i: Identity) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <div>
-    <h2 className="text-sm font-bold mb-2 text-white">FINDER IDENTITY</h2>
     <div className="space-y-2">
-      <Input label="Nama" value={identity.nama} onChange={(v) => setIdentity({ ...identity, nama: v })} placeholder="Nama kamu" />
-      <Input label="Hal yang disukai" value={identity.suka} onChange={(v) => setIdentity({ ...identity, suka: v })} placeholder="Contoh: tools digital" rows={2} />
-      <Input label="Hal yang dikuasai" value={identity.dikuasai} onChange={(v) => setIdentity({ ...identity, dikuasai: v })} placeholder="Contoh: landing page, spreadsheet" rows={2} />
-      <Input label="Kenapa dibutuhkan" value={identity.kenapaDibutuhkan} onChange={(v) => setIdentity({ ...identity, kenapaDibutuhkan: v })} placeholder="Masalah yang kamu selesaikan" rows={3} />
-      <Input label="Peluang penghasilan" value={identity.peluangPenghasilan} onChange={(v) => setIdentity({ ...identity, peluangPenghasilan: v })} placeholder="Contoh: jualan template" rows={2} />
+      <Input label="Nama" value={identity.nama} onChange={(v) => setIdentity({ ...identity, nama: v })} placeholder="Nama kamu" rows={2} />
+      <Input label="Hal yang kamu suka" value={identity.suka} onChange={(v) => setIdentity({ ...identity, suka: v })} placeholder="Contoh: Suka ngomong didepan orang banyak" rows={2} />
+      <Input label="Hal yang kamu bisa" value={identity.dikuasai} onChange={(v) => setIdentity({ ...identity, dikuasai: v })} placeholder="Contoh: Public speaking" rows={2} />
+      <Input label="Kenapa dibutuhkan?" value={identity.kenapaDibutuhkan} onChange={(v) => setIdentity({ ...identity, kenapaDibutuhkan: v })} placeholder="Contoh: Orang-orang butuh komukasi dengan benar apalagi ngomong nya didepan banyak orang" rows={3} />
+      <Input label="Peluang penghasilan" value={identity.peluangPenghasilan} onChange={(v) => setIdentity({ ...identity, peluangPenghasilan: v })} placeholder="[Opsional] bisa dikosongin bila belum tau" rows={2} />
       <div className="flex gap-2 mt-4">
         <button onClick={onGenerate} className={btnPrimary}> <Bot className="w-5 h-5 -mt-0.5" /> Generate </button>
         <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
@@ -252,11 +251,11 @@ const SwotSection = memo(({ swot, setSwot, onGenerate, onSave, isSaving }: {
   swot: SWOT; setSwot: (s: SWOT) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <div>
-    <h2 className="text-sm font-bold mb-2 text-white">PERSONAL DETECTOR</h2>
     <div className="space-y-2">
-      <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} placeholder="Contoh: Digital Tools for Creators" />
+      <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} />
       <Input label="Kategori" value={swot.kategori} onChange={(v) => setSwot({ ...swot, kategori: v })} />
       <Input label="Micro-niche" value={swot.microNiche} onChange={(v) => setSwot({ ...swot, microNiche: v })} />
+      <Input label="Nama Profile Sosmed" value={swot.akunSosmed} onChange={(v) => setSwot({ ...swot, akunSosmed: v })} />
       <Input label="Kelebihan" value={swot.kelebihan} onChange={(v) => setSwot({ ...swot, kelebihan: v })} />
       <Input label="Kelemahan" value={swot.kelemahan} onChange={(v) => setSwot({ ...swot, kelemahan: v })} />
       <Input label="Peluang" value={swot.peluang} onChange={(v) => setSwot({ ...swot, peluang: v })} />
@@ -273,7 +272,6 @@ const PillarSection = memo(({ pillar, setPillar, onGenerate, onSave, isSaving }:
   pillar: Pillar; setPillar: (p: Pillar) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
   <>
-    <h2 className="text-sm font-bold mb-2 text-white">SMART PILLAR</h2>
     <div className="space-y-2">
       <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={3} />
       <label className="text-xs text-white mb-2">Tone of Voice</label>
@@ -299,7 +297,7 @@ const PillarSection = memo(({ pillar, setPillar, onGenerate, onSave, isSaving }:
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
-      <Input label="Target audiens" value={pillar.targetAudiens} onChange={(v) => setPillar({ ...pillar, targetAudiens: v })} />
+      <Input label="Target audiens" value={pillar.targetAudiens} onChange={(v) => setPillar({ ...pillar, targetAudiens: v })} placeholder="Contoh: Gen-Z, Mahasiswa, Mama muda, Editor pemula, Pembelajar bahasa Inggris, dsb." />
       <div className="flex gap-2 mt-4">
         <button onClick={onGenerate} className={btnPrimary}><Bot className="w-5 h-5 -mt-0.5" /> Generate </button>
         <button type="button" onClick={onSave} disabled={isSaving} className={btnNeutral}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
@@ -357,7 +355,7 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
           value={tagInputValue} 
           onChange={(e) => setTagInputValue(e.target.value)} 
           onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addPillarTagFromInput(); } }} 
-          placeholder="Tulis dan tekan Enter untuk tambah" 
+          placeholder="Tulis lalu tekan Enter untuk menambahkan pillar baru" 
           className="w-full bg-white dark:text-black rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
         />
         <div className="flex gap-2 w-full md:w-fit mt-1 md:mt-0">
@@ -384,18 +382,15 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
 
 const BioGeneratorSection = memo(({ bio, setBio, onGenerate, onSave, isSaving }: { bio: string; setBio: (b: string) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean; }) => (
   <>
-    <h2 className="text-sm font-bold mb-0 text-white">BIO GENERATOR</h2>
-    <p className="text-xs text-white mb-4">
-      Hasil generate akan didasarkan pada data Identity, SWOT, dan Pillar yang telah diisi.
-    </p>
-    <div className="flex flex-col gap-2 w-full">
-      <div className="flex mb-2 gap-2">
+    <div className="flex flex-col gap-2 w-full mb-3">
+      <div className="flex my-2 gap-2">
         <button onClick={onGenerate} className={`w-fit ${btnPrimary}`}>
         <Bot className="w-5 h-5 -mt-0.5" /> Generate
         </button>
         <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
       <div className="w-full">
+      <p className="text-xs text-white mb-2">Hasil generate akan didasarkan pada data Niche, Storytelling, dan Pillar yang telah diisi.</p>
         <Input value={bio} onChange={setBio} rows={4} placeholder="Tulis bio sosmed di sini..." />
       </div>
     </div>
@@ -419,8 +414,7 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
   }, [pillarsList, selectedPillar, filteredPillars]);
 
   return (
-    <div className="mt-6 border-t border-white pt-4">
-      <label className="text-sm font-bold text-white">CONTENT FACTORY</label>
+    <>
       <div className="relative mt-2">
         <select 
           value={selectedPillar} 
@@ -456,7 +450,7 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
           <Bot className="w-5 h-5 -mt-0.5" /> Generate
         </button>
       </div>
-    </div>
+    </>
   );
 });
 
@@ -471,7 +465,9 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
 }) => {
   const [newIdeaTitle, setNewIdeaTitle] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEvalModalOpen, setIsEvalModalOpen] = useState(false);
   const [selectedIdea, setSelectedIdea] = useState<ContentIdea | null>(null);
+  const [selectedEvalIdea, setSelectedEvalIdea] = useState<ContentIdea | null>(null);
 
   const addIdea = () => {
     if (!newIdeaTitle.trim()) return;
@@ -499,20 +495,30 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
     setContentIdeas((prev) => prev.filter((idea) => idea.id !== id));
   };
 
-  const handleOpenModal = (idea: ContentIdea) => {
+  const handleOpenDetailModal = (idea: ContentIdea) => {
     setSelectedIdea(idea);
     setIsModalOpen(true);
+  };
+  
+  const handleOpenEvalModal = (idea: ContentIdea) => {
+    setSelectedEvalIdea(idea);
+    setIsEvalModalOpen(true);
   };
   
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedIdea(null);
   };
+  
+  const handleCloseEvalModal = () => {
+    setIsEvalModalOpen(false);
+    setSelectedEvalIdea(null);
+  };
 
   return (
-    <div className="mt-6 border-t border-white pt-4">
-      <label className="text-sm font-bold mb-3 text-white">{`List Konten ${identity.nama}`}</label>
-      <div className="flex flex-col md:flex-row gap-2 mt-2 mb-4">
+    <>
+      <label className="text-sm mb-3 text-white">List Konten <b><i>{`${identity.nama}`}</i></b></label>
+      <div className="flex flex-col md:flex-row gap-2 mb-4">
         <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); }}} className="flex-1 bg-white dark:text-black border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
         <div className="flex gap-2 w-full md:w-fit mt-1 md:mt-0">
           <button onClick={addIdea} className={`w-full md:w-fit justify-center ${btnPrimary}`}><PlusCircle className="w-4 h-4" />Tambah</button>
@@ -618,15 +624,22 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
                   <span className="md:hidden font-bold float-left mt-1">Aksi:</span>
                   <div className="flex justify-end md:justify-center items-center gap-1">
                     <button
-                      onClick={() => handleOpenModal(idea)}
-                      className="text-blue-600 hover:text-blue-800 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
+                      onClick={() => handleOpenDetailModal(idea)}
+                      className="text-blue-600 hover:text-blue-800 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
                       title="Lihat Detail & Script"
                     >
                       <FileText className="w-3 h-3" /> Detail
                     </button>
                     <button
+                      onClick={() => handleOpenEvalModal(idea)}
+                      className="text-yellow-600 hover:text-yellow-800 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
+                      title="Lihat Detail & Script"
+                    >
+                      <LucideBookOpenText className="w-3 h-3" /> Evaluasi
+                    </button>
+                    <button
                       onClick={() => deleteIdea(idea.id)}
-                      className="text-red-500 hover:text-red-700 p-1 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex gap-1 items-center cursor-pointer"
+                      className="text-red-500 hover:text-red-700 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex gap-1 items-center cursor-pointer"
                       title="Hapus Konten"
                     >
                       <Trash2 className="w-3 h-3" /> Hapus
@@ -640,17 +653,26 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
       </div>
 
       {isModalOpen && selectedIdea && (
-        <ContentDetailModal 
+        <ContentDetailModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           ideaData={selectedIdea}
           onUpdate={updateIdea}
           onGenerateScript={onGenerateScript}
-          onGenerateEval={onGenerateEval}
+          onGenerateEval={onGenerateEval} // opsional kalau masih dipakai di detail
           pillarsList={pillarsList}
         />
       )}
-    </div>
+
+      {isEvalModalOpen && selectedEvalIdea && (
+        <ContentEvalModal
+          isOpen={isEvalModalOpen}
+          onClose={handleCloseEvalModal}
+          ideaData={selectedEvalIdea}
+          onGenerateEval={onGenerateEval}
+        />
+      )}
+    </>
   );
 });
 const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenerateScript, onGenerateEval, pillarsList }: {
@@ -687,13 +709,13 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-      <div className="bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-2xl p-4 max-h-[90vh] overflow-y-auto">
-        <div className="relative flex items-center justify-center mt-2 mb-4">
+      <div className="relative bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-2xl p-4 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-center mt-2 mb-4">
           <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={120} height={60} className="mb-1 mx-auto" priority />
-          <button onClick={onClose} className="absolute top-0 right-0 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
-            &times;
-          </button>
         </div>
+        <button onClick={onClose} className="absolute top-3 right-4 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
+          &times;
+        </button>
         <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>DETAIL KONTEN</div>
         
         <main className="p-4 space-y-4 mb-2 overflow-y-scroll">
@@ -778,14 +800,8 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
             <button onClick={() => onGenerateScript(formData)} className={`w-full mt-5 mb-4 justify-center ${btnPrimary}`}>
               <Bot className="w-5 h-5 -mt-0.5" /> Generate Script
             </button>
-            <label className="text-xs text-white mb-1 block">Script Konten bisa di isi sendiri, atau copy dari hasil script yang sudah di generate di AI.</label>
+            <label className="text-xs text-white mb-1 block">Script Konten bisa di isi sendiri, atau copy dari hasil script yang sudah di generate AI.</label>
             <textarea name="script" value={formData.script} onChange={handleChange} rows={8} placeholder="Tulis script konten di sini..." className="w-full bg-white rounded-lg px-3 py-2 text-sm resize-y dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" />
-            <div className="flex flex-col items-center w-full mt-4">
-              <button onClick={() => onGenerateEval(formData)} className={`w-full justify-center ${btnPrimary}`}>
-                <Bot className="w-5 h-5 -mt-0.5" /> Generate Evaluasi
-              </button>
-              <label className="text-xs max-w-md text-center text-white mt-1.5 block">Evaluasi konten "Disarankan 7 hari setelah posting" dan upload screenshot insight konten sebelum submit prompt di ChatGPT.</label>
-            </div>
           </div>
         </main>
         
@@ -795,6 +811,44 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
             <button onClick={onClose} className={btnNeutral}>Batal</button>
           </div>
         </footer>
+      </div>
+    </div>
+  );
+});
+const ContentEvalModal = memo(({ isOpen, onClose, ideaData, onGenerateEval }: {
+  isOpen: boolean;
+  onClose: () => void;
+  ideaData: ContentIdea;
+  onGenerateEval: (idea: ContentIdea) => void;
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+      <div className="relative bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-xl p-6 max-h-[90vh] overflow-y-auto">
+        
+        <div className="relative flex items-center justify-center mt-2 mb-4">
+          <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={120} height={60} className="mb-1 mx-auto" priority />
+        </div>
+        <button onClick={onClose} className="absolute top-3 right-4 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
+          &times;
+        </button>
+        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>EVALUASI KONTEN</div>
+
+        <main className="space-y-4 text-white">
+          <p className="text-sm">
+            Evaluasi untuk konten: <span className="font-bold">{ideaData.title}</span>
+          </p>
+          <button
+            onClick={() => onGenerateEval(ideaData)}
+            className={`w-full justify-center ${btnPrimary}`}
+          >
+            <Bot className="w-5 h-5 -mt-0.5" /> Generate Evaluasi
+          </button>
+          <p className="text-xs max-w-md text-center mx-auto text-white/80 mt-2">
+            Disarankan melakukan evaluasi <strong>7 hari setelah posting</strong> dan upload screenshot insight konten sebelum submit prompt ke ChatGPT.
+          </p>
+        </main>
       </div>
     </div>
   );
@@ -811,7 +865,7 @@ export default function PersonalBrandingBuilder() {
   const [isImporting, setIsImporting] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const emptyIdentity: Identity = { nama: "", suka: "", dikuasai: "", kenapaDibutuhkan: "", peluangPenghasilan: "" };
-  const emptySwot: SWOT = { niche: "", kategori: "", microNiche: "", kelebihan: "", kelemahan: "", peluang: "", tantangan: "" };
+  const emptySwot: SWOT = { niche: "", kategori: "", microNiche: "", akunSosmed: "", kelebihan: "", kelemahan: "", peluang: "", tantangan: "" };
   const emptyPillar: Pillar = { premis: "", toneOfVoice: "", targetAudiens: "" };
   const [identity, setIdentity] = useState<Identity>(emptyIdentity);
   const [swot, setSwot] = useState<SWOT>(emptySwot);
@@ -821,6 +875,7 @@ export default function PersonalBrandingBuilder() {
   const [contentIdeas, setContentIdeas] = useState<ContentIdea[]>([]);
   const [activeTab, setActiveTab] = useState("Start from 0");
   const [isSpreadsheetModalOpen, setIsSpreadsheetModalOpen] = useState(false);
+  const [infoModal, setInfoModal] = useState<string | null>(null);
 
   // ▼▼▼ LOCAL STORAGE & AUTH EFFECT ▼▼▼ //
   useEffect(() => {
@@ -836,12 +891,45 @@ export default function PersonalBrandingBuilder() {
   }, []);
   // ▲▲▲ END ▲▲▲ //
 
-  // ▼▼▼ EFFECT POPUP MODAL ▼▼▼ //
+  // ▼▼▼ POPUP MODAL SHEET ID ▼▼▼ //
   useEffect(() => {
     if (isLoggedIn && !spreadsheetId) {
       setIsSpreadsheetModalOpen(true);
     }
   }, [isLoggedIn, spreadsheetId]);
+  // ▲▲▲ END ▲▲▲ //
+
+  // ▼▼▼ POPUP MODAL INFO ▼▼▼ //
+  const openInfoModal = (type: string) => setInfoModal(type);
+  const closeInfoModal = () => setInfoModal(null);
+
+  const InfoModal = ({ type, onClose }: { type: string; onClose: () => void }) => {
+    const infoContent: Record<string, string> = {
+      niche: "Bantu kamu menemukan niche personal branding yang paling sesuai dengan minat, keahlian, dan peluang pasar.",
+      storytelling: "Memudahkanmu merangkai cerita personal agar audiens merasa relate dan engage.",
+      pillar: "Bantu kamu menemukan pilar konten strategis agar kontenmu konsisten, terarah, dan berhubungan dengan niche.",
+      bio: "Bantu kamu menulis bio media sosial yang ringkas, menarik, dan kuat membangun personal branding.",
+      contentFactory: "Hasilkan ide konten sesuai pilar dan kebutuhanmu agar nggak kehabisan bahan posting.",
+      planner: "Bantu kamu mengelola ide, script, dan evaluasi konten dalam satu tempat.",
+    };
+  
+    return (
+      <div className="fixed inset-0 dark:text-black bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg max-w-md w-full pt-5 pb-6 px-6 relative">
+          <button
+            onClick={onClose}
+            className="absolute top-1 cursor-pointer right-3 text-gray-600 hover:text-black text-xl"
+          >
+            &times;
+          </button>
+          <h2 className="text-lg font-bold mb-2">Tentang Fitur</h2>
+          <p className="text-sm text-gray-700 whitespace-pre-line">
+            {infoContent[type]}
+          </p>
+        </div>
+      </div>
+    );
+  };
   // ▲▲▲ END ▲▲▲ //
 
   // ▼▼▼ DATA & AUTH FUNCTIONS ▼▼▼ //
@@ -1115,7 +1203,7 @@ Akhiri jawaban dengan pertanyaan:
   const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
   // ▲▲▲ END ▲▲▲ //
 
-  // ▼▼▼ IMPORT/EXPORT FUNCTIONS ▼▼▼ //
+  // ▼▼▼ IMPORT & EXPORT FUNCTIONS ▼▼▼ //
   async function importFromSheet(importType: 'branding' | 'content') {
     if (!spreadsheetId) {
       return alert("Masukkan Spreadsheet ID atau URL lengkap terlebih dahulu.");
@@ -1169,6 +1257,7 @@ Akhiri jawaban dengan pertanyaan:
           niche: parsed.swot?.niche || "",
           kategori: parsed.swot?.kategori || "",
           microNiche: parsed.swot?.microNiche || "",
+          akunSosmed: parsed.swot?.akunSosmed || "",
           kelebihan: parsed.swot?.kelebihan || "",
           kelemahan: parsed.swot?.kelemahan || "",
           peluang: parsed.swot?.peluang || "",
@@ -1271,36 +1360,133 @@ Akhiri jawaban dengan pertanyaan:
     }
   }
 
+  function sanitizeText(text: string) {
+    if (!text) return "";
+    return text.replace(/[^\x00-\x7F]/g, "");
+  }
   async function downloadPDF() {
     try {
-      const { jsPDF } = await import('jspdf');
-      const doc = new jsPDF({ unit: 'pt' });
+      const { jsPDF } = await import("jspdf");
+      const doc = new jsPDF({ unit: "pt" });
       let y = 40;
-      doc.setFontSize(16);
-      doc.text('Personal Branding - Export', 40, y);
-      y += 30;
-      doc.setFontSize(12);
-
-      function writeSection(title: string, obj: object) {
-        doc.setFontSize(13);
-        doc.text(title, 40, y);
-        y += 18;
-        doc.setFontSize(10);
-        const text = JSON.stringify(obj, null, 2);
-        const split = doc.splitTextToSize(text, 520);
-        doc.text(split, 40, y);
-        y += split.length * 12 + 12;
-        if (y > 750) { doc.addPage(); y = 40; }
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+  
+      function drawBackground() {
+        doc.setFillColor(0, 0, 0);
+        doc.rect(0, 0, pageWidth, pageHeight, "F");
       }
-
-      writeSection('IDENTITY', identity);
-      writeSection('SWOT', swot);
-      writeSection('PILLAR', pillar);
-      doc.save(`personal-branding-${identity.nama || 'export'}.pdf`);
+  
+      drawBackground();
+  
+      const logo = new window.Image();
+      logo.src = "/logo-pbbv2.webp";
+      await new Promise((resolve, reject) => {
+        logo.onload = resolve;
+        logo.onerror = reject;
+      });
+  
+      const imgWidth = 200;
+      const imgHeight = (logo.height / logo.width) * imgWidth;
+      doc.addImage(logo, "WEBP", (pageWidth - imgWidth) / 2, y, imgWidth, imgHeight);
+  
+      y += imgHeight + 30;
+  
+      doc.setFontSize(20);
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.text("Data Personal Branding", pageWidth / 2, y, { align: "center" });
+      y += 50;
+  
+      function writeSection(title: string, fields: { label: string; value?: any; isArray?: boolean }[]) {
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.text(title, 40, y);
+        y += 6;
+  
+        doc.setDrawColor(255, 255, 255);
+        doc.line(40, y, pageWidth - 40, y);
+        y += 20;
+  
+        fields.forEach((f) => {
+          if (!f.value || (Array.isArray(f.value) && f.value.length === 0)) return;
+  
+          if (f.isArray && Array.isArray(f.value)) {
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.text(`${f.label}:`, 60, y);
+            y += 16;
+  
+            f.value.forEach((item: string) => {
+              doc.setFont("helvetica", "bold");
+              const split = doc.splitTextToSize(`• ${item}`, 460);
+              doc.text(split, 80, y);
+              y += split.length * 14 + 4;
+  
+              if (y > pageHeight - 80) {
+                doc.addPage();
+                drawBackground();
+                y = 60;
+              }
+            });
+            y += 10;
+          } else {
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.text(`${f.label}: `, 60, y);
+  
+            doc.setFont("helvetica", "bold");
+            const split = doc.splitTextToSize(String(f.value), 400);
+            doc.text(split, 180, y);
+            y += split.length * 14 + 6;
+  
+            if (y > pageHeight - 80) {
+              doc.addPage();
+              drawBackground();
+              y = 60;
+            }
+          }
+        });
+  
+        y += 20;
+      }
+  
+      // Identity
+      writeSection("PERSONAL IDENTITY", [
+        { label: "Nama", value: identity?.nama },
+        { label: "Hal yang Aku Suka", value: identity?.suka },
+        { label: "Hal yang Aku Bisa", value: identity?.dikuasai },
+        { label: "Kenapa Dibutuhkan", value: identity?.kenapaDibutuhkan },
+        { label: "Peluang Penghasilan", value: identity?.peluangPenghasilan },
+        { label: "Profile di Sosmed", value: swot?.akunSosmed },
+        { label: "Bio Sosmed", value: sanitizeText(bioResult) },
+        { label: "Niche", value: swot?.niche },
+        { label: "Kategori", value: swot?.kategori },
+        { label: "Micro-niche", value: swot?.microNiche },
+      ]);
+  
+      // Storytelling
+      writeSection("STORYTELLING FOUNDATION", [
+        { label: "Kelebihan", value: swot?.kelebihan },
+        { label: "Kelemahan", value: swot?.kelemahan },
+        { label: "Peluang", value: swot?.peluang },
+        { label: "Tantangan", value: swot?.tantangan },
+        { label: "Premis", value: pillar?.premis },
+      ]);
+  
+      // Pillar
+      writeSection("CONTENT PILLAR", [
+        { label: "Tone of Voice", value: pillar?.toneOfVoice },
+        { label: "Target Audiens", value: pillar?.targetAudiens },
+        { label: "Pilar Konten", value: pillarsList, isArray: true },
+      ]);
+  
+      doc.save(`personal-branding-${identity?.nama || "export"}.pdf`);
     } catch (err) {
-      alert('Gagal export PDF — pastikan library jspdf tersedia.');
+      alert("Gagal export PDF — pastikan library jspdf tersedia.");
+      console.error(err);
     }
-  }
+  }  
   // ▲▲▲ END ▲▲▲ //
 
   // --- RENDER LOGIC ---
@@ -1344,52 +1530,136 @@ Akhiri jawaban dengan pertanyaan:
               {activeTab === 'Start from 0' && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                    <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    <div className="flex flex-col">
+                      <div className="flex gap-2">
+                        <h2 className="text-base font-bold mb-2 text-white">NICHE FINDER</h2>
+                        <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("niche")} />
+                        {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
+                      </div>
+                      <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex gap-2">
+                        <h2 className="text-base font-bold mb-2 text-white">STORYTELLING BUILDER</h2>
+                        <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("storytelling")} />
+                        {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
+                      </div>
+                      <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    </div>
                   </div>
-                  <div className="h-[1px] w-full bg-white mt-6 mb-4" />
-                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <div className="h-[1px] w-full bg-white mt-7 mb-5" />
-                  <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillarList, count) => openChatWithPrompt(buildPromptForContentIdeas(pillarList, count, swot, pillar))} />
-                  <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+
+                  <div className="h-[1px] w-full bg-white/50 mt-10 mb-8" />
+
+                  <div className="flex flex-col">
+                    <div className="flex gap-2">
+                      <h2 className="text-base font-bold mb-2 text-white">SMART PILLAR</h2>
+                      <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("pillar")} />
+                      {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
+                    </div>
+                    <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    <div className="h-[1px] w-full bg-transparent mt-5" />
+                    <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  </div>
+
+                  <div className="h-[1px] w-full bg-white/50 mt-12 mb-9" />
+
+                  <div className="flex flex-col">
+                    <div className="flex gap-2">
+                      <h2 className="text-base font-bold mb-2 text-white">BIO GENERATOR</h2>
+                      <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("bio")} />
+                      {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
+                    </div>
+                    <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  </div>
+
+                  <div className="h-[1px] w-full bg-white/50 mt-8 mb-9" />
+
+                  <div className="flex flex-col">
+                    <div className="flex gap-2">
+                      <h2 className="text-base font-bold mb-2 text-white">CONTENT FACTORY</h2>
+                      <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("contentFactory")} />
+                      {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
+                    </div>
+                    <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillarList, count) => openChatWithPrompt(buildPromptForContentIdeas(pillarList, count, swot, pillar))} />
+                  </div>
+
+                  <div className="h-[1px] w-full bg-white/50 mt-10 mb-9" />
+
+                  <div className="flex flex-col">
+                    <div className="flex gap-2">
+                      <h2 className="text-base font-bold mb-2 text-white">PERSONAL BRANDING PLANNER</h2>
+                      <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("planner")} />
+                      {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
+                    </div>
+                    <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
+                  </div>
                 </>
               )}
               {activeTab === 'Niche Finder' && (
                 <>
+                  <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
+                    <h2 className="text-xl tracking-wider font-bold text-white">NICHE FINDER</h2>
+                    <p className="text-sm text-white">Bantu kamu menemukan niche personal branding yang paling sesuai dengan minat, keahlian, dan peluang pasar.</p>
+                  </div>                  
                   <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <div className="space-y-2">
                     <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} placeholder="Contoh: Digital Tools for Creators" />
                     <Input label="Kategori" value={swot.kategori} onChange={(v) => setSwot({ ...swot, kategori: v })} />
                     <Input label="Micro-niche" value={swot.microNiche} onChange={(v) => setSwot({ ...swot, microNiche: v })} />
+                    <Input label="Nama Profile Sosmed" value={swot.akunSosmed} onChange={(v) => setSwot({ ...swot, akunSosmed: v })} />
                   </div>
                 </>
               )}
               {activeTab === 'Storytelling Builder' && (
-                <div className="space-y-2">
-                  <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
-                  <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={2} />
-                </div>
+                <>
+                  <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
+                    <h2 className="text-xl tracking-wider font-bold text-white">STORYTELLING BUILDER</h2>
+                    <p className="text-sm text-white">Memudahkanmu merangkai cerita personal agar audiens merasa relate dan engage.</p>
+                  </div> 
+                  <div className="space-y-2">
+                    <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={2} />
+                  </div>
+                </>
               )}
               {activeTab === 'Smart Pillar' && (
                 <>
+                  <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
+                    <h2 className="text-xl tracking-wider font-bold text-white">SMART PILLAR</h2>
+                    <p className="text-sm text-white">Bantu kamu menemukan pilar konten strategis agar kontenmu konsisten, terarah, dan berhubungan dengan niche.</p>
+                  </div> 
                   <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                 </>
               )}
               {activeTab === 'Bio Generator' && (
-                <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                <>
+                  <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
+                    <h2 className="text-xl tracking-wider font-bold text-white">BIO GENERATOR</h2>
+                    <p className="text-sm text-white">Bantu kamu menulis bio media sosial yang ringkas, menarik, dan kuat membangun personal branding.</p>
+                  </div> 
+                  <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                </>
               )}
               {activeTab === 'Content Factory' && (
                 <>
+                  <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
+                    <h2 className="text-xl tracking-wider font-bold text-white">CONTENT FACTORY</h2>
+                    <p className="text-sm text-white">Hasilkan ide konten sesuai pilar dan kebutuhanmu agar nggak kehabisan bahan posting.</p>
+                  </div> 
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  <div className="h-[1px] w-full bg-transparent mt-5" />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillarList, count) => openChatWithPrompt(buildPromptForContentIdeas(pillarList, count, swot, pillar))} />
+                  <div className="h-[1px] w-full bg-white/50 mt-10 mb-7" />
                   <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
               {activeTab === 'Personal Branding Planner' && (
                 <>
+                  <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
+                    <h2 className="text-xl tracking-wider font-bold text-white">PERSONAL BRANDING PLANNER</h2>
+                    <p className="text-sm text-white">Bantu kamu mengelola ide, script, dan evaluasi konten dalam satu tempat.</p>
+                  </div> 
                   <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
