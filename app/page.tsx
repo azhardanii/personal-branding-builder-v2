@@ -10,7 +10,7 @@ type SWOT = { niche: string; kategori: string; microNiche: string; akunSosmed: s
 type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
 type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
 const STORAGE_KEY = "pb_access_key";
-const VALID_KEY = "demo_key";
+const VALID_KEYS = ["kadafi_tampan", "admin123", "super_access"];
 const btnPrimary = 'px-3 py-2 bg-[#005bff] font-bold text-white rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
 const btnNeutral = 'px-3 py-2 bg-white font-bold text-black rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
 // ▲▲▲ END OF TYPES & CONSTANTS ▲▲▲
@@ -33,7 +33,6 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
   onLogin: (e: React.FormEvent) => void;
   accessKey: string;
   setAccessKey: (key: string) => void;
-  onUseDemoKey: () => void;
 }) => (
   <div className="relative flex items-center justify-center p-6 bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] min-h-screen">
     <Image src="/kadev-logomark.webp" alt="Logo" width={100} height={50} className="absolute top-10 mx-auto" />
@@ -59,7 +58,7 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
               />
               <span className="text-white text-xs md:text-sm">Remember me</span>
             </label>
-            <a href="#" className="text-white text-xs md:text-[15px] hover:text-slate-400 italic transition-colors duration-150">
+            <a href="https://api.whatsapp.com/send/?phone=6281330259865&text&type=phone_number&text=Haloo%20Mindev%2C%20tolong%20bantu%20aku%20lupa%20%22Access%20Key%22%20Personal%20Branding%20Builder%20AI%20%F0%9F%99%8F%F0%9F%8F%BB" className="text-white text-xs md:text-[15px] hover:text-slate-400 italic transition-colors duration-150" target="_blank">
               Lupa access key?
             </a>
           </div>
@@ -70,7 +69,24 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
       </form>
       <div className="flex gap-0 mt-4 flex-col items-center justify-center text-white text-xs md:text-sm">
         <p>Ga dapet Access Key?</p>
-        <a href="#" className="text-yellow-300 hover:text-yellow-500 underline text-xs md:text-sm underline-offset-2">Hubungi Admin di sini</a>
+        <div className="flex gap-0.5 text-yellow-300 hover:text-yellow-500 underline items-center -ml-3">
+        <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="22px" 
+            height="22px" 
+            viewBox="0 0 256 256" 
+          >
+            <path 
+              d="M128.00049,28A100.02594,100.02594,0,0,0,41.11475,177.53908l-9.0044,31.51661a11.99971,11.99971,0,0,0,14.835,14.834l31.5166-9.00391A100.00677,100.00677,0,1,0,128.00049,28Zm0,192a91.87082,91.87082,0,0,1-46.95264-12.86719,3.99494,3.99494,0,0,0-3.14355-.4082l-33.15723,9.47363a3.99979,3.99979,0,0,1-4.94434-4.94531l9.47266-33.15625a4.00111,4.00111,0,0,0-.4082-3.14355A92.01077,92.01077,0,1,1,128.00049,220Zm50.51123-73.457-20.45947-11.69141a12.01054,12.01054,0,0,0-12.12745.12891l-13.80664,8.28418a44.04183,44.04183,0,0,1-19.38232-19.38281l8.28369-13.80664a12.0108,12.0108,0,0,0,.12891-12.127l-11.69092-20.46A10.91584,10.91584,0,0,0,100,72a32.00811,32.00811,0,0,0-32,31.88086A84.001,84.001,0,0,0,151.999,188h.12012A32.00842,32.00842,0,0,0,184,156,10.913,10.913,0,0,0,178.51172,146.543ZM152.10791,180h-.1084A75.99972,75.99972,0,0,1,76,103.8926,23.997,23.997,0,0,1,100,80a2.89975,2.89975,0,0,1,2.51172,1.457L114.20264,101.918a4.00418,4.00418,0,0,1-.043,4.042l-9.38916,15.64844a3.9987,3.9987,0,0,0-.21826,3.69824,52.04112,52.04112,0,0,0,26.1416,26.1416,3.99707,3.99707,0,0,0,3.69873-.21875L150.04,141.84084a4.006,4.006,0,0,1,4.043-.04394l20.46045,11.69238A2.89712,2.89712,0,0,1,176,156,23.99725,23.99725,0,0,1,152.10791,180Z" 
+              stroke="currentColor" 
+              strokeWidth="8" 
+              fill="none" 
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <a href="https://api.whatsapp.com/send/?phone=6281330259865&text&type=phone_number&text=Haloo%20Mindev%2C%20tolong%20bantu%20aku%20belum%20dapet%20%22Access%20Key%22%20Personal%20Branding%20Builder%20AI%20%F0%9F%99%8F%F0%9F%8F%BB" target="_blank" className="text-xs md:text-sm underline-offset-2">Hubungi Admin di sini</a>
+        </div>
       </div>
     </div>
   </div>
@@ -862,7 +878,8 @@ export default function PersonalBrandingBuilder() {
 
   const [savedKey, setSavedKey] = useState("");
   const [spreadsheetId, setSpreadsheetId] = useState("");
-  const [isImporting, setIsImporting] = useState(false);
+  const [isImportingBranding, setIsImportingBranding] = useState(false);
+  const [isImportingContent, setIsImportingContent] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const emptyIdentity: Identity = { nama: "", suka: "", dikuasai: "", kenapaDibutuhkan: "", peluangPenghasilan: "" };
   const emptySwot: SWOT = { niche: "", kategori: "", microNiche: "", akunSosmed: "", kelebihan: "", kelemahan: "", peluang: "", tantangan: "" };
@@ -881,10 +898,11 @@ export default function PersonalBrandingBuilder() {
   useEffect(() => {
     const savedKey = localStorage.getItem(STORAGE_KEY);
     const savedId = localStorage.getItem("pb_spreadsheet_id");
-    
-    if (savedKey === VALID_KEY) {
+  
+    if (savedKey && VALID_KEYS.includes(savedKey)) {
       setIsLoggedIn(true);
     }
+  
     if (savedId) {
       setSpreadsheetId(savedId);
     }
@@ -935,7 +953,7 @@ export default function PersonalBrandingBuilder() {
   // ▼▼▼ DATA & AUTH FUNCTIONS ▼▼▼ //
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (accessKeyInput === VALID_KEY) {
+    if (VALID_KEYS.includes(accessKeyInput)) {
       localStorage.setItem(STORAGE_KEY, accessKeyInput);
       setIsLoggedIn(true);
     } else {
@@ -969,9 +987,7 @@ export default function PersonalBrandingBuilder() {
     setSwot(emptySwot);
     setPillar(emptyPillar);
     setPillarsList(["", "", "", "", "", ""]);
-    setContentIdeas([]);
     setBioResult("");
-    setContentIdeas([]);
   }
   // ▲▲▲ END ▲▲▲ //
 
@@ -1230,7 +1246,12 @@ Akhiri jawaban dengan pertanyaan:
       successMessage = "✅ Data Content Factory berhasil diimpor!";
     }
 
-    setIsImporting(true);
+    if (importType === "branding") {
+      setIsImportingBranding(true);
+    } else {
+      setIsImportingContent(true);
+    }
+    
     try {
       const res = await fetch("/api/import", {
         method: "POST",
@@ -1292,7 +1313,11 @@ Akhiri jawaban dengan pertanyaan:
       console.error("Import error:", err);
       alert(`❌ Gagal import data (${importType}).\n\nError: ${err?.message || err}`);
     } finally {
-      setIsImporting(false);
+      if (importType === "branding") {
+        setIsImportingBranding(false);
+      } else {
+        setIsImportingContent(false);
+      }
     }
   }
 
@@ -1492,7 +1517,7 @@ Akhiri jawaban dengan pertanyaan:
   // --- RENDER LOGIC ---
   if (!isLoggedIn) {
     return (
-      <LoginScreen onLogin={handleLogin} accessKey={accessKeyInput} setAccessKey={setAccessKeyInput} onUseDemoKey={() => setAccessKeyInput(VALID_KEY)} />
+      <LoginScreen onLogin={handleLogin} accessKey={accessKeyInput} setAccessKey={setAccessKeyInput} />
     );
   }
 
@@ -1515,10 +1540,10 @@ Akhiri jawaban dengan pertanyaan:
               <button className="flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={downloadPDF}><Download className="w-4 h-4" strokeWidth={2.5} /> Download PDF</button>
               <button className="flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" onClick={resetAll}><RefreshCcw className="w-4 h-4" strokeWidth={2.5} /> Reset Data</button>
               <button onClick={handleLogout} className="hidden lg:flex bg-white items-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" strokeWidth={2.5} /> Logout </button>
-              <button onClick={() => importFromSheet('branding')} disabled={isImporting} className={`hidden lg:flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Data Personal Branding'} </button>
-              <button onClick={() => importFromSheet('content')} disabled={isImporting} className={`hidden lg:flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Content Planner'} </button>
-              <button onClick={() => importFromSheet('branding')} disabled={isImporting} className={`flex lg:hidden bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Branding'} </button>
-              <button onClick={() => importFromSheet('content')} disabled={isImporting} className={`flex lg:hidden bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImporting ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImporting ? 'Importing...' : 'Import Content'} </button>
+              <button onClick={() => importFromSheet('branding')} disabled={isImportingBranding} className={`hidden lg:flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImportingBranding ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImportingBranding ? 'Importing...' : 'Import Data Personal Branding'} </button>
+              <button onClick={() => importFromSheet('content')} disabled={isImportingContent} className={`hidden lg:flex bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImportingContent ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImportingContent ? 'Importing...' : 'Import Content Planner'} </button>
+              <button onClick={() => importFromSheet('branding')} disabled={isImportingBranding} className={`flex lg:hidden bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImportingBranding ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImportingBranding ? 'Importing...' : 'Import Branding'} </button>
+              <button onClick={() => importFromSheet('content')} disabled={isImportingContent} className={`flex lg:hidden bg-white items-center justify-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 ${isImportingContent ? 'opacity-50 cursor-not-allowed' : ''}`}> <Upload className="w-4 h-4" strokeWidth={2.5} /> {isImportingContent ? 'Importing...' : 'Import Content'} </button>
               <button onClick={handleLogout} className="flex lg:hidden bg-white items-center gap-1 px-2 py-1 border rounded text-xs lg:text-sm cursor-pointer transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"> <LogOut className="w-4 h-4" strokeWidth={2.5} /> Logout </button>
             </div>
           </header>
