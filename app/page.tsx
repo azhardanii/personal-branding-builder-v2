@@ -10,7 +10,6 @@ type SWOT = { niche: string; kategori: string; microNiche: string; akunSosmed: s
 type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
 type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
 const STORAGE_KEY = "pb_access_key";
-const VALID_KEYS = ["kadafi_tampan", "admin123", "super_access"];
 const btnPrimary = 'px-3 py-2 bg-[#005bff] font-bold text-white rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
 const btnNeutral = 'px-3 py-2 bg-white font-bold text-black rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
 // ▲▲▲ END OF TYPES & CONSTANTS ▲▲▲
@@ -35,14 +34,14 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
   setAccessKey: (key: string) => void;
 }) => (
   <div className="relative flex items-center justify-center p-6 bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] min-h-screen">
-    <Image src="/kadev-logomark.webp" alt="Logo" width={100} height={50} className="absolute top-10 mx-auto" />
+    <Image src="/kadev-logomark.webp" alt="Logo" width={223} height={60} style={{ width: "100px", height: "auto" }} className="absolute top-10 mx-auto" />
     <div className="w-full max-w-xl px-6 flex justify-center items-center flex-col">
       <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={480} height={240} className="mb-6" priority />
       <div className="flex items-center mb-5 text-white text-3xl md:text-4xl font-bold" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>ACCESS KEY</div>
       <form onSubmit={onLogin} className="w-full space-y-3">
         <div className="w-full">
           <div className="relative">
-            <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" zoomAndPan="magnify" viewBox="0 0 22.5 28.5" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a747d21c9a"><path d="M 3 9 L 14 9 L 14 26 L 3 26 Z M 3 9 " clip-rule="nonzero"/></clipPath><clipPath id="bf7c8b2ec1"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="e13639702a"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="c2f24ca340"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="0e0e9c8ea5"><path d="M 4 22 L 10 22 L 10 27.945312 L 4 27.945312 Z M 4 22 " clip-rule="nonzero"/></clipPath><clipPath id="2df283ed8c"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="cef54e0750"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="812c27ac77"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="de09ee95b9"><path d="M 6 18 L 12 18 L 12 24 L 6 24 Z M 6 18 " clip-rule="nonzero"/></clipPath><clipPath id="db4dfe6231"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="09edbcc98e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="dd7026bb5e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="99ba2a4d5b"><path d="M 9 2 L 20 2 L 20 13 L 9 13 Z M 9 2 " clip-rule="nonzero"/></clipPath><clipPath id="a80c4e848e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="9d3d4da78b"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath><clipPath id="437b0b0983"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a747d21c9a)"><g clip-path="url(#bf7c8b2ec1)"><g clip-path="url(#e13639702a)"><g clip-path="url(#c2f24ca340)"><path fill="#000000" d="M 3.382812 24.496094 L 11.304688 9.945312 L 13.882812 11.347656 L 5.960938 25.898438 Z M 3.382812 24.496094 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g><g clip-path="url(#0e0e9c8ea5)"><g clip-path="url(#2df283ed8c)"><g clip-path="url(#cef54e0750)"><g clip-path="url(#812c27ac77)"><path fill="#000000" d="M 4.671875 25.195312 L 6.113281 22.550781 L 9.710938 24.511719 L 8.269531 27.15625 Z M 4.671875 25.195312 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g><g clip-path="url(#de09ee95b9)"><g clip-path="url(#db4dfe6231)"><g clip-path="url(#09edbcc98e)"><g clip-path="url(#dd7026bb5e)"><path fill="#000000" d="M 6.832031 21.230469 L 8.273438 18.582031 L 11.871094 20.542969 L 10.429688 23.1875 Z M 6.832031 21.230469 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g><g clip-path="url(#99ba2a4d5b)"><g clip-path="url(#a80c4e848e)"><g clip-path="url(#9d3d4da78b)"><g clip-path="url(#437b0b0983)"><path fill="#000000" d="M 12.3125 6.203125 C 11.714844 7.300781 12.097656 8.660156 13.164062 9.242188 C 14.230469 9.820312 15.582031 9.40625 16.175781 8.308594 C 16.773438 7.210938 16.390625 5.851562 15.324219 5.273438 C 14.257812 4.691406 12.90625 5.109375 12.3125 6.203125 Z M 11.722656 11.886719 C 9.230469 10.53125 8.339844 7.355469 9.734375 4.800781 C 11.125 2.242188 14.273438 1.269531 16.765625 2.625 C 19.253906 3.980469 20.148438 7.15625 18.753906 9.710938 C 17.363281 12.269531 14.214844 13.242188 11.722656 11.886719 Z M 11.722656 11.886719 " fill-opacity="1" fill-rule="evenodd"/></g></g></g></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" zoomAndPan="magnify" viewBox="0 0 22.5 28.5" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a747d21c9a"><path d="M 3 9 L 14 9 L 14 26 L 3 26 Z M 3 9 " clipRule="nonzero"/></clipPath><clipPath id="bf7c8b2ec1"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="e13639702a"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="c2f24ca340"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="0e0e9c8ea5"><path d="M 4 22 L 10 22 L 10 27.945312 L 4 27.945312 Z M 4 22 " clipRule="nonzero"/></clipPath><clipPath id="2df283ed8c"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="cef54e0750"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="812c27ac77"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="de09ee95b9"><path d="M 6 18 L 12 18 L 12 24 L 6 24 Z M 6 18 " clipRule="nonzero"/></clipPath><clipPath id="db4dfe6231"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="09edbcc98e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="dd7026bb5e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="99ba2a4d5b"><path d="M 9 2 L 20 2 L 20 13 L 9 13 Z M 9 2 " clipRule="nonzero"/></clipPath><clipPath id="a80c4e848e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="9d3d4da78b"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="437b0b0983"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath></defs><g clipPath="url(#a747d21c9a)"><g clipPath="url(#bf7c8b2ec1)"><g clipPath="url(#e13639702a)"><g clipPath="url(#c2f24ca340)"><path fill="#000000" d="M 3.382812 24.496094 L 11.304688 9.945312 L 13.882812 11.347656 L 5.960938 25.898438 Z M 3.382812 24.496094 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g><g clipPath="url(#0e0e9c8ea5)"><g clipPath="url(#2df283ed8c)"><g clipPath="url(#cef54e0750)"><g clipPath="url(#812c27ac77)"><path fill="#000000" d="M 4.671875 25.195312 L 6.113281 22.550781 L 9.710938 24.511719 L 8.269531 27.15625 Z M 4.671875 25.195312 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g><g clipPath="url(#de09ee95b9)"><g clipPath="url(#db4dfe6231)"><g clipPath="url(#09edbcc98e)"><g clipPath="url(#dd7026bb5e)"><path fill="#000000" d="M 6.832031 21.230469 L 8.273438 18.582031 L 11.871094 20.542969 L 10.429688 23.1875 Z M 6.832031 21.230469 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g><g clipPath="url(#99ba2a4d5b)"><g clipPath="url(#a80c4e848e)"><g clipPath="url(#9d3d4da78b)"><g clipPath="url(#437b0b0983)"><path fill="#000000" d="M 12.3125 6.203125 C 11.714844 7.300781 12.097656 8.660156 13.164062 9.242188 C 14.230469 9.820312 15.582031 9.40625 16.175781 8.308594 C 16.773438 7.210938 16.390625 5.851562 15.324219 5.273438 C 14.257812 4.691406 12.90625 5.109375 12.3125 6.203125 Z M 11.722656 11.886719 C 9.230469 10.53125 8.339844 7.355469 9.734375 4.800781 C 11.125 2.242188 14.273438 1.269531 16.765625 2.625 C 19.253906 3.980469 20.148438 7.15625 18.753906 9.710938 C 17.363281 12.269531 14.214844 13.242188 11.722656 11.886719 Z M 11.722656 11.886719 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g></svg>
             <input
               value={accessKey}
               onChange={(e) => setAccessKey(e.target.value)}
@@ -137,7 +136,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
             rel="noopener noreferrer" 
             className="inline-flex w-full text-center font-bold items-center justify-center my-4 gap-1.5 text-xs px-4 py-2 bg-[#005bff] text-white rounded-lg transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"
         > 
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" zoomAndPan="magnify" viewBox="0 0 26.25 26.249998" height="17" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a2831d7587"><path d="M 0 0 L 25.519531 0 L 25.519531 25.519531 L 0 25.519531 Z M 0 0 " clip-rule="nonzero"/></clipPath></defs><g clip-path="url(#a2831d7587)"><path fill="#fdfdfd" d="M 12.6875 0 C 5.667969 0 0 5.667969 0 12.6875 C 0 19.707031 5.667969 25.371094 12.6875 25.371094 C 19.707031 25.371094 25.371094 19.707031 25.371094 12.6875 C 25.371094 5.667969 19.707031 0 12.6875 0 Z M 18.746094 7.300781 L 16.152344 7.300781 L 16.152344 4.734375 Z M 8.65625 4.679688 C 8.65625 4.539062 8.769531 4.425781 8.910156 4.425781 L 15.054688 4.425781 L 15.054688 7.667969 L 14.292969 6.90625 C 13.757812 6.371094 13.503906 6.175781 12.910156 6.175781 L 8.65625 6.175781 Z M 16.070312 10.007812 L 13.503906 10.007812 L 13.503906 7.414062 Z M 6.203125 20.296875 C 6.0625 20.296875 5.949219 20.183594 5.949219 20.042969 L 5.949219 7.359375 C 5.949219 7.21875 6.0625 7.105469 6.203125 7.105469 L 12.375 7.105469 L 12.375 10.542969 C 12.375 10.855469 12.628906 11.078125 12.941406 11.078125 L 16.378906 11.078125 L 16.378906 20.042969 C 16.378906 20.183594 16.265625 20.296875 16.125 20.296875 Z M 18.804688 17.621094 C 17.929688 17.621094 17.308594 17.621094 17.308594 17.621094 L 17.308594 10.542969 C 17.308594 10.066406 17.167969 9.78125 16.832031 9.445312 L 15.789062 8.402344 L 19.03125 8.402344 L 19.03125 17.339844 C 19.058594 17.507812 18.945312 17.621094 18.804688 17.621094 Z M 18.804688 17.621094 " fill-opacity="1" fill-rule="nonzero"/></g></svg> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" zoomAndPan="magnify" viewBox="0 0 26.25 26.249998" height="17" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a2831d7587"><path d="M 0 0 L 25.519531 0 L 25.519531 25.519531 L 0 25.519531 Z M 0 0 " clipRule="nonzero"/></clipPath></defs><g clipPath="url(#a2831d7587)"><path fill="#fdfdfd" d="M 12.6875 0 C 5.667969 0 0 5.667969 0 12.6875 C 0 19.707031 5.667969 25.371094 12.6875 25.371094 C 19.707031 25.371094 25.371094 19.707031 25.371094 12.6875 C 25.371094 5.667969 19.707031 0 12.6875 0 Z M 18.746094 7.300781 L 16.152344 7.300781 L 16.152344 4.734375 Z M 8.65625 4.679688 C 8.65625 4.539062 8.769531 4.425781 8.910156 4.425781 L 15.054688 4.425781 L 15.054688 7.667969 L 14.292969 6.90625 C 13.757812 6.371094 13.503906 6.175781 12.910156 6.175781 L 8.65625 6.175781 Z M 16.070312 10.007812 L 13.503906 10.007812 L 13.503906 7.414062 Z M 6.203125 20.296875 C 6.0625 20.296875 5.949219 20.183594 5.949219 20.042969 L 5.949219 7.359375 C 5.949219 7.21875 6.0625 7.105469 6.203125 7.105469 L 12.375 7.105469 L 12.375 10.542969 C 12.375 10.855469 12.628906 11.078125 12.941406 11.078125 L 16.378906 11.078125 L 16.378906 20.042969 C 16.378906 20.183594 16.265625 20.296875 16.125 20.296875 Z M 18.804688 17.621094 C 17.929688 17.621094 17.308594 17.621094 17.308594 17.621094 L 17.308594 10.542969 C 17.308594 10.066406 17.167969 9.78125 16.832031 9.445312 L 15.789062 8.402344 L 19.03125 8.402344 L 19.03125 17.339844 C 19.058594 17.507812 18.945312 17.621094 18.804688 17.621094 Z M 18.804688 17.621094 " fillOpacity="1" fillRule="nonzero"/></g></svg> 
             Salin Template
         </a>
 
@@ -181,13 +180,13 @@ type TabMenuProps = {
   setActiveTab: (tab: string) => void;
 };
 const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
-  const menuItems = ['Start from 0', 'Niche Finder', 'Storytelling Builder', 'Smart Pillar', 'Bio Generator', 'Content Factory', 'Personal Branding Planner'];
+  const menuItems = ['Overview', 'Start from 0', 'Niche Finder', 'Storytelling Builder', 'Smart Pillar', 'Bio Generator', 'Content Factory', 'Personal Branding Planner'];
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount = 150; // px per klik
+      const scrollAmount = 150;
       scrollRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -890,7 +889,7 @@ export default function PersonalBrandingBuilder() {
   const [pillarsList, setPillarsList] = useState<string[]>(["", "", "", "", "", ""]);
   const [bioResult, setBioResult] = useState("");
   const [contentIdeas, setContentIdeas] = useState<ContentIdea[]>([]);
-  const [activeTab, setActiveTab] = useState("Start from 0");
+  const [activeTab, setActiveTab] = useState("Overview");
   const [isSpreadsheetModalOpen, setIsSpreadsheetModalOpen] = useState(false);
   const [infoModal, setInfoModal] = useState<string | null>(null);
 
@@ -899,8 +898,20 @@ export default function PersonalBrandingBuilder() {
     const savedKey = localStorage.getItem(STORAGE_KEY);
     const savedId = localStorage.getItem("pb_spreadsheet_id");
   
-    if (savedKey && VALID_KEYS.includes(savedKey)) {
-      setIsLoggedIn(true);
+    if (savedKey) {
+      fetch("/api/validate-key", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ accessKey: savedKey }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setIsLoggedIn(true);
+          } else {
+            localStorage.removeItem(STORAGE_KEY);
+          }
+        });
     }
   
     if (savedId) {
@@ -951,13 +962,24 @@ export default function PersonalBrandingBuilder() {
   // ▲▲▲ END ▲▲▲ //
 
   // ▼▼▼ DATA & AUTH FUNCTIONS ▼▼▼ //
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (VALID_KEYS.includes(accessKeyInput)) {
-      localStorage.setItem(STORAGE_KEY, accessKeyInput);
-      setIsLoggedIn(true);
-    } else {
-      alert("Access key salah.");
+    try {
+      const res = await fetch("/api/validate-key", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ accessKey: accessKeyInput }),
+      });
+      const data = await res.json();
+  
+      if (data.success) {
+        localStorage.setItem(STORAGE_KEY, accessKeyInput);
+        setIsLoggedIn(true);
+      } else {
+        alert("❌ Access key salah.");
+      }
+    } catch (error) {
+      alert("Server error. Coba lagi nanti.");
     }
   };
 
@@ -1514,11 +1536,63 @@ Akhiri jawaban dengan pertanyaan:
   }  
   // ▲▲▲ END ▲▲▲ //
 
-  // --- RENDER LOGIC ---
+  // ▼▼▼ RENDER LOGIC ▼▼▼ //
   if (!isLoggedIn) {
     return (
       <LoginScreen onLogin={handleLogin} accessKey={accessKeyInput} setAccessKey={setAccessKeyInput} />
     );
+  }
+  // ▲▲▲ END ▲▲▲ //
+
+  const fieldValues: Record<string, any> = {
+    nama: identity?.nama,
+    suka: identity?.suka,
+    dikuasai: identity?.dikuasai,
+    kenapaDibutuhkan: identity?.kenapaDibutuhkan,
+    peluangPenghasilan: identity?.peluangPenghasilan,
+    niche: swot?.niche,
+    kategori: swot?.kategori,
+    microNiche: swot?.microNiche,
+    akunSosmed: swot?.akunSosmed,
+    kelebihan: swot?.kelebihan,
+    kelemahan: swot?.kelemahan,
+    peluang: swot?.peluang,
+    tantangan: swot?.tantangan,
+    premis: pillar?.premis,
+    toneOfVoice: pillar?.toneOfVoice,
+    targetAudiens: pillar?.targetAudiens,
+    bio: bioResult
+  };
+
+  const FIELDS_MAP = {
+    nama: "Nama",
+    suka: "Hal yang Aku Suka",
+    dikuasai: "Hal yang Aku Bisa",
+    kenapaDibutuhkan: "Kenapa Dibutuhkan",
+    peluangPenghasilan: "Peluang Penghasilan",
+    niche: "Niche",
+    kategori: "Kategori",
+    microNiche: "Micro-niche",
+    akunSosmed: "Profile Sosmed",
+    kelebihan: "Kelebihan",
+    kelemahan: "Kelemahan",
+    peluang: "Peluang",
+    tantangan: "Tantangan",
+    premis: "Premis",
+    toneOfVoice: "Tone of Voice",
+    targetAudiens: "Target Audiens",
+    bio: "Bio Sosmed",
+  };
+
+  const totalFields = Object.keys(fieldValues).length;
+  const filledCount = Object.values(fieldValues).filter((v) => !!v).length;
+  const percentage = Math.round((filledCount / totalFields) * 100);
+
+  function getRank(percentage: number) {
+    if (percentage === 100) return "🌟 The Credible";
+    if (percentage >= 30) return "🧭 The Explorer";
+    if (percentage >= 10) return "🐣 The Beginner";
+    return "👻 The Mysterious";
   }
 
   return (
@@ -1552,6 +1626,168 @@ Akhiri jawaban dengan pertanyaan:
 
           <main className="grid grid-cols-1 lg:grid-cols-2">
             <section className="col-span-2 py-5 rounded space-y-4">
+            {activeTab === 'Overview' && (() => {
+                const rank = getRank(percentage);
+                const missingFields = Object.entries(FIELDS_MAP)
+                  .filter(([key]) => !fieldValues[key])
+                  .map(([, label]) => label);
+
+                return (
+                  <div className="flex flex-col items-center">
+                    <div
+                      className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20"
+                      style={{
+                        textShadow:
+                          "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)",
+                      }}
+                    >
+                      {percentage === 100
+                        ? `SELAMAT ${identity.nama || "!"} 🎉`
+                        : identity.nama
+                        ? `SEMANGAT ${identity.nama} 💪🏻`
+                        : "WELCOME!!"}
+                    </div>
+
+                    <div className="flex flex-col items-center gap-2 text-white">
+                      <p className="text-sm">Level Personal Branding kamu saat ini:</p>
+                      <p className="text-4xl font-bold">{rank}</p>
+                      <div className="w-full bg-white/30 h-2 rounded-full overflow-hidden mt-1">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${percentage}%`,
+                          background: "linear-gradient(90deg, #3b82f6, #06b6d4, #10b981)",
+                        }}
+                      />
+                      </div>
+                      <p className="text-xs opacity-80 -mt-1">Progress: {percentage}%</p>
+
+                      <div className="mt-4 flex flex-col items-center gap-3 w-full max-w-md">
+                        {percentage === 0 && (
+                          <>
+                            <button
+                              onClick={() => setActiveTab("Start from 0")}
+                              className="w-full bg-blue-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
+                            >
+                              🚀 Bangun Personal Branding dari Awal
+                            </button>
+
+                            <button
+                              onClick={() => importFromSheet("branding")}
+                              disabled={isImportingBranding}
+                              className={`w-full flex items-center justify-center gap-2 py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold border shadow transition ${
+                                isImportingBranding
+                                  ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
+                                  : "bg-white text-gray-800 hover:scale-[1.02] hover:shadow-md"
+                              }`}
+                            >
+                              {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
+                            </button>
+                          </>
+                        )}
+
+                        {percentage > 0 && percentage < 100 && (
+                          <>
+                            <button
+                              onClick={() => {
+                                const fieldToTab: Record<string, string> = {
+                                  "Nama": "Niche Finder",
+                                  "Hal yang Aku Suka": "Niche Finder",
+                                  "Hal yang Aku Bisa": "Niche Finder",
+                                  "Kenapa Dibutuhkan": "Niche Finder",
+                                  "Peluang Penghasilan": "Niche Finder",
+                                  "Niche": "Storytelling Builder",
+                                  "Kategori": "Storytelling Builder",
+                                  "Micro-niche": "Storytelling Builder",
+                                  "Akun Sosmed": "Storytelling Builder",
+                                  "Kelebihan": "Storytelling Builder",
+                                  "Kelemahan": "Storytelling Builder",
+                                  "Peluang": "Storytelling Builder",
+                                  "Tantangan": "Storytelling Builder",
+                                  "Premis": "Smart Pillar",
+                                  "Tone of Voice": "Smart Pillar",
+                                  "Target Audiens": "Smart Pillar",
+                                  "Bio Sosmed": "Bio Generator",
+                                };
+
+                                const firstMissing = missingFields[0];
+                                const targetMenu = fieldToTab[firstMissing] || "Overview";
+                                setActiveTab(targetMenu);
+                              }}
+                              className="w-full bg-blue-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
+                            >
+                              ✏️ Lengkapi Data: {missingFields[0]}
+                            </button>
+
+                            <button
+                              onClick={() => importFromSheet("branding")}
+                              disabled={isImportingBranding}
+                              className={`w-full flex items-center justify-center gap-2 py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold border shadow transition ${
+                                isImportingBranding
+                                  ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
+                                  : "bg-white text-gray-800 hover:scale-[1.02] hover:shadow-md"
+                              }`}
+                            >
+                              {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
+                            </button>
+                          </>
+                        )}
+
+                        {percentage === 100 && (
+                          <>
+                            <button
+                              onClick={() => setActiveTab("Content Factory")}
+                              className="w-full bg-sky-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
+                            >
+                              🤔 Bingung Mau Bikin Konten Apa?
+                            </button>
+
+                            <button
+                              onClick={() => setActiveTab("Personal Branding Planner")}
+                              className="w-full bg-emerald-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
+                            >
+                              📑 Manage Content
+                            </button>
+
+                            <a 
+                              href="https://kadevacademy.com" target="_blank"
+                              className="appearance-none w-full bg-yellow-300 text-center text-black/80 py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
+                            >
+                              🪜 Naik ke Level 5 & 6
+                            </a>
+                          </>
+                        )}
+                      </div>
+
+                      <Image src="/kadev-tangga-personalbranding.webp" alt="Tangga Level Personal Branding" width={350} height={500} className="mx-auto mt-2" />
+
+                      {percentage === 100 ? (
+                        <div className="mt-3 text-center w-full bg-white/10 p-3 rounded-lg">
+                          <p className="text-sm font-semibold">🎯 Reminder:</p>
+                          <p className="mt-2 text-xs italic opacity-90">
+                            Mulai konsisten ngonten agar value branding kamu tersampaikan,
+                          </p>
+                          <p className="text-sm font-bold">CREATING ➝ UPLOAD ➝ EVALUATION ➝ REPEAT 🔄</p>
+                        </div>
+                      ) : (
+                        missingFields.length > 0 && (
+                          <div className="mt-4 text-center w-full bg-white/10 p-3 rounded-lg">
+                            <p className="text-sm font-semibold">⚠️ Reminder:</p>
+                            <p className="mb-3 text-xs italic opacity-80">
+                              Lengkapi data berikut ini untuk naik level 🚀
+                            </p>
+                            <ul className="list-disc text-xs list-inside text-left space-y-1">
+                              {missingFields.map((field) => (
+                                <li key={field}>{field}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
               {activeTab === 'Start from 0' && (
                 <>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1690,7 +1926,17 @@ Akhiri jawaban dengan pertanyaan:
               )}
             </section>
           </main>
-          <footer className="mt-6 text-center text-xs text-gray-400"> Made with care • Simple & minimal UI • Responsive </footer>
+          <footer className="mt-10 flex flex-col gap-2 items-center text-white">
+            <Image src="/kadev-logomark.webp" alt="Logo" width={223} height={60} style={{ width: "100px", height: "auto" }} className="mx-auto h-auto" />
+            <div className="flex flex-col lg:flex-row text-xs lg:text-sm items-center justify-center">
+                <div className="flex gap-1">
+                    <a href="https://wa.me/6281330259865?text=hallo%20admin%20Kadev%20Academy" target="_blank">+62 813-3025-9865</a> | 
+                    <a href="#" className="font-bold" target="_blank">Terms & Privacy Policy</a> <span className="hidden lg:block">|</span> 
+                </div>
+                <a href="mailto:support@kadevacademy.com" target="_blank">support@kadevacademy.com</a>
+            </div>
+            <p className="text-xs lg:text-sm">© {new Date().getFullYear()} Kadev Academy. All Rights Reserved.</p>
+          </footer>
         </div>
       </div>
     </>
