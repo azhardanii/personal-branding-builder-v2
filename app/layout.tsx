@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "Personal Branding Builder v2 – Bantu Kamu Bangun Personal Branding Instan!!",
     description:
       "Toolkit digital all-in-one untuk membangun Personal Branding. Cocok untuk pelajar, mahasiswa, kreator, freelancer, maupun bisnis owner.",
-    url: "https://personalbrandingbuilder.tools",
+    url: "https://app.personalbrandingbuilder.tools",
     siteName: "Personal Branding Builder v2",
     images: [
       {
