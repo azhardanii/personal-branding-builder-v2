@@ -1668,7 +1668,7 @@ Akhiri jawaban dengan pertanyaan:
                         <div className="flex flex-col items-center gap-2">
                           <p className="text-sm">Level Personal Branding kamu saat ini:</p>
                           <p className="text-3xl md:text-4xl font-bold">{rank}</p>
-                          <div className="w-full md:w-1/2 bg-white/30 h-2 rounded-full overflow-hidden mt-1">
+                          <div className="w-full bg-white/30 h-2 rounded-full overflow-hidden mt-1">
                           <div
                             className="h-full rounded-full transition-all duration-500"
                             style={{
