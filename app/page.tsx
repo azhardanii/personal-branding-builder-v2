@@ -91,12 +91,12 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
   </div>
 );
 
-// ▼▼▼ Modal Setup Spreadsheet ▼▼▼
+// ▼▼▼ POPUP SPREADSHEET SETUP ▼▼▼
 const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
   isOpen: boolean;
   onClose: () => void;
   onSave: (id: string) => void;
-  currentId: string;
+  currentId: string | null;
 }) => {
   const [localId, setLocalId] = useState(currentId);
   const SPREADSHEET_TEMPLATE_URL = "https://docs.google.com/spreadsheets/d/1ydFWlx5Vb2lWfUzQRfEHDNIzmBWC_n8DE9fD3-u-WaA/copy";
@@ -145,7 +145,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
             <p>Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.</p>
         </div>
         <input 
-            value={localId} 
+            value={localId ?? ""} 
             onChange={(e) => setLocalId(e.target.value)} 
             placeholder="Tempel Link Spreadsheet PBB di sini!" 
             className="w-full border bg-white dark:text-black px-3 py-2 my-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150" 
@@ -172,14 +172,19 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
     </div>
   );
 };
-// ▲▲▲ END ▲▲▲
+// ▲▲▲ END ▲▲▲ //
 
-// ▼▼▼ Komponen Menu Navigasi ▼▼▼
+// ▼▼▼ MENU NAVIGASI ▼▼▼ //
 type TabMenuProps = {
   activeTab: string;
-  setActiveTab: (tab: string) => void;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  spreadsheetId: string | null;
+  isSpreadsheetModalOpen: boolean;
+  setIsSpreadsheetModalOpen: (open: boolean) => void;
+  handleSaveSpreadsheetId: (id: string) => void;
 };
-const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
+const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen, setIsSpreadsheetModalOpen,
+  }: TabMenuProps) => {
   const menuItems = ['Overview', 'Start from 0', 'Niche Finder', 'Storytelling Builder', 'Smart Pillar', 'Bio Generator', 'Content Factory', 'Personal Branding Planner'];
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -193,6 +198,15 @@ const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (
+      activeTab !== "Overview" &&
+      (!spreadsheetId || spreadsheetId.trim() === "")
+    ) {
+      setIsSpreadsheetModalOpen(true);
+    }
+  }, [activeTab, spreadsheetId]);  
 
   return (
     <div className="relative mb-5">
@@ -241,9 +255,9 @@ const TabMenu = ({ activeTab, setActiveTab }: TabMenuProps) => {
     </div>
   );  
 };
-// ▲▲▲ END ▲▲▲
+// ▲▲▲ END ▲▲▲ //
 
-// ▼▼▼ FEATURE COMPONENTS ▼▼▼
+// ▼▼▼ FEATURE COMPONENTS ▼▼▼ //
 const IdentitySection = memo(({ identity, setIdentity, onGenerate, onSave, isSaving }: {
   identity: Identity; setIdentity: (i: Identity) => void; onGenerate: () => void; onSave: () => void; isSaving: boolean;
 }) => (
@@ -869,7 +883,7 @@ const ContentEvalModal = memo(({ isOpen, onClose, ideaData, onGenerateEval }: {
   );
 });
 
-// ▼▼▼ MAIN COMPONENT ▼▼▼
+// ▼▼▼ MAIN COMPONENT ▼▼▼ //
 export default function PersonalBrandingBuilder() {
   // --- STATE HOOKS ---
   const [accessKeyInput, setAccessKeyInput] = useState("");
@@ -1622,7 +1636,8 @@ Akhiri jawaban dengan pertanyaan:
             </div>
           </header>
 
-          <TabMenu activeTab={activeTab} setActiveTab={setActiveTab} />
+          <TabMenu activeTab={activeTab} setActiveTab={setActiveTab} spreadsheetId={spreadsheetId} isSpreadsheetModalOpen={isSpreadsheetModalOpen} setIsSpreadsheetModalOpen={setIsSpreadsheetModalOpen} handleSaveSpreadsheetId={handleSaveSpreadsheetId} />
+
 
           <main className="grid grid-cols-1 lg:grid-cols-2">
             <section className="col-span-2 py-5 rounded space-y-4">
@@ -1633,157 +1648,166 @@ Akhiri jawaban dengan pertanyaan:
                   .map(([, label]) => label);
 
                 return (
-                  <div className="flex flex-col items-center">
-                    <div
-                      className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20"
-                      style={{
-                        textShadow:
-                          "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)",
-                      }}
-                    >
-                      {percentage === 100
-                        ? `SELAMAT ${identity.nama || "!"} 🎉`
-                        : identity.nama
-                        ? `SEMANGAT ${identity.nama} 💪🏻`
-                        : "WELCOME!!"}
-                    </div>
-
-                    <div className="flex flex-col items-center gap-2 text-white">
-                      <p className="text-sm">Level Personal Branding kamu saat ini:</p>
-                      <p className="text-4xl font-bold">{rank}</p>
-                      <div className="w-full bg-white/30 h-2 rounded-full overflow-hidden mt-1">
+                  <div className="w-full max-w-5xl mx-auto px-4">
+                    <div className="flex flex-col">
                       <div
-                        className="h-full rounded-full transition-all duration-500"
+                        className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20"
                         style={{
-                          width: `${percentage}%`,
-                          background: "linear-gradient(90deg, #3b82f6, #06b6d4, #10b981)",
+                          textShadow:
+                            "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)",
                         }}
-                      />
-                      </div>
-                      <p className="text-xs opacity-80 -mt-1">Progress: {percentage}%</p>
-
-                      <div className="mt-4 flex flex-col items-center gap-3 w-full max-w-md">
-                        {percentage === 0 && (
-                          <>
-                            <button
-                              onClick={() => setActiveTab("Start from 0")}
-                              className="w-full bg-blue-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
-                            >
-                              🚀 Bangun Personal Branding dari Awal
-                            </button>
-
-                            <button
-                              onClick={() => importFromSheet("branding")}
-                              disabled={isImportingBranding}
-                              className={`w-full flex items-center justify-center gap-2 py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold border shadow transition ${
-                                isImportingBranding
-                                  ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
-                                  : "bg-white text-gray-800 hover:scale-[1.02] hover:shadow-md"
-                              }`}
-                            >
-                              {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
-                            </button>
-                          </>
-                        )}
-
-                        {percentage > 0 && percentage < 100 && (
-                          <>
-                            <button
-                              onClick={() => {
-                                const fieldToTab: Record<string, string> = {
-                                  "Nama": "Niche Finder",
-                                  "Hal yang Aku Suka": "Niche Finder",
-                                  "Hal yang Aku Bisa": "Niche Finder",
-                                  "Kenapa Dibutuhkan": "Niche Finder",
-                                  "Peluang Penghasilan": "Niche Finder",
-                                  "Niche": "Storytelling Builder",
-                                  "Kategori": "Storytelling Builder",
-                                  "Micro-niche": "Storytelling Builder",
-                                  "Akun Sosmed": "Storytelling Builder",
-                                  "Kelebihan": "Storytelling Builder",
-                                  "Kelemahan": "Storytelling Builder",
-                                  "Peluang": "Storytelling Builder",
-                                  "Tantangan": "Storytelling Builder",
-                                  "Premis": "Smart Pillar",
-                                  "Tone of Voice": "Smart Pillar",
-                                  "Target Audiens": "Smart Pillar",
-                                  "Bio Sosmed": "Bio Generator",
-                                };
-
-                                const firstMissing = missingFields[0];
-                                const targetMenu = fieldToTab[firstMissing] || "Overview";
-                                setActiveTab(targetMenu);
-                              }}
-                              className="w-full bg-blue-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
-                            >
-                              ✏️ Lengkapi Data: {missingFields[0]}
-                            </button>
-
-                            <button
-                              onClick={() => importFromSheet("branding")}
-                              disabled={isImportingBranding}
-                              className={`w-full flex items-center justify-center gap-2 py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold border shadow transition ${
-                                isImportingBranding
-                                  ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
-                                  : "bg-white text-gray-800 hover:scale-[1.02] hover:shadow-md"
-                              }`}
-                            >
-                              {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
-                            </button>
-                          </>
-                        )}
-
-                        {percentage === 100 && (
-                          <>
-                            <button
-                              onClick={() => setActiveTab("Content Factory")}
-                              className="w-full bg-sky-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
-                            >
-                              🤔 Bingung Mau Bikin Konten Apa?
-                            </button>
-
-                            <button
-                              onClick={() => setActiveTab("Personal Branding Planner")}
-                              className="w-full bg-emerald-600 text-white py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
-                            >
-                              📑 Manage Content
-                            </button>
-
-                            <a 
-                              href="https://kadevacademy.com" target="_blank"
-                              className="appearance-none w-full bg-yellow-300 text-center text-black/80 py-2 px-4 cursor-pointer rounded-lg text-xs font-semibold shadow hover:scale-[1.02] hover:shadow-md transition"
-                            >
-                              🪜 Naik ke Level 5 & 6
-                            </a>
-                          </>
-                        )}
+                      >
+                        {percentage === 100
+                          ? `SELAMAT ${identity.nama || "!"} 🎉`
+                          : identity.nama
+                          ? `SEMANGAT ${identity.nama} 💪🏻`
+                          : "WELCOME!"}
                       </div>
 
-                      <Image src="/kadev-tangga-personalbranding.webp" alt="Tangga Level Personal Branding" width={350} height={500} className="mx-auto mt-2" />
-
-                      {percentage === 100 ? (
-                        <div className="mt-3 text-center w-full bg-white/10 p-3 rounded-lg">
-                          <p className="text-sm font-semibold">🎯 Reminder:</p>
-                          <p className="mt-2 text-xs italic opacity-90">
-                            Mulai konsisten ngonten agar value branding kamu tersampaikan,
-                          </p>
-                          <p className="text-sm font-bold">CREATING ➝ UPLOAD ➝ EVALUATION ➝ REPEAT 🔄</p>
-                        </div>
-                      ) : (
-                        missingFields.length > 0 && (
-                          <div className="mt-4 text-center w-full bg-white/10 p-3 rounded-lg">
-                            <p className="text-sm font-semibold">⚠️ Reminder:</p>
-                            <p className="mb-3 text-xs italic opacity-80">
-                              Lengkapi data berikut ini untuk naik level 🚀
-                            </p>
-                            <ul className="list-disc text-xs list-inside text-left space-y-1">
-                              {missingFields.map((field) => (
-                                <li key={field}>{field}</li>
-                              ))}
-                            </ul>
+                      <div className="flex flex-col lg:flex-row items-center lg:justify-center gap-2 lg:gap-10 text-white">
+                        <div className="flex flex-col items-center gap-2">
+                          <p className="text-sm">Level Personal Branding kamu saat ini:</p>
+                          <p className="text-3xl md:text-4xl font-bold">{rank}</p>
+                          <div className="w-full md:w-1/2 bg-white/30 h-2 rounded-full overflow-hidden mt-1">
+                          <div
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{
+                              width: `${percentage}%`,
+                              background: "linear-gradient(90deg, #3b82f6, #06b6d4, #10b981)",
+                            }}
+                          />
                           </div>
-                        )
-                      )}
+                          <p className="text-xs opacity-80 -mt-1">Progress: {percentage}%</p>
+
+                          <Image src="/kadev-tangga-personalbranding.webp" alt="Tangga Level Personal Branding" width={350} height={500} className="w-full h-auto mx-auto mt-2" />
+                        </div>
+                        
+                        <div className="flex flex-col items-center gap-2">
+                          <div className="mt-4 flex flex-col items-center gap-3 w-full max-w-md">
+                            {percentage === 0 && (
+                              <>
+                                <button
+                                  onClick={() => setActiveTab("Start from 0")}
+                                  className="w-full bg-blue-600 text-white py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold shadow-lg hover:scale-[1.03] hover:shadow-xl transition"
+                                >
+                                  🚀 Bangun Personal Branding dari Awal
+                                </button>
+
+                                <button
+                                  onClick={() => importFromSheet("branding")}
+                                  disabled={isImportingBranding}
+                                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold border shadow-lg transition ${
+                                    isImportingBranding
+                                      ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
+                                      : "bg-white text-gray-800 hover:scale-[1.03] hover:shadow-xl"
+                                  }`}
+                                >
+                                  {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
+                                </button>
+                              </>
+                            )}
+
+                            {percentage > 0 && percentage < 100 && (
+                              <>
+                                <button
+                                  onClick={() => {
+                                    const fieldToTab: Record<string, string> = {
+                                      "Nama": "Niche Finder",
+                                      "Hal yang Aku Suka": "Niche Finder",
+                                      "Hal yang Aku Bisa": "Niche Finder",
+                                      "Kenapa Dibutuhkan": "Niche Finder",
+                                      "Peluang Penghasilan": "Niche Finder",
+                                      "Niche": "Storytelling Builder",
+                                      "Kategori": "Storytelling Builder",
+                                      "Micro-niche": "Storytelling Builder",
+                                      "Akun Sosmed": "Storytelling Builder",
+                                      "Kelebihan": "Storytelling Builder",
+                                      "Kelemahan": "Storytelling Builder",
+                                      "Peluang": "Storytelling Builder",
+                                      "Tantangan": "Storytelling Builder",
+                                      "Premis": "Smart Pillar",
+                                      "Tone of Voice": "Smart Pillar",
+                                      "Target Audiens": "Smart Pillar",
+                                      "Bio Sosmed": "Bio Generator",
+                                    };
+
+                                    const firstMissing = missingFields[0];
+                                    const targetMenu = fieldToTab[firstMissing] || "Overview";
+                                    setActiveTab(targetMenu);
+                                  }}
+                                  className="w-full bg-blue-600 text-white py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold shadow-lg hover:scale-[1.03] hover:shadow-xl transition"
+                                >
+                                  ✏️ Lengkapi Data: {missingFields[0]}
+                                </button>
+
+                                <button
+                                  onClick={() => importFromSheet("branding")}
+                                  disabled={isImportingBranding}
+                                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold border shadow-lg transition ${
+                                    isImportingBranding
+                                      ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
+                                      : "bg-white text-gray-800 hover:scale-[1.03] hover:shadow-xl"
+                                  }`}
+                                >
+                                  {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
+                                </button>
+                              </>
+                            )}
+
+                            {percentage === 100 && (
+                              <>
+                                <button
+                                  onClick={() => setActiveTab("Content Factory")}
+                                  className="w-full bg-sky-600 text-white py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold shadow-lg hover:scale-[1.03] hover:shadow-xl transition"
+                                >
+                                  🤔 Bingung Mau Bikin Konten Apa?
+                                </button>
+
+                                <button
+                                  onClick={() => setActiveTab("Personal Branding Planner")}
+                                  className="w-full bg-emerald-600 text-white py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold shadow-lg hover:scale-[1.03] hover:shadow-xl transition"
+                                >
+                                  📑 Manage Content
+                                </button>
+
+                                <a 
+                                  href="https://kadevacademy.com" target="_blank"
+                                  className="appearance-none w-full bg-yellow-300 text-center text-black/80 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold shadow-lg hover:scale-[1.03] hover:shadow-xl transition"
+                                >
+                                  🪜 Naik ke Level 5 & 6
+                                </a>
+                              </>
+                            )}
+                          </div>
+
+                          {percentage === 100 ? (
+                            <div className="mt-3 text-center w-full bg-white/5 p-2 rounded-lg">
+                              <p className="text-xs font-semibold opacity-80">🎯 Reminder:</p>
+                              <p className="mt-1 text-[10px] italic opacity-70">
+                                Mulai konsisten ngonten agar value branding kamu tersampaikan,
+                              </p>
+                              <p className="text-xs font-bold opacity-90">CREATING ➝ UPLOAD ➝ EVALUATION ➝ REPEAT 🔄</p>
+                            </div>
+                          ) : (
+                            missingFields.length > 0 && (
+                              <div className="mt-4 text-center justify-center w-full bg-white/5 p-2 rounded-lg">
+                                <p className="text-xs mb-0.5 font-semibold opacity-80">⚠️ Reminder:</p>
+                                <p className="mb-2 text-[10px] italic opacity-70">
+                                  Lengkapi data berikut ini untuk naik level 🚀
+                                </p>
+                                <ul className="text-[10px] space-y-1 mx-auto inline-block text-center">
+                                  {missingFields.map((field) => (
+                                    <li key={field} className="flex items-center justify-center gap-1.5">
+                                      <span className="text-yellow-300 text-xs">➜</span>
+                                      <span>{field}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
