@@ -1598,14 +1598,14 @@ Akhiri jawaban dengan pertanyaan:
     bio: "Bio Sosmed",
   };
 
-  const totalFields = Object.keys(fieldValues).length;
+  const totalFields = Object.keys(fieldValues).length + 25;
   const filledCount = Object.values(fieldValues).filter((v) => !!v).length;
   const percentage = Math.round((filledCount / totalFields) * 100);
 
   function getRank(percentage: number) {
-    if (percentage === 100) return "🌟 The Credible";
-    if (percentage >= 30) return "🧭 The Explorer";
-    if (percentage >= 10) return "🐣 The Beginner";
+    if (percentage >= 40) return "🌟 The Credible";
+    if (percentage >= 13) return "🧭 The Explorer";
+    if (percentage >= 1) return "🐣 The Beginner";
     return "👻 The Mysterious";
   }
 
@@ -1648,23 +1648,23 @@ Akhiri jawaban dengan pertanyaan:
                   .map(([, label]) => label);
 
                 return (
-                  <div className="w-full max-w-5xl mx-auto px-4">
+                  <div className="w-full max-w-5xl mx-auto">
                     <div className="flex flex-col">
                       <div
-                        className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20"
+                        className="flex justify-center mb-5 text-white text-2xl md:text-4xl font-bold border-b pb-3 border-white/20 text-center whitespace-pre-line"
                         style={{
                           textShadow:
                             "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)",
                         }}
                       >
-                        {percentage === 100
-                          ? `SELAMAT ${identity.nama || "!"} 🎉`
+                        {percentage >= 40
+                          ? `SELAMAT ${identity.nama}!\nKAMU SIAP NAIK LEVEL 🎉`
                           : identity.nama
                           ? `SEMANGAT ${identity.nama} 💪🏻`
                           : "WELCOME!"}
                       </div>
 
-                      <div className="flex flex-col lg:flex-row items-center lg:justify-center gap-2 lg:gap-10 text-white">
+                      <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-center gap-2 lg:gap-10 text-white">
                         <div className="flex flex-col items-center gap-2">
                           <p className="text-sm">Level Personal Branding kamu saat ini:</p>
                           <p className="text-3xl md:text-4xl font-bold">{rank}</p>
@@ -1707,7 +1707,7 @@ Akhiri jawaban dengan pertanyaan:
                               </>
                             )}
 
-                            {percentage > 0 && percentage < 100 && (
+                            {percentage > 0 && percentage < 40 && (
                               <>
                                 <button
                                   onClick={() => {
@@ -1754,7 +1754,7 @@ Akhiri jawaban dengan pertanyaan:
                               </>
                             )}
 
-                            {percentage === 100 && (
+                            {percentage === 40 && (
                               <>
                                 <button
                                   onClick={() => setActiveTab("Content Factory")}
@@ -1780,7 +1780,7 @@ Akhiri jawaban dengan pertanyaan:
                             )}
                           </div>
 
-                          {percentage === 100 ? (
+                          {percentage === 40 ? (
                             <div className="mt-3 text-center w-full bg-white/5 p-2 rounded-lg">
                               <p className="text-xs font-semibold opacity-80">🎯 Reminder:</p>
                               <p className="mt-1 text-[10px] italic opacity-70">
@@ -1957,7 +1957,7 @@ Akhiri jawaban dengan pertanyaan:
                     <a href="https://wa.me/6281330259865?text=hallo%20admin%20Kadev%20Academy" target="_blank">+62 813-3025-9865</a> | 
                     <a href="#" className="font-bold" target="_blank">Terms & Privacy Policy</a> <span className="hidden lg:block">|</span> 
                 </div>
-                <a href="mailto:support@kadevacademy.com" target="_blank">support@kadevacademy.com</a>
+                <a href="mailto:support@kadevacademy.com" target="_blank" className="ml-1">support@kadevacademy.com</a>
             </div>
             <p className="text-xs lg:text-sm">© {new Date().getFullYear()} Kadev Academy. All Rights Reserved.</p>
           </footer>
