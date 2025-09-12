@@ -214,7 +214,7 @@ export async function POST(req: Request) {
             niche: findValueForLabel(/NAMA_?NICHE/i, "below"),
             kategori: findValueForLabel(/CATEGORY/i, "below"),
             microNiche: findValueForLabel(/MICRO_?NICHE/i, "below"),
-            akunSosmed: findValueForLabel(/NAMA\s*AKUN\s*SOSMED|NAMA\s*AKUN/i, "below"),
+            akunSosmed: findValueForLabel(/NAMA\s*AKUN/i, "below"),
             kelebihan: findValueForLabel(/KELEBIHANMU|KELEBIHAN/i, "below"),
             kelemahan: findValueForLabel(/KELEMAHANMU|KELEMAHAN/i, "below"),
             peluang: findValueForLabel(/PELUANGMU/i, "below"),
