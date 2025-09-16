@@ -163,7 +163,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
 
         <div className="aspect-video w-full mx-auto my-4">
             <LazyYoutube
-              videoId="NBh1t1gGID0"
+              videoId="QT_fdbfsrJw"
               title="Video Clip Personal Branding Builder"
               ratio="16:9"
             />

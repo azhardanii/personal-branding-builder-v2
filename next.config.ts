@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     '127.0.0.1',            // kalau akses lewat IP di lokal
     'localhost'             // default
   ],
+  images: {
+    domains: ["img.youtube.com"],
+  },
 };
 
 export default nextConfig;
