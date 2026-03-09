@@ -128,7 +128,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
         
         <div className="text-xs text-white text-justify">
             <p className="font-bold mb-1">Langkah 1:</p>
-            <p>Klik  di bawah ini, untuk membuat salinan Template Spreadsheet PBB agar tersimpan di Google Drive kamu <b>(Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)</b></p>
+            <p>Klik link di bawah ini, untuk membuat salinan Template Spreadsheet PBB agar tersimpan di Google Drive kamu <b>(Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)</b></p>
         </div>
         <a 
             href={SPREADSHEET_TEMPLATE_URL} 
@@ -142,12 +142,12 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
 
         <div className="text-xs text-white text-justify">
             <p className="font-bold mb-1">Langkah 2:</p>
-            <p>Salin  Spreadsheet PBB Kamu dan tempel di bawah ini.</p>
+            <p>Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.</p>
         </div>
         <input 
             value={localId ?? ""} 
             onChange={(e) => setLocalId(e.target.value)} 
-            placeholder="Tempel  Spreadsheet PBB di sini!" 
+            placeholder="Tempel Link Spreadsheet PBB di sini!" 
             className="w-full border bg-white dark:text-black px-3 py-2 my-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150" 
         />
 
@@ -731,7 +731,7 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
     onClose();
   };
 
-  const platforms = ["Instagram", "Tiktok", "Facebook", "Youtube", "X / Threads", "edin"];
+  const platforms = ["Instagram", "Tiktok", "Facebook", "Youtube", "X / Threads", "Linkedin"];
   const statuses: ContentIdea['status'][] = ["Idea", "Scripting", "Shooting", "Editing", "Uploaded"];
   const formats: ContentIdea['format'][] = ["Video Pendek", "Video Panjang", "Carousel", "Feed Story", "Text Thread"];
   const filteredPillars = pillarsList.filter((p) => p && p.trim() !== "");
@@ -1144,7 +1144,7 @@ Berdasarkan data di atas, tolong buatkan 10 pilihan bio profil sosial media deng
  Setiap pilihan bio ditulis dalam 3 baris:
 Baris 1: Siapa diri saya (positioning).
 Baris 2: Solusi/Value yang saya tawarkan untuk audiens.
-Baris 3: CTA untuk klik  di bio.
+Baris 3: CTA untuk klik link di bio.
  Gunakan emoji yang relevan di tiap baris agar tidak monoton.
  Buat dalam bentuk tabel agar mudah dibandingkan.
 Kolom 1: Nomor.
@@ -1153,7 +1153,7 @@ Kolom 3: Pertimbangan (alasan kenapa bio itu efektif).
  Pastikan bio:
 Ringkas, jelas, dan mudah dipahami audiens awam.
 Merepresentasikan personal brand secara otentik.
-Mendorong audiens untuk klik  di bio.
+Mendorong audiens untuk klik link di bio.
  Variasikan gaya penulisan agar setiap opsi punya nuansa berbeda, tapi tetap relevan dengan data personal brand saya.
 
 [INTERACTIVITY]
