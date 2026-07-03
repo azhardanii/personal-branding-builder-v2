@@ -1681,27 +1681,31 @@ Akhiri jawaban dengan pertanyaan:
             </div>
           </header>
 
-          <div className="flex flex-col md:flex-row justify-center md:justify-end items-center gap-3 mb-4 text-white">
-            <span className="text-sm font-bold whitespace-nowrap text-white/90">Platform AI:</span>
-            <div className="flex items-center gap-1 bg-black/20 p-1 rounded-lg border border-white/5 shadow-inner">
-              <button
-                onClick={() => handleAiPlatformSelect('chatgpt')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'chatgpt' ? 'bg-white/20 text-white shadow-sm border border-white/10' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <span>⚪</span> ChatGPT
-              </button>
-              <button
-                onClick={() => handleAiPlatformSelect('claude')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'claude' ? 'bg-white/20 text-white shadow-sm border border-white/10' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <span>🟠</span> Claude
-              </button>
-              <button
-                onClick={() => handleAiPlatformSelect('perplexity')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'perplexity' ? 'bg-white/20 text-white shadow-sm border border-white/10' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'}`}
-              >
-                <span>⚫</span> Perplexity
-              </button>
+          <div className="flex justify-center md:justify-end mb-4">
+            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3 bg-white p-1.5 md:p-1 md:pl-3 rounded-xl border border-gray-200 shadow-sm text-black">
+              <span className="text-xs lg:text-sm font-bold whitespace-nowrap">
+                Pilih Platform AI:
+              </span>
+              <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg border border-gray-200 shadow-inner">
+                <button
+                  onClick={() => handleAiPlatformSelect('chatgpt')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'chatgpt' ? 'bg-white text-black shadow-sm border border-gray-200' : 'text-gray-500 hover:text-black hover:bg-gray-200 border border-transparent'}`}
+                >
+                  <span>⚪</span> ChatGPT
+                </button>
+                <button
+                  onClick={() => handleAiPlatformSelect('claude')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'claude' ? 'bg-white text-black shadow-sm border border-gray-200' : 'text-gray-500 hover:text-black hover:bg-gray-200 border border-transparent'}`}
+                >
+                  <span>🟠</span> Claude
+                </button>
+                <button
+                  onClick={() => handleAiPlatformSelect('perplexity')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'perplexity' ? 'bg-white text-black shadow-sm border border-gray-200' : 'text-gray-500 hover:text-black hover:bg-gray-200 border border-transparent'}`}
+                >
+                  <span>⚫</span> Perplexity
+                </button>
+              </div>
             </div>
           </div>
 
