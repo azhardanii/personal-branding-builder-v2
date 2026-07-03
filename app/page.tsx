@@ -8,7 +8,7 @@ import LazyYoutube from "@/components/LazyYoutube";
 type Identity = { nama: string; suka: string; dikuasai: string; kenapaDibutuhkan: string; peluangPenghasilan: string; };
 type SWOT = { niche: string; kategori: string; microNiche: string; akunSosmed: string; kelebihan: string; kelemahan: string; peluang: string; tantangan: string; };
 type Pillar = { premis: string; toneOfVoice: string; targetAudiens: string; };
-type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string;};
+type ContentIdea = { id: number; title: string; deadline: string; status: string; script: string; platform: string; pillar: string; format: string; };
 const STORAGE_KEY = "pb_access_key";
 const btnPrimary = 'px-3 py-2 bg-[#005bff] font-bold text-white rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.03] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
 const btnNeutral = 'px-3 py-2 bg-white font-bold text-black rounded-lg flex items-center gap-1 text-sm transition transform hover:scale-[1.02] hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 cursor-pointer';
@@ -37,11 +37,11 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
     <Image src="/kadev-logomark.webp" alt="Logo" width={223} height={60} style={{ width: "100px", height: "auto" }} className="absolute top-10 mx-auto" />
     <div className="w-full max-w-xl px-6 flex justify-center items-center flex-col">
       <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={480} height={240} className="mb-6" priority />
-      <div className="flex items-center mb-5 text-white text-3xl md:text-4xl font-bold" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>ACCESS KEY</div>
+      <div className="flex items-center mb-5 text-white text-3xl md:text-4xl font-bold" style={{ textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)" }}>ACCESS KEY</div>
       <form onSubmit={onLogin} className="w-full space-y-3">
         <div className="w-full">
           <div className="relative">
-            <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" zoomAndPan="magnify" viewBox="0 0 22.5 28.5" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a747d21c9a"><path d="M 3 9 L 14 9 L 14 26 L 3 26 Z M 3 9 " clipRule="nonzero"/></clipPath><clipPath id="bf7c8b2ec1"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="e13639702a"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="c2f24ca340"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="0e0e9c8ea5"><path d="M 4 22 L 10 22 L 10 27.945312 L 4 27.945312 Z M 4 22 " clipRule="nonzero"/></clipPath><clipPath id="2df283ed8c"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="cef54e0750"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="812c27ac77"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="de09ee95b9"><path d="M 6 18 L 12 18 L 12 24 L 6 24 Z M 6 18 " clipRule="nonzero"/></clipPath><clipPath id="db4dfe6231"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="09edbcc98e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="dd7026bb5e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="99ba2a4d5b"><path d="M 9 2 L 20 2 L 20 13 L 9 13 Z M 9 2 " clipRule="nonzero"/></clipPath><clipPath id="a80c4e848e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="9d3d4da78b"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath><clipPath id="437b0b0983"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero"/></clipPath></defs><g clipPath="url(#a747d21c9a)"><g clipPath="url(#bf7c8b2ec1)"><g clipPath="url(#e13639702a)"><g clipPath="url(#c2f24ca340)"><path fill="#000000" d="M 3.382812 24.496094 L 11.304688 9.945312 L 13.882812 11.347656 L 5.960938 25.898438 Z M 3.382812 24.496094 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g><g clipPath="url(#0e0e9c8ea5)"><g clipPath="url(#2df283ed8c)"><g clipPath="url(#cef54e0750)"><g clipPath="url(#812c27ac77)"><path fill="#000000" d="M 4.671875 25.195312 L 6.113281 22.550781 L 9.710938 24.511719 L 8.269531 27.15625 Z M 4.671875 25.195312 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g><g clipPath="url(#de09ee95b9)"><g clipPath="url(#db4dfe6231)"><g clipPath="url(#09edbcc98e)"><g clipPath="url(#dd7026bb5e)"><path fill="#000000" d="M 6.832031 21.230469 L 8.273438 18.582031 L 11.871094 20.542969 L 10.429688 23.1875 Z M 6.832031 21.230469 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g><g clipPath="url(#99ba2a4d5b)"><g clipPath="url(#a80c4e848e)"><g clipPath="url(#9d3d4da78b)"><g clipPath="url(#437b0b0983)"><path fill="#000000" d="M 12.3125 6.203125 C 11.714844 7.300781 12.097656 8.660156 13.164062 9.242188 C 14.230469 9.820312 15.582031 9.40625 16.175781 8.308594 C 16.773438 7.210938 16.390625 5.851562 15.324219 5.273438 C 14.257812 4.691406 12.90625 5.109375 12.3125 6.203125 Z M 11.722656 11.886719 C 9.230469 10.53125 8.339844 7.355469 9.734375 4.800781 C 11.125 2.242188 14.273438 1.269531 16.765625 2.625 C 19.253906 3.980469 20.148438 7.15625 18.753906 9.710938 C 17.363281 12.269531 14.214844 13.242188 11.722656 11.886719 Z M 11.722656 11.886719 " fillOpacity="1" fillRule="evenodd"/></g></g></g></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" zoomAndPan="magnify" viewBox="0 0 22.5 28.5" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a747d21c9a"><path d="M 3 9 L 14 9 L 14 26 L 3 26 Z M 3 9 " clipRule="nonzero" /></clipPath><clipPath id="bf7c8b2ec1"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="e13639702a"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="c2f24ca340"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="0e0e9c8ea5"><path d="M 4 22 L 10 22 L 10 27.945312 L 4 27.945312 Z M 4 22 " clipRule="nonzero" /></clipPath><clipPath id="2df283ed8c"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="cef54e0750"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="812c27ac77"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="de09ee95b9"><path d="M 6 18 L 12 18 L 12 24 L 6 24 Z M 6 18 " clipRule="nonzero" /></clipPath><clipPath id="db4dfe6231"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="09edbcc98e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="dd7026bb5e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="99ba2a4d5b"><path d="M 9 2 L 20 2 L 20 13 L 9 13 Z M 9 2 " clipRule="nonzero" /></clipPath><clipPath id="a80c4e848e"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="9d3d4da78b"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath><clipPath id="437b0b0983"><path d="M 0.00390625 22.699219 L 12.28125 0.144531 L 21.304688 5.054688 L 9.023438 27.609375 Z M 0.00390625 22.699219 " clipRule="nonzero" /></clipPath></defs><g clipPath="url(#a747d21c9a)"><g clipPath="url(#bf7c8b2ec1)"><g clipPath="url(#e13639702a)"><g clipPath="url(#c2f24ca340)"><path fill="#000000" d="M 3.382812 24.496094 L 11.304688 9.945312 L 13.882812 11.347656 L 5.960938 25.898438 Z M 3.382812 24.496094 " fillOpacity="1" fillRule="evenodd" /></g></g></g></g><g clipPath="url(#0e0e9c8ea5)"><g clipPath="url(#2df283ed8c)"><g clipPath="url(#cef54e0750)"><g clipPath="url(#812c27ac77)"><path fill="#000000" d="M 4.671875 25.195312 L 6.113281 22.550781 L 9.710938 24.511719 L 8.269531 27.15625 Z M 4.671875 25.195312 " fillOpacity="1" fillRule="evenodd" /></g></g></g></g><g clipPath="url(#de09ee95b9)"><g clipPath="url(#db4dfe6231)"><g clipPath="url(#09edbcc98e)"><g clipPath="url(#dd7026bb5e)"><path fill="#000000" d="M 6.832031 21.230469 L 8.273438 18.582031 L 11.871094 20.542969 L 10.429688 23.1875 Z M 6.832031 21.230469 " fillOpacity="1" fillRule="evenodd" /></g></g></g></g><g clipPath="url(#99ba2a4d5b)"><g clipPath="url(#a80c4e848e)"><g clipPath="url(#9d3d4da78b)"><g clipPath="url(#437b0b0983)"><path fill="#000000" d="M 12.3125 6.203125 C 11.714844 7.300781 12.097656 8.660156 13.164062 9.242188 C 14.230469 9.820312 15.582031 9.40625 16.175781 8.308594 C 16.773438 7.210938 16.390625 5.851562 15.324219 5.273438 C 14.257812 4.691406 12.90625 5.109375 12.3125 6.203125 Z M 11.722656 11.886719 C 9.230469 10.53125 8.339844 7.355469 9.734375 4.800781 C 11.125 2.242188 14.273438 1.269531 16.765625 2.625 C 19.253906 3.980469 20.148438 7.15625 18.753906 9.710938 C 17.363281 12.269531 14.214844 13.242188 11.722656 11.886719 Z M 11.722656 11.886719 " fillOpacity="1" fillRule="evenodd" /></g></g></g></g></svg>
             <input
               value={accessKey}
               onChange={(e) => setAccessKey(e.target.value)}
@@ -69,17 +69,17 @@ const LoginScreen = ({ onLogin, accessKey, setAccessKey }: {
       <div className="flex gap-0 mt-4 flex-col items-center justify-center text-white text-xs md:text-sm">
         <p>Ga dapet Access Key?</p>
         <div className="flex gap-0.5 text-yellow-300 hover:text-yellow-500 underline items-center -ml-3">
-        <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="22px" 
-            height="22px" 
-            viewBox="0 0 256 256" 
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22px"
+            height="22px"
+            viewBox="0 0 256 256"
           >
-            <path 
-              d="M128.00049,28A100.02594,100.02594,0,0,0,41.11475,177.53908l-9.0044,31.51661a11.99971,11.99971,0,0,0,14.835,14.834l31.5166-9.00391A100.00677,100.00677,0,1,0,128.00049,28Zm0,192a91.87082,91.87082,0,0,1-46.95264-12.86719,3.99494,3.99494,0,0,0-3.14355-.4082l-33.15723,9.47363a3.99979,3.99979,0,0,1-4.94434-4.94531l9.47266-33.15625a4.00111,4.00111,0,0,0-.4082-3.14355A92.01077,92.01077,0,1,1,128.00049,220Zm50.51123-73.457-20.45947-11.69141a12.01054,12.01054,0,0,0-12.12745.12891l-13.80664,8.28418a44.04183,44.04183,0,0,1-19.38232-19.38281l8.28369-13.80664a12.0108,12.0108,0,0,0,.12891-12.127l-11.69092-20.46A10.91584,10.91584,0,0,0,100,72a32.00811,32.00811,0,0,0-32,31.88086A84.001,84.001,0,0,0,151.999,188h.12012A32.00842,32.00842,0,0,0,184,156,10.913,10.913,0,0,0,178.51172,146.543ZM152.10791,180h-.1084A75.99972,75.99972,0,0,1,76,103.8926,23.997,23.997,0,0,1,100,80a2.89975,2.89975,0,0,1,2.51172,1.457L114.20264,101.918a4.00418,4.00418,0,0,1-.043,4.042l-9.38916,15.64844a3.9987,3.9987,0,0,0-.21826,3.69824,52.04112,52.04112,0,0,0,26.1416,26.1416,3.99707,3.99707,0,0,0,3.69873-.21875L150.04,141.84084a4.006,4.006,0,0,1,4.043-.04394l20.46045,11.69238A2.89712,2.89712,0,0,1,176,156,23.99725,23.99725,0,0,1,152.10791,180Z" 
-              stroke="currentColor" 
-              strokeWidth="8" 
-              fill="none" 
+            <path
+              d="M128.00049,28A100.02594,100.02594,0,0,0,41.11475,177.53908l-9.0044,31.51661a11.99971,11.99971,0,0,0,14.835,14.834l31.5166-9.00391A100.00677,100.00677,0,1,0,128.00049,28Zm0,192a91.87082,91.87082,0,0,1-46.95264-12.86719,3.99494,3.99494,0,0,0-3.14355-.4082l-33.15723,9.47363a3.99979,3.99979,0,0,1-4.94434-4.94531l9.47266-33.15625a4.00111,4.00111,0,0,0-.4082-3.14355A92.01077,92.01077,0,1,1,128.00049,220Zm50.51123-73.457-20.45947-11.69141a12.01054,12.01054,0,0,0-12.12745.12891l-13.80664,8.28418a44.04183,44.04183,0,0,1-19.38232-19.38281l8.28369-13.80664a12.0108,12.0108,0,0,0,.12891-12.127l-11.69092-20.46A10.91584,10.91584,0,0,0,100,72a32.00811,32.00811,0,0,0-32,31.88086A84.001,84.001,0,0,0,151.999,188h.12012A32.00842,32.00842,0,0,0,184,156,10.913,10.913,0,0,0,178.51172,146.543ZM152.10791,180h-.1084A75.99972,75.99972,0,0,1,76,103.8926,23.997,23.997,0,0,1,100,80a2.89975,2.89975,0,0,1,2.51172,1.457L114.20264,101.918a4.00418,4.00418,0,0,1-.043,4.042l-9.38916,15.64844a3.9987,3.9987,0,0,0-.21826,3.69824,52.04112,52.04112,0,0,0,26.1416,26.1416,3.99707,3.99707,0,0,0,3.69873-.21875L150.04,141.84084a4.006,4.006,0,0,1,4.043-.04394l20.46045,11.69238A2.89712,2.89712,0,0,1,176,156,23.99725,23.99725,0,0,1,152.10791,180Z"
+              stroke="currentColor"
+              strokeWidth="8"
+              fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -114,7 +114,7 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
     }
     onSave(localId.trim());
   };
-  
+
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
       <div className="bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-lg px-6 py-4 max-h-[90vh] overflow-y-auto">
@@ -124,50 +124,50 @@ const SpreadsheetSetupModal = ({ isOpen, onClose, onSave, currentId }: {
             &times;
           </button>
         </div>
-        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-gray-400" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>SETUP PBB V2</div>
-        
+        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-gray-400" style={{ textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)" }}>SETUP PBB V2</div>
+
         <div className="text-xs text-white text-justify">
-            <p className="font-bold mb-1">Langkah 1:</p>
-            <p>Klik link di bawah ini, untuk membuat salinan Template Spreadsheet PBB agar tersimpan di Google Drive kamu <b>(Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)</b></p>
+          <p className="font-bold mb-1">Langkah 1:</p>
+          <p>Klik link di bawah ini, untuk membuat salinan Template Spreadsheet PBB agar tersimpan di Google Drive kamu <b>(Skip langkah ini kalau sudah memiliki file Spreadsheet PBB)</b></p>
         </div>
-        <a 
-            href={SPREADSHEET_TEMPLATE_URL} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="inline-flex w-full text-center font-bold items-center justify-center my-4 gap-1.5 text-xs px-4 py-2 bg-[#005bff] text-white rounded-lg transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"
-        > 
-            <svg xmlns="http://www.w3.org/2000/svg" width="17" zoomAndPan="magnify" viewBox="0 0 26.25 26.249998" height="17" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a2831d7587"><path d="M 0 0 L 25.519531 0 L 25.519531 25.519531 L 0 25.519531 Z M 0 0 " clipRule="nonzero"/></clipPath></defs><g clipPath="url(#a2831d7587)"><path fill="#fdfdfd" d="M 12.6875 0 C 5.667969 0 0 5.667969 0 12.6875 C 0 19.707031 5.667969 25.371094 12.6875 25.371094 C 19.707031 25.371094 25.371094 19.707031 25.371094 12.6875 C 25.371094 5.667969 19.707031 0 12.6875 0 Z M 18.746094 7.300781 L 16.152344 7.300781 L 16.152344 4.734375 Z M 8.65625 4.679688 C 8.65625 4.539062 8.769531 4.425781 8.910156 4.425781 L 15.054688 4.425781 L 15.054688 7.667969 L 14.292969 6.90625 C 13.757812 6.371094 13.503906 6.175781 12.910156 6.175781 L 8.65625 6.175781 Z M 16.070312 10.007812 L 13.503906 10.007812 L 13.503906 7.414062 Z M 6.203125 20.296875 C 6.0625 20.296875 5.949219 20.183594 5.949219 20.042969 L 5.949219 7.359375 C 5.949219 7.21875 6.0625 7.105469 6.203125 7.105469 L 12.375 7.105469 L 12.375 10.542969 C 12.375 10.855469 12.628906 11.078125 12.941406 11.078125 L 16.378906 11.078125 L 16.378906 20.042969 C 16.378906 20.183594 16.265625 20.296875 16.125 20.296875 Z M 18.804688 17.621094 C 17.929688 17.621094 17.308594 17.621094 17.308594 17.621094 L 17.308594 10.542969 C 17.308594 10.066406 17.167969 9.78125 16.832031 9.445312 L 15.789062 8.402344 L 19.03125 8.402344 L 19.03125 17.339844 C 19.058594 17.507812 18.945312 17.621094 18.804688 17.621094 Z M 18.804688 17.621094 " fillOpacity="1" fillRule="nonzero"/></g></svg> 
-            Salin Template
+        <a
+          href={SPREADSHEET_TEMPLATE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex w-full text-center font-bold items-center justify-center my-4 gap-1.5 text-xs px-4 py-2 bg-[#005bff] text-white rounded-lg transition transform hover:scale-[1.02] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" zoomAndPan="magnify" viewBox="0 0 26.25 26.249998" height="17" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><clipPath id="a2831d7587"><path d="M 0 0 L 25.519531 0 L 25.519531 25.519531 L 0 25.519531 Z M 0 0 " clipRule="nonzero" /></clipPath></defs><g clipPath="url(#a2831d7587)"><path fill="#fdfdfd" d="M 12.6875 0 C 5.667969 0 0 5.667969 0 12.6875 C 0 19.707031 5.667969 25.371094 12.6875 25.371094 C 19.707031 25.371094 25.371094 19.707031 25.371094 12.6875 C 25.371094 5.667969 19.707031 0 12.6875 0 Z M 18.746094 7.300781 L 16.152344 7.300781 L 16.152344 4.734375 Z M 8.65625 4.679688 C 8.65625 4.539062 8.769531 4.425781 8.910156 4.425781 L 15.054688 4.425781 L 15.054688 7.667969 L 14.292969 6.90625 C 13.757812 6.371094 13.503906 6.175781 12.910156 6.175781 L 8.65625 6.175781 Z M 16.070312 10.007812 L 13.503906 10.007812 L 13.503906 7.414062 Z M 6.203125 20.296875 C 6.0625 20.296875 5.949219 20.183594 5.949219 20.042969 L 5.949219 7.359375 C 5.949219 7.21875 6.0625 7.105469 6.203125 7.105469 L 12.375 7.105469 L 12.375 10.542969 C 12.375 10.855469 12.628906 11.078125 12.941406 11.078125 L 16.378906 11.078125 L 16.378906 20.042969 C 16.378906 20.183594 16.265625 20.296875 16.125 20.296875 Z M 18.804688 17.621094 C 17.929688 17.621094 17.308594 17.621094 17.308594 17.621094 L 17.308594 10.542969 C 17.308594 10.066406 17.167969 9.78125 16.832031 9.445312 L 15.789062 8.402344 L 19.03125 8.402344 L 19.03125 17.339844 C 19.058594 17.507812 18.945312 17.621094 18.804688 17.621094 Z M 18.804688 17.621094 " fillOpacity="1" fillRule="nonzero" /></g></svg>
+          Salin Template
         </a>
 
         <div className="text-xs text-white text-justify">
-            <p className="font-bold mb-1">Langkah 2:</p>
-            <p>Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.</p>
+          <p className="font-bold mb-1">Langkah 2:</p>
+          <p>Salin Link Spreadsheet PBB Kamu dan tempel di bawah ini.</p>
         </div>
-        <input 
-            value={localId ?? ""} 
-            onChange={(e) => setLocalId(e.target.value)} 
-            placeholder="Tempel Link Spreadsheet PBB di sini!" 
-            className="w-full border bg-white dark:text-black px-3 py-2 my-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150" 
+        <input
+          value={localId ?? ""}
+          onChange={(e) => setLocalId(e.target.value)}
+          placeholder="Tempel Link Spreadsheet PBB di sini!"
+          className="w-full border bg-white dark:text-black px-3 py-2 my-4 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-300 transition-shadow duration-150"
         />
 
         <div className="mt-1 mb-5 flex justify-start gap-3">
-            <button onClick={handleSave} className={btnPrimary}><SaveIcon className="w-4 h-4 -mt-0.5" /> Simpan Perubahan</button>
-            <button onClick={onClose} className={btnNeutral}>Batal</button>
+          <button onClick={handleSave} className={btnPrimary}><SaveIcon className="w-4 h-4 -mt-0.5" /> Simpan Perubahan</button>
+          <button onClick={onClose} className={btnNeutral}>Batal</button>
         </div>
 
         <div className="text-xs text-white text-justify">
-            <p className="font-bold mb-1">Langkah 3:</p>
-            <p>Nonton video tutorial lengkap penggunaan, di bawah ini:</p>
+          <p className="font-bold mb-1">Langkah 3:</p>
+          <p>Nonton video tutorial lengkap penggunaan, di bawah ini:</p>
         </div>
 
         <div className="aspect-video w-full mx-auto my-4">
-            <LazyYoutube
-              videoId="QT_fdbfsrJw"
-              title="Video Clip Personal Branding Builder"
-              ratio="16:9"
-            />
-          </div>
+          <LazyYoutube
+            videoId="QT_fdbfsrJw"
+            title="Video Clip Personal Branding Builder"
+            ratio="16:9"
+          />
+        </div>
       </div>
     </div>
   );
@@ -183,8 +183,8 @@ type TabMenuProps = {
   setIsSpreadsheetModalOpen: (open: boolean) => void;
   handleSaveSpreadsheetId: (id: string) => void;
 };
-const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen, setIsSpreadsheetModalOpen,
-  }: TabMenuProps) => {
+const TabMenu = ({ activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen, setIsSpreadsheetModalOpen,
+}: TabMenuProps) => {
   const menuItems = ['Overview', 'Start from 0', 'Niche Finder', 'Storytelling Builder', 'Smart Pillar', 'Bio Generator', 'Content Factory', 'Personal Branding Planner'];
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -206,7 +206,7 @@ const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen
     ) {
       setIsSpreadsheetModalOpen(true);
     }
-  }, [activeTab, spreadsheetId]);  
+  }, [activeTab, spreadsheetId]);
 
   return (
     <div className="relative mb-5">
@@ -218,7 +218,7 @@ const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-  
+
         <div
           ref={scrollRef}
           className="overflow-x-auto overflow-y-hidden h-fit [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex-1"
@@ -231,10 +231,9 @@ const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen
                 className={`
                   whitespace-nowrap py-2 px-4 text-sm cursor-pointer rounded-lg
                   transition-colors duration-150 focus:outline-none text-white font-bold
-                  ${
-                    activeTab === item
-                      ? "bg-[#005bff]"
-                      : "border-transparent hover:text-[#a6c3f7]"
+                  ${activeTab === item
+                    ? "bg-[#005bff]"
+                    : "border-transparent hover:text-[#a6c3f7]"
                   }
                 `}
               >
@@ -243,7 +242,7 @@ const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen
             ))}
           </nav>
         </div>
-  
+
         <button
           onClick={() => scroll("right")}
           className="absolute right-0 z-10 p-1 bg-black/40 hover:bg-black/70 rounded-full text-white"
@@ -253,7 +252,7 @@ const TabMenu = ({activeTab, setActiveTab, spreadsheetId, isSpreadsheetModalOpen
         </button>
       </div>
     </div>
-  );  
+  );
 };
 // ▲▲▲ END ▲▲▲ //
 
@@ -323,7 +322,7 @@ const PillarSection = memo(({ pillar, setPillar, onGenerate, onSave, isSaving }:
           <option value="Visionary & Encouraging">Visionary & Encouraging</option>
         </select>
         <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
       <Input label="Target audiens" value={pillar.targetAudiens} onChange={(v) => setPillar({ ...pillar, targetAudiens: v })} placeholder="Contoh: Gen-Z, Mahasiswa, Mama muda, Editor pemula, Pembelajar bahasa Inggris, dsb." />
@@ -359,7 +358,7 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
       setTagInputValue("");
       return;
     }
-    
+
     setPillarsList(next);
     setTagInputValue("");
   }
@@ -380,12 +379,12 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
     <>
       <label className="text-sm font-bold text-white">{`List Pillar ${identity.nama} (max.6)`}</label>
       <div className="mt-2 flex flex-col md:flex-row gap-2">
-        <input 
-          value={tagInputValue} 
-          onChange={(e) => setTagInputValue(e.target.value)} 
-          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addPillarTagFromInput(); } }} 
-          placeholder="Tulis lalu tekan Enter untuk menambahkan pillar baru" 
-          className="w-full bg-white dark:text-black rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
+        <input
+          value={tagInputValue}
+          onChange={(e) => setTagInputValue(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addPillarTagFromInput(); } }}
+          placeholder="Tulis lalu tekan Enter untuk menambahkan pillar baru"
+          className="w-full bg-white dark:text-black rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
         />
         <div className="flex gap-2 w-full md:w-fit mt-1 md:mt-0">
           <button onClick={addPillarTagFromInput} className={`w-full md:w-fit justify-center ${btnPrimary}`}><PlusCircle className="w-4 h-4" />Tambah</button>
@@ -395,11 +394,11 @@ const PillarListManager = memo(({ identity, pillarsList, setPillarsList, onSave,
       <div className="mt-3 grid grid-cols-2 gap-2">
         {pillarsList.map((p, i) => (
           <div key={"grid" + i} className="bg-white rounded p-2 text-sm min-h-fit flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150">
-            <input 
-              value={p} 
-              onChange={(e) => updatePillarAt(i, e.target.value)} 
-              className="bg-transparent text-sm dark:text-black outline-none w-full" 
-              placeholder="-- kosong --" 
+            <input
+              value={p}
+              onChange={(e) => updatePillarAt(i, e.target.value)}
+              className="bg-transparent text-sm dark:text-black outline-none w-full"
+              placeholder="-- kosong --"
             />
             <button onClick={() => removePillarAt(i)} className="text-xs px-1 cursor-pointer">✕</button>
           </div>
@@ -414,12 +413,12 @@ const BioGeneratorSection = memo(({ bio, setBio, onGenerate, onSave, isSaving }:
     <div className="flex flex-col gap-2 w-full mb-3">
       <div className="flex my-2 gap-2">
         <button onClick={onGenerate} className={`w-fit ${btnPrimary}`}>
-        <Bot className="w-5 h-5 -mt-0.5" /> Generate
+          <Bot className="w-5 h-5 -mt-0.5" /> Generate
         </button>
         <button type="button" onClick={onSave} disabled={isSaving} className={`w-fit ${btnNeutral}`}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
       </div>
       <div className="w-full">
-      <p className="text-xs text-white mb-2">Hasil generate akan didasarkan pada data Niche, Storytelling, dan Pillar yang telah diisi.</p>
+        <p className="text-xs text-white mb-2">Hasil generate akan didasarkan pada data Niche, Storytelling, dan Pillar yang telah diisi.</p>
         <Input value={bio} onChange={setBio} rows={4} placeholder="Tulis bio sosmed di sini..." />
       </div>
     </div>
@@ -445,10 +444,10 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
   return (
     <>
       <div className="relative mt-2">
-        <select 
-          value={selectedPillar} 
-          onChange={(e) => setSelectedPillar(e.target.value)} 
-          className="w-full border px-3 pr-8 py-2 rounded text-sm appearance-none bg-white dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
+        <select
+          value={selectedPillar}
+          onChange={(e) => setSelectedPillar(e.target.value)}
+          className="w-full border px-3 pr-8 py-2 rounded text-sm appearance-none bg-white dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
           disabled={filteredPillars.length === 0}
         >
           <option value="">-- Pilih Pilar --</option>
@@ -457,22 +456,22 @@ const IdeaGenerator = memo(({ pillarsList, onGenerateIdeas }: {
           ))}
         </select>
         <svg className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
       <div className="mt-3 flex gap-4 items-end">
         <div className="flex flex-col">
           <label className="text-xs text-white mb-1">Jumlah ide</label>
-          <input 
-            type="number" 
-            min={1} max={50} 
-            value={numIdeas} 
-            onChange={(e) => setNumIdeas(Number(e.target.value))} 
-            className="w-[4.3rem] bg-white dark:text-black border px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" 
+          <input
+            type="number"
+            min={1} max={50}
+            value={numIdeas}
+            onChange={(e) => setNumIdeas(Number(e.target.value))}
+            className="w-[4.3rem] bg-white dark:text-black border px-2 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
           />
         </div>
-        <button 
-          onClick={() => { if (!selectedPillar) return alert("Pilih pilar dulu"); onGenerateIdeas(selectedPillar, numIdeas); }} 
+        <button
+          onClick={() => { if (!selectedPillar) return alert("Pilih pilar dulu"); onGenerateIdeas(selectedPillar, numIdeas); }}
           className={`${btnPrimary}`}
           disabled={!selectedPillar}
         >
@@ -515,11 +514,11 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
   };
 
   const updateIdea = (updatedIdea: ContentIdea) => {
-    setContentIdeas(prev => 
+    setContentIdeas(prev =>
       prev.map(idea => (idea.id === updatedIdea.id ? updatedIdea : idea))
     );
-  };  
-  
+  };
+
   const deleteIdea = (id: number) => {
     setContentIdeas((prev) => prev.filter((idea) => idea.id !== id));
   };
@@ -528,17 +527,17 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
     setSelectedIdea(idea);
     setIsModalOpen(true);
   };
-  
+
   const handleOpenEvalModal = (idea: ContentIdea) => {
     setSelectedEvalIdea(idea);
     setIsEvalModalOpen(true);
   };
-  
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedIdea(null);
   };
-  
+
   const handleCloseEvalModal = () => {
     setIsEvalModalOpen(false);
     setSelectedEvalIdea(null);
@@ -548,7 +547,7 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
     <>
       <label className="text-sm mb-3 text-white">List Konten <b><i>{`${identity.nama}`}</i></b></label>
       <div className="flex flex-col md:flex-row gap-2 mb-4">
-        <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); }}} className="flex-1 bg-white dark:text-black border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
+        <input type="text" placeholder="Judul ide konten" value={newIdeaTitle} onChange={(e) => setNewIdeaTitle(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIdea(); } }} className="flex-1 bg-white dark:text-black border px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150" />
         <div className="flex gap-2 w-full md:w-fit mt-1 md:mt-0">
           <button onClick={addIdea} className={`w-full md:w-fit justify-center ${btnPrimary}`}><PlusCircle className="w-4 h-4" />Tambah</button>
           <button type="button" onClick={onSave} disabled={isSaving} className={`w-full md:w-fit justify-center ${btnNeutral}`}><SaveIcon className="w-4 h-4 -mt-0.5" /> {isSaving ? "Menyimpan..." : "Simpan"}</button>
@@ -569,114 +568,113 @@ const ContentIdeasList = memo(({ identity, contentIdeas, pillarsList, setContent
             {contentIdeas.length === 0 ? (
               <tr className="block md:table-row"><td colSpan={4} className="block md:table-cell text-center text-white/50 py-4">Belum ada ide konten</td></tr>
             ) : contentIdeas
-            .slice()
-            .sort((a, b) => {
-              // 1. Prioritas: deadline kosong → taruh di atas
-              if (a.deadline && !b.deadline) return 1;
-              if (!a.deadline && b.deadline) return -1;
-          
-              // 2. Kalau sama-sama kosong deadline
-              if (!a.deadline && !b.deadline) {
-                // Urutkan Uploaded ke bawah
+              .slice()
+              .sort((a, b) => {
+                // 1. Prioritas: deadline kosong → taruh di atas
+                if (a.deadline && !b.deadline) return 1;
+                if (!a.deadline && b.deadline) return -1;
+
+                // 2. Kalau sama-sama kosong deadline
+                if (!a.deadline && !b.deadline) {
+                  // Urutkan Uploaded ke bawah
+                  if (a.status === "Uploaded" && b.status !== "Uploaded") return 1;
+                  if (a.status !== "Uploaded" && b.status === "Uploaded") return -1;
+                  return 0;
+                }
+
+                // Convert deadline ke Date object
+                const dateA = new Date(a.deadline);
+                const dateB = new Date(b.deadline);
+
+                // 3. Kalau ada deadline, Uploaded tetap di bawah
                 if (a.status === "Uploaded" && b.status !== "Uploaded") return 1;
                 if (a.status !== "Uploaded" && b.status === "Uploaded") return -1;
+
+                // 4. Kalau dua-duanya belum Uploaded → urut ascending
+                if (a.status !== "Uploaded" && b.status !== "Uploaded") {
+                  return dateA.getTime() - dateB.getTime();
+                }
+
+                // 5. Kalau dua-duanya Uploaded → urut descending
+                if (a.status === "Uploaded" && b.status === "Uploaded") {
+                  return dateB.getTime() - dateA.getTime();
+                }
+
                 return 0;
-              }
-          
-              // Convert deadline ke Date object
-              const dateA = new Date(a.deadline);
-              const dateB = new Date(b.deadline);
-          
-              // 3. Kalau ada deadline, Uploaded tetap di bawah
-              if (a.status === "Uploaded" && b.status !== "Uploaded") return 1;
-              if (a.status !== "Uploaded" && b.status === "Uploaded") return -1;
-          
-              // 4. Kalau dua-duanya belum Uploaded → urut ascending
-              if (a.status !== "Uploaded" && b.status !== "Uploaded") {
-                return dateA.getTime() - dateB.getTime();
-              }
-          
-              // 5. Kalau dua-duanya Uploaded → urut descending
-              if (a.status === "Uploaded" && b.status === "Uploaded") {
-                return dateB.getTime() - dateA.getTime();
-              }
-          
-              return 0;
-            })
-            .map((idea) => (
-              <tr
-                key={idea.id}
-                className="block bg-white/80 md:table-row mb-4 md:mb-0 border md:border-none rounded-lg md:rounded-none"
-              >
-                <td
-                  data-label="Judul:"
-                  className="p-2 block md:table-cell dark:text-black border-b md:border relative"
+              })
+              .map((idea) => (
+                <tr
+                  key={idea.id}
+                  className="block bg-white/80 md:table-row mb-4 md:mb-0 border md:border-none rounded-lg md:rounded-none"
                 >
-                  <span className="md:hidden font-bold mr-2">Judul:</span>
-                  {idea.title}
-                </td>
-          
-                <td
-                  data-label="Deadline:"
-                  className="p-2 block md:table-cell border-b dark:text-black md:border text-right md:text-center relative"
-                >
-                  <span className="md:hidden font-bold float-left mt-1">Deadline:</span>
-                  {idea.deadline
-                    ? new Date(idea.deadline).toLocaleDateString("id-ID", {
+                  <td
+                    data-label="Judul:"
+                    className="p-2 block md:table-cell dark:text-black border-b md:border relative"
+                  >
+                    <span className="md:hidden font-bold mr-2">Judul:</span>
+                    {idea.title}
+                  </td>
+
+                  <td
+                    data-label="Deadline:"
+                    className="p-2 block md:table-cell border-b dark:text-black md:border text-right md:text-center relative"
+                  >
+                    <span className="md:hidden font-bold float-left mt-1">Deadline:</span>
+                    {idea.deadline
+                      ? new Date(idea.deadline).toLocaleDateString("id-ID", {
                         day: "2-digit",
                         month: "2-digit",
                         year: "numeric",
                       })
-                    : "-"}
-                </td>
-          
-                <td
-                  data-label="Status:"
-                  className="p-2 block md:table-cell border-b md:border dark:text-black text-right md:text-center relative"
-                >
-                  <span className="md:hidden font-bold float-left mt-1">Status:</span>
-                  <span
-                    className={`px-2 py-1 text-xs rounded-full capitalize ${
-                      idea.status === "Uploaded"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
+                      : "-"}
+                  </td>
+
+                  <td
+                    data-label="Status:"
+                    className="p-2 block md:table-cell border-b md:border dark:text-black text-right md:text-center relative"
                   >
-                    {idea.status}
-                  </span>
-                </td>
-          
-                <td
-                  data-label="Aksi:"
-                  className="p-2 border-0 md:border block dark:text-black md:table-cell text-right md:text-center relative"
-                >
-                  <span className="md:hidden font-bold float-left mt-1">Aksi:</span>
-                  <div className="flex justify-end md:justify-center items-center gap-1">
-                    <button
-                      onClick={() => handleOpenDetailModal(idea)}
-                      className="text-blue-600 hover:text-blue-800 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
-                      title="Lihat Detail & Script"
+                    <span className="md:hidden font-bold float-left mt-1">Status:</span>
+                    <span
+                      className={`px-2 py-1 text-xs rounded-full capitalize ${idea.status === "Uploaded"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-gray-100 text-gray-800"
+                        }`}
                     >
-                      <FileText className="w-3 h-3" /> Detail
-                    </button>
-                    <button
-                      onClick={() => handleOpenEvalModal(idea)}
-                      className="text-yellow-600 hover:text-yellow-800 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
-                      title="Lihat Detail & Script"
-                    >
-                      <LucideBookOpenText className="w-3 h-3" /> Evaluasi
-                    </button>
-                    <button
-                      onClick={() => deleteIdea(idea.id)}
-                      className="text-red-500 hover:text-red-700 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex gap-1 items-center cursor-pointer"
-                      title="Hapus Konten"
-                    >
-                      <Trash2 className="w-3 h-3" /> Hapus
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                      {idea.status}
+                    </span>
+                  </td>
+
+                  <td
+                    data-label="Aksi:"
+                    className="p-2 border-0 md:border block dark:text-black md:table-cell text-right md:text-center relative"
+                  >
+                    <span className="md:hidden font-bold float-left mt-1">Aksi:</span>
+                    <div className="flex justify-end md:justify-center items-center gap-1">
+                      <button
+                        onClick={() => handleOpenDetailModal(idea)}
+                        className="text-blue-600 hover:text-blue-800 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
+                        title="Lihat Detail & Script"
+                      >
+                        <FileText className="w-3 h-3" /> Detail
+                      </button>
+                      <button
+                        onClick={() => handleOpenEvalModal(idea)}
+                        className="text-yellow-600 hover:text-yellow-800 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex items-center gap-1 cursor-pointer"
+                        title="Lihat Detail & Script"
+                      >
+                        <LucideBookOpenText className="w-3 h-3" /> Evaluasi
+                      </button>
+                      <button
+                        onClick={() => deleteIdea(idea.id)}
+                        className="text-red-500 hover:text-red-700 py-1 px-2 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150 flex gap-1 items-center cursor-pointer"
+                        title="Hapus Konten"
+                      >
+                        <Trash2 className="w-3 h-3" /> Hapus
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -745,8 +743,8 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
         <button onClick={onClose} className="absolute top-3 right-4 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
           &times;
         </button>
-        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>DETAIL KONTEN</div>
-        
+        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{ textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)" }}>DETAIL KONTEN</div>
+
         <main className="p-4 space-y-4 mb-2 overflow-y-scroll">
           <div>
             <label className="text-xs text-white mb-1 block">Judul Konten</label>
@@ -768,10 +766,10 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
             <div>
               <label className="text-xs text-white mb-1 block">Pilar Konten</label>
               <div className="relative">
-                <select 
-                  name="pillar" 
-                  value={formData.pillar || ""} 
-                  onChange={handleChange} 
+                <select
+                  name="pillar"
+                  value={formData.pillar || ""}
+                  onChange={handleChange}
                   className="w-full bg-white rounded-lg px-3 py-2 text-sm dark:text-black appearance-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
                   disabled={filteredPillars.length === 0}
                 >
@@ -807,10 +805,10 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
             <div>
               <label className="text-xs text-white mb-1 block">Format Konten</label>
               <div className="relative">
-                <select 
-                  name="format" 
-                  value={formData.format || ""} 
-                  onChange={handleChange} 
+                <select
+                  name="format"
+                  value={formData.format || ""}
+                  onChange={handleChange}
                   className="w-full bg-white rounded-lg px-3 py-2 text-sm dark:text-black appearance-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 transition-shadow duration-150"
                 >
                   <option value="">-- Pilih Format --</option>
@@ -833,7 +831,7 @@ const ContentDetailModal = memo(({ isOpen, onClose, ideaData, onUpdate, onGenera
             <textarea name="script" value={formData.script} onChange={handleChange} rows={8} placeholder="Tulis script konten di sini..." className="w-full bg-white rounded-lg px-3 py-2 text-sm resize-y dark:text-black focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-slate-300 duration-150" />
           </div>
         </main>
-        
+
         <footer className="pb-4 pt-6 px-6 border-t border-white/50 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex gap-2">
             <button onClick={handleSaveChanges} className={btnPrimary}><SaveIcon className="w-4 h-4" /> Simpan Perubahan</button>
@@ -855,14 +853,14 @@ const ContentEvalModal = memo(({ isOpen, onClose, ideaData, onGenerateEval }: {
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
       <div className="relative bg-gradient-to-b from-[#000000] via-[#000000] to-[#00498b] rounded-lg shadow-xl w-full max-w-xl p-6 max-h-[90vh] overflow-y-auto">
-        
+
         <div className="relative flex items-center justify-center mt-2 mb-4">
           <Image src="/logo-pbbv2.webp" alt="Logo Personal Branding Builder v2" width={120} height={60} className="mb-1 mx-auto" priority />
         </div>
         <button onClick={onClose} className="absolute top-3 right-4 text-white hover:text-gray-300 text-2xl leading-none cursor-pointer">
           &times;
         </button>
-        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)"}}>EVALUASI KONTEN</div>
+        <div className="flex justify-center mb-5 text-white text-3xl md:text-4xl font-bold border-b pb-3 border-white/20" style={{ textShadow: "0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.5)" }}>EVALUASI KONTEN</div>
 
         <main className="space-y-4 text-white">
           <p className="text-sm">
@@ -907,11 +905,30 @@ export default function PersonalBrandingBuilder() {
   const [isSpreadsheetModalOpen, setIsSpreadsheetModalOpen] = useState(false);
   const [infoModal, setInfoModal] = useState<string | null>(null);
 
+  const [aiPlatform, setAiPlatform] = useState("chatgpt");
+  const [showAiLoginAlert, setShowAiLoginAlert] = useState(false);
+  const [pendingAiPlatform, setPendingAiPlatform] = useState("chatgpt");
+
+  const handleAiPlatformSelect = (platform: string) => {
+    setPendingAiPlatform(platform);
+    setShowAiLoginAlert(true);
+  };
+
+  const handleAiLoginConfirm = (sudah: boolean) => {
+    if (!sudah) {
+      if (pendingAiPlatform === 'claude') window.open('https://claude.ai/login', '_blank');
+      else if (pendingAiPlatform === 'perplexity') window.open('https://www.perplexity.ai/', '_blank');
+      else window.open('https://chat.openai.com/auth/login', '_blank');
+    }
+    setAiPlatform(pendingAiPlatform);
+    setShowAiLoginAlert(false);
+  };
+
   // ▼▼▼ LOCAL STORAGE & AUTH EFFECT ▼▼▼ //
   useEffect(() => {
     const savedKey = localStorage.getItem(STORAGE_KEY);
     const savedId = localStorage.getItem("pb_spreadsheet_id");
-  
+
     if (savedKey) {
       fetch("/api/validate-key", {
         method: "POST",
@@ -927,7 +944,7 @@ export default function PersonalBrandingBuilder() {
           }
         });
     }
-  
+
     if (savedId) {
       setSpreadsheetId(savedId);
     }
@@ -955,7 +972,7 @@ export default function PersonalBrandingBuilder() {
       contentFactory: "Hasilkan ide konten sesuai pilar dan kebutuhanmu agar nggak kehabisan bahan posting.",
       planner: "Bantu kamu mengelola ide, script, dan evaluasi konten dalam satu tempat.",
     };
-  
+
     return (
       <div className="fixed inset-0 dark:text-black bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg max-w-md w-full pt-5 pb-6 px-6 relative">
@@ -985,7 +1002,7 @@ export default function PersonalBrandingBuilder() {
         body: JSON.stringify({ accessKey: accessKeyInput }),
       });
       const data = await res.json();
-  
+
       if (data.success) {
         localStorage.setItem(STORAGE_KEY, accessKeyInput);
         setIsLoggedIn(true);
@@ -1039,7 +1056,7 @@ Saya ingin menemukan niche terbaik yang sesuai dengan Ikigai saya agar bisa memb
 - What I Love (Apa yang saya cintai): ${data.suka}
 - What I’m Good At (Apa yang saya kuasai): ${data.dikuasai}
 - What The World Needs (Apa yang dibutuhkan dunia): ${data.kenapaDibutuhkan}
-- What I Can Be Paid For (Apa yang bisa menghasilkan uang untuk saya): ${data.peluangPenghasilan && data.peluangPenghasilan.trim() !== "" ? data.peluangPenghasilan  : "Tolong bantu menemukan peluang monetisasinya"}
+- What I Can Be Paid For (Apa yang bisa menghasilkan uang untuk saya): ${data.peluangPenghasilan && data.peluangPenghasilan.trim() !== "" ? data.peluangPenghasilan : "Tolong bantu menemukan peluang monetisasinya"}
 
 [TASK OUTPUT]
 Berdasarkan data di atas, tolong bantu saya:
@@ -1221,7 +1238,7 @@ Format Output:
 Akhiri jawaban dengan pertanyaan:
 👉 “Dari 5 variasi script ini, mana yang paling terasa cocok dengan gaya kamu? Atau ada yang perlu diperbaiki dan di breakdown lebih detail?”`;
 
-  const buildPromptForEvaluation = (pillarData: Pillar, idea: ContentIdea, swotData:SWOT) => `[ROLE SETUP]
+  const buildPromptForEvaluation = (pillarData: Pillar, idea: ContentIdea, swotData: SWOT) => `[ROLE SETUP]
 Kamu adalah seorang Social Media Analyst & Content Strategist yang ahli membaca insight konten dari metrik performa sosial media untuk memberikan evaluasi objektif sekaligus rekomendasi strategis.
 Gunakan bahasa yang jelas, to the point, actionable, dan relevan dengan tren terkini.
 
@@ -1252,7 +1269,12 @@ Ringkas hasil analisis dalam bentuk langkah-langkah praktis yang bisa langsung d
 Akhiri jawaban dengan pertanyaan:
 👉 “Apakah evaluasi ini sudah menjawab kebutuhan kamu? atau ada kendala terkait konten ini yang ingin dicari tau solusi nya?”`;
 
-  const openChatWithPrompt = (prompt: string) => { const url = 'https://chat.openai.com/?prompt=' + encodeURIComponent(prompt); window.open(url, '_blank'); };
+  const openChatWithPrompt = (prompt: string) => {
+    let url = 'https://chatgpt.com/?q=' + encodeURIComponent(prompt);
+    if (aiPlatform === 'claude') url = 'https://claude.ai/new?q=' + encodeURIComponent(prompt);
+    else if (aiPlatform === 'perplexity') url = 'https://perplexity.ai/?q=' + encodeURIComponent(prompt);
+    window.open(url, '_blank');
+  };
   // ▲▲▲ END ▲▲▲ //
 
   // ▼▼▼ IMPORT & EXPORT FUNCTIONS ▼▼▼ //
@@ -1287,7 +1309,7 @@ Akhiri jawaban dengan pertanyaan:
     } else {
       setIsImportingContent(true);
     }
-    
+
     try {
       const res = await fetch("/api/import", {
         method: "POST",
@@ -1432,58 +1454,58 @@ Akhiri jawaban dengan pertanyaan:
       let y = 40;
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
-  
+
       function drawBackground() {
         doc.setFillColor(0, 0, 0);
         doc.rect(0, 0, pageWidth, pageHeight, "F");
       }
-  
+
       drawBackground();
-  
+
       const logo = new window.Image();
       logo.src = "/logo-pbbv2.webp";
       await new Promise((resolve, reject) => {
         logo.onload = resolve;
         logo.onerror = reject;
       });
-  
+
       const imgWidth = 200;
       const imgHeight = (logo.height / logo.width) * imgWidth;
       doc.addImage(logo, "WEBP", (pageWidth - imgWidth) / 2, y, imgWidth, imgHeight);
-  
+
       y += imgHeight + 30;
-  
+
       doc.setFontSize(20);
       doc.setTextColor(255, 255, 255);
       doc.setFont("helvetica", "bold");
       doc.text("Data Personal Branding", pageWidth / 2, y, { align: "center" });
       y += 50;
-  
+
       function writeSection(title: string, fields: { label: string; value?: any; isArray?: boolean }[]) {
         doc.setFontSize(14);
         doc.setFont("helvetica", "bold");
         doc.text(title, 40, y);
         y += 6;
-  
+
         doc.setDrawColor(255, 255, 255);
         doc.line(40, y, pageWidth - 40, y);
         y += 20;
-  
+
         fields.forEach((f) => {
           if (!f.value || (Array.isArray(f.value) && f.value.length === 0)) return;
-  
+
           if (f.isArray && Array.isArray(f.value)) {
             doc.setFont("helvetica", "normal");
             doc.setFontSize(11);
             doc.text(`${f.label}:`, 60, y);
             y += 16;
-  
+
             f.value.forEach((item: string) => {
               doc.setFont("helvetica", "bold");
               const split = doc.splitTextToSize(`• ${item}`, 460);
               doc.text(split, 80, y);
               y += split.length * 14 + 4;
-  
+
               if (y > pageHeight - 80) {
                 doc.addPage();
                 drawBackground();
@@ -1495,12 +1517,12 @@ Akhiri jawaban dengan pertanyaan:
             doc.setFont("helvetica", "normal");
             doc.setFontSize(11);
             doc.text(`${f.label}: `, 60, y);
-  
+
             doc.setFont("helvetica", "bold");
             const split = doc.splitTextToSize(String(f.value), 400);
             doc.text(split, 180, y);
             y += split.length * 14 + 6;
-  
+
             if (y > pageHeight - 80) {
               doc.addPage();
               drawBackground();
@@ -1508,10 +1530,10 @@ Akhiri jawaban dengan pertanyaan:
             }
           }
         });
-  
+
         y += 20;
       }
-  
+
       // Identity
       writeSection("PERSONAL IDENTITY", [
         { label: "Nama", value: identity?.nama },
@@ -1525,7 +1547,7 @@ Akhiri jawaban dengan pertanyaan:
         { label: "Kategori", value: swot?.kategori },
         { label: "Micro-niche", value: swot?.microNiche },
       ]);
-  
+
       // Storytelling
       writeSection("STORYTELLING FOUNDATION", [
         { label: "Kelebihan", value: swot?.kelebihan },
@@ -1534,20 +1556,20 @@ Akhiri jawaban dengan pertanyaan:
         { label: "Tantangan", value: swot?.tantangan },
         { label: "Premis", value: pillar?.premis },
       ]);
-  
+
       // Pillar
       writeSection("CONTENT PILLAR", [
         { label: "Tone of Voice", value: pillar?.toneOfVoice },
         { label: "Target Audiens", value: pillar?.targetAudiens },
         { label: "Pilar Konten", value: pillarsList, isArray: true },
       ]);
-  
+
       doc.save(`personal-branding-${identity?.nama || "export"}.pdf`);
     } catch (err) {
       alert("Gagal export PDF — pastikan library jspdf tersedia.");
       console.error(err);
     }
-  }  
+  }
   // ▲▲▲ END ▲▲▲ //
 
   // ▼▼▼ RENDER LOGIC ▼▼▼ //
@@ -1611,7 +1633,30 @@ Akhiri jawaban dengan pertanyaan:
 
   return (
     <>
-      <SpreadsheetSetupModal 
+      {showAiLoginAlert && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-[#0f172a] border border-gray-600 rounded-xl p-6 w-full max-w-sm shadow-2xl text-white">
+            <div className="text-lg font-bold mb-3 flex items-center gap-2">⚠️ Pastikan Kamu Sudah Login</div>
+            <div className="text-sm mb-5 text-gray-300 leading-relaxed">
+              Agar fitur bisa langsung terbuka dan berjalan, kamu perlu sudah login di
+              <strong className="mx-1 text-white">
+                {pendingAiPlatform === 'chatgpt' ? 'ChatGPT' : pendingAiPlatform === 'claude' ? 'Claude' : 'Perplexity'}
+              </strong>.
+              <br /><br />
+              Sudah login di {pendingAiPlatform === 'chatgpt' ? 'ChatGPT' : pendingAiPlatform === 'claude' ? 'Claude' : 'Perplexity'}?
+            </div>
+            <div className="flex gap-3 justify-end mt-4">
+              <button onClick={() => handleAiLoginConfirm(false)} className="px-4 py-2 bg-transparent border border-white text-white rounded-lg text-xs font-bold hover:bg-white/10 transition">
+                Belum, Login Dulu
+              </button>
+              <button onClick={() => handleAiLoginConfirm(true)} className="px-4 py-2 bg-[#005bff] text-white rounded-lg text-xs font-bold hover:bg-blue-600 transition">
+                Sudah Login ✓
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      <SpreadsheetSetupModal
         isOpen={isSpreadsheetModalOpen}
         onClose={() => setIsSpreadsheetModalOpen(false)}
         onSave={handleSaveSpreadsheetId}
@@ -1636,12 +1681,36 @@ Akhiri jawaban dengan pertanyaan:
             </div>
           </header>
 
+          <div className="flex flex-col md:flex-row justify-center md:justify-end items-center gap-3 mb-4 text-white">
+            <span className="text-sm font-bold whitespace-nowrap text-white/90">Platform AI:</span>
+            <div className="flex items-center gap-1 bg-black/20 p-1 rounded-lg border border-white/5 shadow-inner">
+              <button
+                onClick={() => handleAiPlatformSelect('chatgpt')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'chatgpt' ? 'bg-white/20 text-white shadow-sm border border-white/10' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'}`}
+              >
+                <span>⚪</span> ChatGPT
+              </button>
+              <button
+                onClick={() => handleAiPlatformSelect('claude')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'claude' ? 'bg-white/20 text-white shadow-sm border border-white/10' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'}`}
+              >
+                <span>🟠</span> Claude
+              </button>
+              <button
+                onClick={() => handleAiPlatformSelect('perplexity')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-all duration-200 ${aiPlatform === 'perplexity' ? 'bg-white/20 text-white shadow-sm border border-white/10' : 'text-white/60 hover:text-white hover:bg-white/5 border border-transparent'}`}
+              >
+                <span>⚫</span> Perplexity
+              </button>
+            </div>
+          </div>
+
           <TabMenu activeTab={activeTab} setActiveTab={setActiveTab} spreadsheetId={spreadsheetId} isSpreadsheetModalOpen={isSpreadsheetModalOpen} setIsSpreadsheetModalOpen={setIsSpreadsheetModalOpen} handleSaveSpreadsheetId={handleSaveSpreadsheetId} />
 
 
           <main className="grid grid-cols-1 lg:grid-cols-2">
             <section className="col-span-2 py-5 rounded space-y-4">
-            {activeTab === 'Overview' && (() => {
+              {activeTab === 'Overview' && (() => {
                 const rank = getRank(percentage);
                 const missingFields = Object.entries(FIELDS_MAP)
                   .filter(([key]) => !fieldValues[key])
@@ -1660,8 +1729,8 @@ Akhiri jawaban dengan pertanyaan:
                         {percentage >= 40
                           ? `SELAMAT ${identity.nama}!\nKAMU SIAP NAIK LEVEL 🎉`
                           : identity.nama
-                          ? `SEMANGAT ${identity.nama} 💪🏻`
-                          : "WELCOME!"}
+                            ? `SEMANGAT ${identity.nama} 💪🏻`
+                            : "WELCOME!"}
                       </div>
 
                       <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-center gap-2 lg:gap-10 text-white">
@@ -1669,19 +1738,19 @@ Akhiri jawaban dengan pertanyaan:
                           <p className="text-sm">Level Personal Branding kamu saat ini:</p>
                           <p className="text-3xl md:text-4xl font-bold">{rank}</p>
                           <div className="w-full bg-white/30 h-2 rounded-full overflow-hidden mt-1">
-                          <div
-                            className="h-full rounded-full transition-all duration-500"
-                            style={{
-                              width: `${percentage}%`,
-                              background: "linear-gradient(90deg, #3b82f6, #06b6d4, #10b981)",
-                            }}
-                          />
+                            <div
+                              className="h-full rounded-full transition-all duration-500"
+                              style={{
+                                width: `${percentage}%`,
+                                background: "linear-gradient(90deg, #3b82f6, #06b6d4, #10b981)",
+                              }}
+                            />
                           </div>
                           <p className="text-xs opacity-80 -mt-1">Progress: {percentage}%</p>
 
                           <Image src="/kadev-tangga-personalbranding.webp" alt="Tangga Level Personal Branding" width={350} height={500} className="w-full h-auto mx-auto mt-2" />
                         </div>
-                        
+
                         <div className="flex flex-col items-center gap-2">
                           <div className="mt-4 flex flex-col items-center gap-3 w-full max-w-md">
                             {percentage === 0 && (
@@ -1696,11 +1765,10 @@ Akhiri jawaban dengan pertanyaan:
                                 <button
                                   onClick={() => importFromSheet("branding")}
                                   disabled={isImportingBranding}
-                                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold border shadow-lg transition ${
-                                    isImportingBranding
+                                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold border shadow-lg transition ${isImportingBranding
                                       ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
                                       : "bg-white text-gray-800 hover:scale-[1.03] hover:shadow-xl"
-                                  }`}
+                                    }`}
                                 >
                                   {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
                                 </button>
@@ -1743,11 +1811,10 @@ Akhiri jawaban dengan pertanyaan:
                                 <button
                                   onClick={() => importFromSheet("branding")}
                                   disabled={isImportingBranding}
-                                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold border shadow-lg transition ${
-                                    isImportingBranding
+                                  className={`w-full flex items-center justify-center gap-2 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold border shadow-lg transition ${isImportingBranding
                                       ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-500"
                                       : "bg-white text-gray-800 hover:scale-[1.03] hover:shadow-xl"
-                                  }`}
+                                    }`}
                                 >
                                   {isImportingBranding ? "Importing..." : "📥 Import Data Branding dari Sheet"}
                                 </button>
@@ -1770,7 +1837,7 @@ Akhiri jawaban dengan pertanyaan:
                                   📑 Manage Content
                                 </button>
 
-                                <a 
+                                <a
                                   href="https://kadev.academy/learning" target="_blank"
                                   className="appearance-none w-full bg-yellow-300 text-center text-black/80 py-4 px-6 cursor-pointer rounded-xl text-xs md:text-base font-bold shadow-lg hover:scale-[1.03] hover:shadow-xl transition"
                                 >
@@ -1841,7 +1908,7 @@ Akhiri jawaban dengan pertanyaan:
                       <Info className="w-4 h-4 mt-1 cursor-pointer hover:scale-110" strokeWidth={3} onClick={() => openInfoModal("pillar")} />
                       {infoModal && <InfoModal type={infoModal} onClose={closeInfoModal} />}
                     </div>
-                    <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                    <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar, swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                     <div className="h-[1px] w-full bg-transparent mt-5" />
                     <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   </div>
@@ -1885,7 +1952,7 @@ Akhiri jawaban dengan pertanyaan:
                   <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
                     <h2 className="text-xl tracking-wider font-bold text-white">NICHE FINDER</h2>
                     <p className="text-sm text-white">Bantu kamu menemukan niche personal branding yang paling sesuai dengan minat, keahlian, dan peluang pasar.</p>
-                  </div>                  
+                  </div>
                   <IdentitySection identity={identity} setIdentity={setIdentity} onGenerate={() => openChatWithPrompt(buildPromptForNiche(identity))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <div className="space-y-2">
                     <Input label="Niche" value={swot.niche} onChange={(v) => setSwot({ ...swot, niche: v })} placeholder="Contoh: Digital Tools for Creators" />
@@ -1900,7 +1967,7 @@ Akhiri jawaban dengan pertanyaan:
                   <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
                     <h2 className="text-xl tracking-wider font-bold text-white">STORYTELLING BUILDER</h2>
                     <p className="text-sm text-white">Memudahkanmu merangkai cerita personal agar audiens merasa relate dan engage.</p>
-                  </div> 
+                  </div>
                   <div className="space-y-2">
                     <SwotSection swot={swot} setSwot={setSwot} onGenerate={() => openChatWithPrompt(buildPromptForPremis(swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                     <Input label="Premis" value={pillar.premis} onChange={(v) => setPillar({ ...pillar, premis: v })} rows={2} />
@@ -1912,8 +1979,8 @@ Akhiri jawaban dengan pertanyaan:
                   <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
                     <h2 className="text-xl tracking-wider font-bold text-white">SMART PILLAR</h2>
                     <p className="text-sm text-white">Bantu kamu menemukan pilar konten strategis agar kontenmu konsisten, terarah, dan berhubungan dengan niche.</p>
-                  </div> 
-                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar,swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
+                  </div>
+                  <PillarSection pillar={pillar} setPillar={setPillar} onGenerate={() => openChatWithPrompt(buildPromptForPillars(pillar, swot))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                 </>
               )}
@@ -1922,7 +1989,7 @@ Akhiri jawaban dengan pertanyaan:
                   <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
                     <h2 className="text-xl tracking-wider font-bold text-white">BIO GENERATOR</h2>
                     <p className="text-sm text-white">Bantu kamu menulis bio media sosial yang ringkas, menarik, dan kuat membangun personal branding.</p>
-                  </div> 
+                  </div>
                   <BioGeneratorSection bio={bioResult} setBio={setBioResult} onGenerate={() => openChatWithPrompt(buildPromptForBio(identity, swot, pillar))} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                 </>
               )}
@@ -1931,7 +1998,7 @@ Akhiri jawaban dengan pertanyaan:
                   <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
                     <h2 className="text-xl tracking-wider font-bold text-white">CONTENT FACTORY</h2>
                     <p className="text-sm text-white">Hasilkan ide konten sesuai pilar dan kebutuhanmu agar nggak kehabisan bahan posting.</p>
-                  </div> 
+                  </div>
                   <PillarListManager identity={identity} pillarsList={pillarsList} setPillarsList={setPillarsList} onSave={() => exportToSheet('branding')} isSaving={isExporting} />
                   <div className="h-[1px] w-full bg-transparent mt-5" />
                   <IdeaGenerator pillarsList={pillarsList} onGenerateIdeas={(pillarList, count) => openChatWithPrompt(buildPromptForContentIdeas(pillarList, count, swot, pillar))} />
@@ -1944,7 +2011,7 @@ Akhiri jawaban dengan pertanyaan:
                   <div className="flex flex-col gap-0.5 mb-5 border-b pb-3 border-white/40">
                     <h2 className="text-xl tracking-wider font-bold text-white">PERSONAL BRANDING PLANNER</h2>
                     <p className="text-sm text-white">Bantu kamu mengelola ide, script, dan evaluasi konten dalam satu tempat.</p>
-                  </div> 
+                  </div>
                   <ContentIdeasList identity={identity} pillarsList={pillarsList} contentIdeas={contentIdeas} setContentIdeas={setContentIdeas} onGenerateScript={(idea) => openChatWithPrompt(buildPromptForScript(idea, pillar, swot))} onGenerateEval={(idea) => openChatWithPrompt(buildPromptForEvaluation(pillar, idea, swot))} onSave={() => exportToSheet('content')} isSaving={isExporting} />
                 </>
               )}
@@ -1953,11 +2020,11 @@ Akhiri jawaban dengan pertanyaan:
           <footer className="mt-10 flex flex-col gap-2 items-center text-white">
             <Image src="/kadev-logomark.webp" alt="Logo" width={223} height={60} style={{ width: "100px", height: "auto" }} className="mx-auto h-auto" />
             <div className="flex flex-col lg:flex-row text-xs lg:text-sm items-center justify-center">
-                <div className="flex gap-1">
-                    <a href="https://wa.me/6281330259865?text=hallo%20admin%20Kadev%20Academy" target="_blank">+62 813-3025-9865</a> | 
-                    <a href="#" className="font-bold" target="_blank">Terms & Privacy Policy</a> <span className="hidden lg:block">|</span> 
-                </div>
-                <a href="mailto:support@kadevacademy.com" target="_blank" className="ml-1">support@kadevacademy.com</a>
+              <div className="flex gap-1">
+                <a href="https://wa.me/6281330259865?text=hallo%20admin%20Kadev%20Academy" target="_blank">+62 813-3025-9865</a> |
+                <a href="#" className="font-bold" target="_blank">Terms & Privacy Policy</a> <span className="hidden lg:block">|</span>
+              </div>
+              <a href="mailto:support@kadevacademy.com" target="_blank" className="ml-1">support@kadevacademy.com</a>
             </div>
             <p className="text-xs lg:text-sm">© {new Date().getFullYear()} Kadev Academy. All Rights Reserved.</p>
           </footer>
